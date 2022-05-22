@@ -48,6 +48,7 @@ public class PlayerManager : MonoBehaviour
         inputHandler.TickInput(delta);
         playerLocomotion.HandleMovement(delta);
         playerLocomotion.HandleRollingAndSprinting();
+        playerLocomotion.HandleFall(delta, playerLocomotion.moveDirection);
         //playerLocomotion.HandleJumping();
 
         //playerStats.RegenerateStamina();
@@ -77,9 +78,9 @@ public class PlayerManager : MonoBehaviour
             cameraHandler.HandleCameraRotation(delta, inputHandler.mouseX, inputHandler.mouseY);
         }
 
-        //if (isInAir)
-        //{
-        //    playerLocomotion.inAirTimer = playerLocomotion.inAirTimer + Time.deltaTime;
-        //}
+        if (isInAir)
+        {
+            playerLocomotion.inAirTimer = playerLocomotion.inAirTimer + Time.deltaTime;
+        }
     }
 }
