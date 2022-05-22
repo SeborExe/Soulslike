@@ -6,7 +6,7 @@ public class PlayerLocomotion : MonoBehaviour
 {
     Transform cameraObject;
     InputHandler inputHandler;
-    Rigidbody rigidbody;
+    public Rigidbody rigidbody;
         
     public Vector3 moveDirection;
 
@@ -42,6 +42,16 @@ public class PlayerLocomotion : MonoBehaviour
         float delta = Time.deltaTime;
 
         inputHandler.TickInput(delta);
+        HandleMovement(delta);
+        HandleRollingAndSprinting();
+    }
+
+    #region Movement
+    Vector3 normalVector;
+    Vector3 targetPosition;
+
+    public void HandleMovement(float delta)
+    {
 
         moveDirection = cameraObject.forward * inputHandler.vertical;
         moveDirection += cameraObject.right * inputHandler.horizontal;
@@ -61,11 +71,6 @@ public class PlayerLocomotion : MonoBehaviour
             HandlerRotation(delta);
         }
     }
-
-    #region Movement
-    Vector3 normalVector;
-    Vector3 targetPosition;
-
     public void HandlerRotation(float delta)
     {
         Vector3 targetDirection = Vector3.zero;
@@ -87,7 +92,34 @@ public class PlayerLocomotion : MonoBehaviour
 
         myTransform.rotation = targetRotation;
     }
+    public void HandleRollingAndSprinting()
+    {
+        if (animationHandler.anim.GetBool("isInteracting"))
+            return;
 
+        //if (playerStats.currentStamina <= 0)
+        //    return;
+
+        if (inputHandler.rollFlag)
+        {
+            moveDirection = cameraObject.forward * inputHandler.vertical;
+            moveDirection += cameraObject.right * inputHandler.horizontal;
+
+            if (inputHandler.moveAmount > 0)
+            {
+                animationHandler.PlayTargetAnimation("Roll", true);
+                moveDirection.y = 0;
+                Quaternion rollRotation = Quaternion.LookRotation(moveDirection);
+                myTransform.rotation = rollRotation;
+                //playerStats.TakeStaminaDamage(rollStaminaCost);
+            }
+            else
+            {
+                animationHandler.PlayTargetAnimation("BackStep", true);
+                //playerStats.TakeStaminaDamage(backStabStaminaCost);
+            }
+        }
+    }
 
     #endregion
 }

@@ -10,15 +10,30 @@ public class InputHandler : MonoBehaviour
     public float mouseX;
     public float mouseY;
 
+    [Header("Inputs")]
+    public bool b_Input;
+
+    [Header("Flags")]
+    public bool rollFlag;
+
     PlayerControls inputActions;
     CameraHandler cameraHandler;
+    PlayerAnimatorManager animationHandler;
+    PlayerManager playerManager;
 
     Vector2 movementInput;
     Vector2 cameraInput;
 
     private void Awake()
     {
+        //playerAttacker = GetComponentInChildren<PlayerAttacker>();
+        //playerInventory = GetComponent<PlayerInventory>();
+        playerManager = GetComponent<PlayerManager>();
+        //weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
+        //uIManager = FindObjectOfType<UIManager>();
         cameraHandler = FindObjectOfType<CameraHandler>();
+        animationHandler = GetComponentInChildren<PlayerAnimatorManager>();
+        //playerStats = GetComponent<PlayerStats>();
     }
 
     private void FixedUpdate()
@@ -41,6 +56,10 @@ public class InputHandler : MonoBehaviour
             //Movement
             inputActions.PlayerMovement.Movement.performed += inputActions => movementInput = inputActions.ReadValue<Vector2>();
             inputActions.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
+
+            //Actions
+            inputActions.PlayerActions.Roll.performed += i => b_Input = true;
+            inputActions.PlayerActions.Roll.canceled += i => b_Input = false;
         }
 
         inputActions.Enable();
@@ -54,6 +73,7 @@ public class InputHandler : MonoBehaviour
     public void TickInput(float delta)
     {
         HandleMoveInput(delta);
+        HandleRollInput(delta);
     }
 
     private void HandleMoveInput(float delta)
@@ -63,5 +83,13 @@ public class InputHandler : MonoBehaviour
         moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
         mouseX = cameraInput.x;
         mouseY = cameraInput.y;
+    }
+
+    private void HandleRollInput(float delta)
+    {
+        if (b_Input)
+        {
+            rollFlag = true;
+        }
     }
 }

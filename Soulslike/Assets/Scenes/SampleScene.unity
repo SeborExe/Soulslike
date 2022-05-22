@@ -812,9 +812,9 @@ MonoBehaviour:
   enviromentLayer:
     serializedVersion: 2
     m_Bits: 0
-  lookSpeed: 0.1
+  lookSpeed: 0.005
   followSpeed: 0.1
-  pivotSpeed: 0.03
+  pivotSpeed: 0.01
   minimumPivot: -35
   maximumPivot: 35
   cameraSphereRadius: 0.2
@@ -822,6 +822,11 @@ MonoBehaviour:
   minimumCollisionOffset: 0.2
   lockedPivotPosition: 2.25
   unlockPivotPosition: 1.65
+--- !u!1 &1750233905 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 660275544297276887, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+  m_PrefabInstance: {fileID: 170337688366200740}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2007025433
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,3 +990,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6959367209406945167, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
   m_PrefabInstance: {fileID: 170337688366200740}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7118373120143941680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750233905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8b585c8af3a6ba4d977c619ff876b80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInteracting: 0
+  isSprinting: 0
+  isInAir: 0
+  isGrounded: 0
+  canDoCombo: 0
+  isUsingRightHand: 0
+  isUsingLeftHand: 0
+  isInvulnerable: 0
