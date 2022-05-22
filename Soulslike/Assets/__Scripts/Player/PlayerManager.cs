@@ -46,8 +46,9 @@ public class PlayerManager : MonoBehaviour
         //playerAnimatorManager.canRotate = anim.GetBool("canRotate");
 
         inputHandler.TickInput(delta);
-        //playerLocomotion.HandleJumping();
+        playerLocomotion.HandleMovement(delta);
         playerLocomotion.HandleRollingAndSprinting();
+        //playerLocomotion.HandleJumping();
 
         //playerStats.RegenerateStamina();
 
@@ -58,6 +59,7 @@ public class PlayerManager : MonoBehaviour
     {
         inputHandler.rollFlag = false;
         inputHandler.sprintFlag = false;
+        isSprinting = inputHandler.b_Input;
         //inputHandler.rb_Input = false;
         //inputHandler.rt_Input = false;
         //inputHandler.d_pad_up = false;

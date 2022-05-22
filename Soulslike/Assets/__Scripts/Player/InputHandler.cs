@@ -20,7 +20,6 @@ public class InputHandler : MonoBehaviour
     public bool lockOnFlag;
 
     PlayerControls inputActions;
-    CameraHandler cameraHandler;
     PlayerAnimatorManager animationHandler;
     PlayerManager playerManager;
 
@@ -34,20 +33,8 @@ public class InputHandler : MonoBehaviour
         playerManager = GetComponent<PlayerManager>();
         //weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
         //uIManager = FindObjectOfType<UIManager>();
-        cameraHandler = FindObjectOfType<CameraHandler>();
         animationHandler = GetComponentInChildren<PlayerAnimatorManager>();
         //playerStats = GetComponent<PlayerStats>();
-    }
-
-    private void FixedUpdate()
-    {
-        float delta = Time.fixedDeltaTime;
-
-        if (cameraHandler != null)
-        {
-            cameraHandler.FollowTarget(delta);
-            cameraHandler.HandleCameraRotation(delta, mouseX, mouseY);
-        }
     }
 
     public void OnEnable()
@@ -79,7 +66,7 @@ public class InputHandler : MonoBehaviour
         HandleRollInput(delta);
     }
 
-    private void HandleMoveInput(float delta)
+    public void HandleMoveInput(float delta)
     {
         horizontal = movementInput.x;
         vertical = movementInput.y;

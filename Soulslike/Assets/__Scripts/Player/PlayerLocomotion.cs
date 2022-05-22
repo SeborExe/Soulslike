@@ -23,8 +23,6 @@ public class PlayerLocomotion : MonoBehaviour
     [SerializeField] float rotationSpeed = 10f;
     [SerializeField] float fallingSpeed = 45f;
 
-    public bool isSprinting;
-
     private void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
@@ -39,16 +37,6 @@ public class PlayerLocomotion : MonoBehaviour
         myTransform = transform;
 
         animationHandler.Initialize();
-    }
-
-    private void Update()
-    {
-        float delta = Time.deltaTime;
-
-        isSprinting = inputHandler.b_Input;
-        inputHandler.TickInput(delta);
-        HandleMovement(delta);
-        HandleRollingAndSprinting();
     }
 
     #region Movement
@@ -73,7 +61,7 @@ public class PlayerLocomotion : MonoBehaviour
         if (inputHandler.sprintFlag && inputHandler.moveAmount > 0.5f)
         {
             speed = sprintSpeed;
-            isSprinting = true;
+            playerManager.isSprinting = true;
             moveDirection *= speed;
             //playerStats.TakeStaminaDamage(sprintStaminaCost);
         }
@@ -82,19 +70,19 @@ public class PlayerLocomotion : MonoBehaviour
             if (inputHandler.moveAmount < 0.5f)
             {
                 moveDirection *= walkingSpeed;
-                isSprinting = false;
+                playerManager.isSprinting = false;
             }
             else
             {
                 moveDirection *= speed;
-                isSprinting = false;
+                playerManager.isSprinting = false;
             }
         }
 
         Vector3 projectedVelocity = Vector3.ProjectOnPlane(moveDirection, normalVector);
         rigidbody.velocity = projectedVelocity;
 
-        animationHandler.UpdateAnimatorValues(inputHandler.moveAmount, 0, isSprinting);
+        animationHandler.UpdateAnimatorValues(inputHandler.moveAmount, 0, playerManager.isSprinting);
 
         if (animationHandler.canRotate)
         {
