@@ -29,9 +29,12 @@ public class CameraHandler : MonoBehaviour
     private float lookAngle;
     private float pivotAngle;
 
+    [Header("Camera collision")]
     public float cameraSphereRadius = 0.2f;
     public float cameraCollisionOffset = 0.2f;
     public float minimumCollisionOffset = 0.2f;
+
+    [Header("Lock on target camera")]
     public float lockedPivotPosition = 2.25f;
     public float unlockPivotPosition = 1.65f;
 
@@ -50,6 +53,8 @@ public class CameraHandler : MonoBehaviour
             (myTranfroms.position, targetTransform.position, ref cameraFollowVelocity, delta / followSpeed);
 
         myTranfroms.position = targetPosition;
+
+        HandlerCameraCollision(delta);
     }
 
     public void HandleCameraRotation(float delta, float mouseXInput, float mouseYinput)
@@ -68,5 +73,28 @@ public class CameraHandler : MonoBehaviour
 
             targetRotation = Quaternion.Euler(rotation);
             cameraPivotTransform.localRotation = targetRotation;
+    }
+
+    private void HandlerCameraCollision(float delta)
+    {
+        targetPosition = defaultPosition;
+        RaycastHit hit;
+        Vector3 direction = cameraTransform.position - cameraPivotTransform.position;
+        direction.Normalize();
+
+        if (Physics.SphereCast
+            (cameraPivotTransform.position, cameraSphereRadius, direction, out hit, Mathf.Abs(targetPosition), ignoreLayers))
+        {
+            float dis = Vector3.Distance(cameraPivotTransform.position, hit.point);
+            targetPosition = -(dis - cameraCollisionOffset);
+        }
+
+        if (Mathf.Abs(targetPosition) < minimumCollisionOffset)
+        {
+            targetPosition = -minimumCollisionOffset;
+        }
+
+        cameraTransformPosition.z = Mathf.Lerp(cameraTransform.localPosition.z, targetPosition, delta / 0.2f);
+        cameraTransform.localPosition = cameraTransformPosition;
     }
 }
