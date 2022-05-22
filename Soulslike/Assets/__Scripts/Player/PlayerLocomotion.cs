@@ -6,6 +6,7 @@ public class PlayerLocomotion : MonoBehaviour
 {
     Transform cameraObject;
     InputHandler inputHandler;
+    PlayerManager playerManager;
     public Rigidbody rigidbody;
         
     public Vector3 moveDirection;
@@ -22,8 +23,11 @@ public class PlayerLocomotion : MonoBehaviour
     [SerializeField] float rotationSpeed = 10f;
     [SerializeField] float fallingSpeed = 45f;
 
+    public bool isSprinting;
+
     private void Awake()
     {
+        playerManager = GetComponent<PlayerManager>();
         rigidbody = GetComponent<Rigidbody>();
         inputHandler = GetComponent<InputHandler>();
         animationHandler = GetComponentInChildren<PlayerAnimatorManager>();
@@ -41,6 +45,7 @@ public class PlayerLocomotion : MonoBehaviour
     {
         float delta = Time.deltaTime;
 
+        isSprinting = inputHandler.b_Input;
         inputHandler.TickInput(delta);
         HandleMovement(delta);
         HandleRollingAndSprinting();
@@ -52,6 +57,11 @@ public class PlayerLocomotion : MonoBehaviour
 
     public void HandleMovement(float delta)
     {
+        if (inputHandler.rollFlag)
+            return;
+
+        //if (playerManager.isInteracting)
+        //    return;
 
         moveDirection = cameraObject.forward * inputHandler.vertical;
         moveDirection += cameraObject.right * inputHandler.horizontal;
@@ -59,18 +69,39 @@ public class PlayerLocomotion : MonoBehaviour
         moveDirection.y = 0;
 
         float speed = movementSpeed;
-        moveDirection *= speed;
+
+        if (inputHandler.sprintFlag && inputHandler.moveAmount > 0.5f)
+        {
+            speed = sprintSpeed;
+            isSprinting = true;
+            moveDirection *= speed;
+            //playerStats.TakeStaminaDamage(sprintStaminaCost);
+        }
+        else
+        {
+            if (inputHandler.moveAmount < 0.5f)
+            {
+                moveDirection *= walkingSpeed;
+                isSprinting = false;
+            }
+            else
+            {
+                moveDirection *= speed;
+                isSprinting = false;
+            }
+        }
 
         Vector3 projectedVelocity = Vector3.ProjectOnPlane(moveDirection, normalVector);
         rigidbody.velocity = projectedVelocity;
 
-        animationHandler.UpdateAnimatorValues(inputHandler.moveAmount, 0);
+        animationHandler.UpdateAnimatorValues(inputHandler.moveAmount, 0, isSprinting);
 
         if (animationHandler.canRotate)
         {
             HandlerRotation(delta);
         }
     }
+
     public void HandlerRotation(float delta)
     {
         Vector3 targetDirection = Vector3.zero;

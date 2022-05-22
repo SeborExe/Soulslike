@@ -14,7 +14,10 @@ public class InputHandler : MonoBehaviour
     public bool b_Input;
 
     [Header("Flags")]
+    public float rollInputTimer;
     public bool rollFlag;
+    public bool sprintFlag;
+    public bool lockOnFlag;
 
     PlayerControls inputActions;
     CameraHandler cameraHandler;
@@ -88,8 +91,19 @@ public class InputHandler : MonoBehaviour
     private void HandleRollInput(float delta)
     {
         if (b_Input)
+        { 
+            rollInputTimer += delta;
+            sprintFlag = true;
+        }
+        else
         {
-            rollFlag = true;
+            if (rollInputTimer > 0 && rollInputTimer < 0.5f)
+            {
+                sprintFlag = false;
+                rollFlag = true;
+            }
+
+            rollInputTimer = 0;
         }
     }
 }
