@@ -192,7 +192,7 @@ public class PlayerLocomotion : MonoBehaviour
                 }
                 else
                 {
-                    animationHandler.PlayTargetAnimation("Locomotion", false);
+                    animationHandler.PlayTargetAnimation("Empty", false);
                     inAirTimer = 0;
                 }
 

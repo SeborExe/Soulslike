@@ -12,6 +12,8 @@ public class InputHandler : MonoBehaviour
 
     [Header("Inputs")]
     public bool b_Input;
+    public bool rb_Input;
+    public bool rt_Input;
 
     [Header("Flags")]
     public float rollInputTimer;
@@ -22,14 +24,16 @@ public class InputHandler : MonoBehaviour
     PlayerControls inputActions;
     PlayerAnimatorManager animationHandler;
     PlayerManager playerManager;
+    PlayerInventory playerInventory;
+    PlayerAttacker playerAttacker;
 
     Vector2 movementInput;
     Vector2 cameraInput;
 
     private void Awake()
     {
-        //playerAttacker = GetComponentInChildren<PlayerAttacker>();
-        //playerInventory = GetComponent<PlayerInventory>();
+        playerAttacker = GetComponentInChildren<PlayerAttacker>();
+        playerInventory = GetComponent<PlayerInventory>();
         playerManager = GetComponent<PlayerManager>();
         //weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
         //uIManager = FindObjectOfType<UIManager>();
@@ -64,6 +68,7 @@ public class InputHandler : MonoBehaviour
     {
         HandleMoveInput(delta);
         HandleRollInput(delta);
+        HandleAttackInput();
     }
 
     public void HandleMoveInput(float delta)
@@ -91,6 +96,22 @@ public class InputHandler : MonoBehaviour
             }
 
             rollInputTimer = 0;
+        }
+    }
+
+    private void HandleAttackInput()
+    {
+        inputActions.PlayerActions.RB.performed += i => rb_Input = true;
+        inputActions.PlayerActions.RT.performed += i => rt_Input = true;
+        
+        if (rb_Input)
+        {
+            playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
+        }
+
+        if (rt_Input)
+        {
+            playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
         }
     }
 }
