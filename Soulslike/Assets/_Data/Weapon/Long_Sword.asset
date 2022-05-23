@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6780ad0464ca3f40b75a85788e00bc8, type: 3}
+  m_Name: Long_Sword
+  m_EditorClassIdentifier: 
+  itemIcon: {fileID: 0}
+  itemName: Long Sword
+  modelPrefab: {fileID: 2389171109191739649, guid: 7acd8a782f25809488f79635c2ffb4d6, type: 3}
+  isUnarmed: 0
+  Right_Hand_Idle: 
+  Left_Hand_Idle: 
+  OH_Light_attack_01: 
+  OH_Light_attack_02: 
+  OH_Heavy_attack_01: 
+  baseDamage: 25
+  criticalDamageMultiplier: 4
