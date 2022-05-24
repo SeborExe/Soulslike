@@ -20,6 +20,7 @@ public class InputHandler : MonoBehaviour
     public bool rollFlag;
     public bool sprintFlag;
     public bool lockOnFlag;
+    public bool comboFlag;
 
     PlayerControls inputActions;
     PlayerAnimatorManager animationHandler;
@@ -106,11 +107,28 @@ public class InputHandler : MonoBehaviour
         
         if (rb_Input)
         {
-            playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
+            if (playerManager.canDoCombo)
+            {
+                comboFlag = true;
+                playerAttacker.HandleWeaponCombo(playerInventory.rightWeapon);
+                comboFlag = false;
+            }
+            else
+            {
+                if (playerManager.isInteracting) return;
+
+                if (playerManager.canDoCombo) return;
+
+                playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
+            }
         }
 
         if (rt_Input)
         {
+            if (playerManager.isInteracting) return;
+
+            if (playerManager.canDoCombo) return;
+
             playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
         }
     }

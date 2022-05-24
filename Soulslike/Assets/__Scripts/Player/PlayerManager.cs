@@ -37,7 +37,7 @@ public class PlayerManager : MonoBehaviour
         float delta = Time.deltaTime;
 
         isInteracting = anim.GetBool("isInteracting");
-        //canDoCombo = anim.GetBool("canDoCombo");
+        canDoCombo = anim.GetBool("canDoCombo");
         //isUsingRightHand = anim.GetBool("isUsingRightHand");
         //isUsingLeftHand = anim.GetBool("isUsingLeftHand");
         //isInvulnerable = anim.GetBool("isInvulnerable");

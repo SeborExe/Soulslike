@@ -15,7 +15,7 @@ public class WeaponItem : Item
 
     [Header("One Hand attack animations")]
     public string OH_Light_attack_01;//One hand light attack one
-    //public string OH_Light_attack_02;
+    public string OH_Light_attack_02;
     public string OH_Heavy_attack_01;
     //public string TH_Light_Attack_01;
     //public string TH_Light_Attack_02;

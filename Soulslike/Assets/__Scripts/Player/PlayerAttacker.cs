@@ -24,11 +24,11 @@ public class PlayerAttacker : MonoBehaviour
         inputHandler = GetComponentInParent<InputHandler>();
     }
 
-    /*
+    
     public void HandleWeaponCombo(WeaponItem weapon)
     {
-        if (playerStats.currentStamina <= 0)
-            return;
+        //if (playerStats.currentStamina <= 0)
+        //    return;
 
         if (inputHandler.comboFlag)
         {
@@ -38,13 +38,13 @@ public class PlayerAttacker : MonoBehaviour
             {
                 animationHandler.PlayTargetAnimation(weapon.OH_Light_attack_02, true);
             }
-            else if (lastAttack == weapon.TH_Light_Attack_01)
-            {
-                animationHandler.PlayTargetAnimation(weapon.TH_Light_Attack_02, true);
-            }
+            //else if (lastAttack == weapon.TH_Light_Attack_01)
+            //{
+            //    animationHandler.PlayTargetAnimation(weapon.TH_Light_Attack_02, true);
+            //}
         }
     }
-    */
+    
 
     public void HandleLightAttack(WeaponItem weapon)
     {
@@ -61,7 +61,7 @@ public class PlayerAttacker : MonoBehaviour
         //else
         //{
             animationHandler.PlayTargetAnimation(weapon.OH_Light_attack_01, true);
-            //lastAttack = weapon.OH_Light_attack_01;
+            lastAttack = weapon.OH_Light_attack_01;
         //}
     }
 
@@ -79,7 +79,7 @@ public class PlayerAttacker : MonoBehaviour
         //else
         //{
             animationHandler.PlayTargetAnimation(weapon.OH_Heavy_attack_01, true);
-            //lastAttack = weapon.OH_Heavy_attack_01;
+            lastAttack = weapon.OH_Heavy_attack_01;
         //}
     }
 }

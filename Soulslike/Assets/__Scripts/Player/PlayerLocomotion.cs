@@ -149,7 +149,6 @@ public class PlayerLocomotion : MonoBehaviour
             }
         }
     }
-
     public void HandleFall(float delta, Vector3 moveDirection)
     {
         playerManager.isGrounded = false;

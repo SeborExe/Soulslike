@@ -28,8 +28,6 @@ public class DamageCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log(collision.tag);
-
         if (collision.tag == "Player")
         {
             PlayerStats playerStats = collision.GetComponent<PlayerStats>();
