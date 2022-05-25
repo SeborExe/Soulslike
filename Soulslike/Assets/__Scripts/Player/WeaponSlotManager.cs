@@ -10,6 +10,7 @@ public class WeaponSlotManager : MonoBehaviour
     PlayerStats playerStats;
     InputHandler inputHandler;
     PlayerInventory playerInventory;
+    Animator animator;
 
     public DamageCollider leftHandDamageCollider;
     public DamageCollider rightHandDamageCollider;
@@ -18,7 +19,7 @@ public class WeaponSlotManager : MonoBehaviour
     {
         playerManager = GetComponentInParent<PlayerManager>();
         playerInventory = GetComponentInParent<PlayerInventory>();
-        //animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         //quickSlotsUI = FindObjectOfType<QuickSlotsUI>();
         playerStats = GetComponentInParent<PlayerStats>();
         inputHandler = GetComponentInParent<InputHandler>();
@@ -47,11 +48,34 @@ public class WeaponSlotManager : MonoBehaviour
         {
             leftHandSlot.LoadWeaponModel(weaponItem);
             LoadLeftWeaponCollider();
+
+            #region Handle weapon idle animations
+            if (weaponItem != null)
+            {
+                animator.CrossFade(weaponItem.Left_Hand_Idle, 0.2f);
+            }
+            else
+            {
+                animator.CrossFade("Left Arm Empty", 0.2f);
+            }
+            #endregion
         }
         else
         {
             rightHandSlot.LoadWeaponModel(weaponItem);
             LoadRightWeaponCollider();
+
+            #region Handle weapon idle animations
+
+            if (weaponItem != null)
+            {
+                animator.CrossFade(weaponItem.Right_Hand_Idle, 0.2f);
+            }
+            else
+            {
+                animator.CrossFade("Right Arm Empty", 0.2f);
+            }
+            #endregion
         }
 
     }

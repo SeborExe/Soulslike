@@ -9,8 +9,8 @@ public class WeaponItem : Item
     public bool isUnarmed;
 
     [Header("Idle Animations")]
-    //public string Right_Hand_Idle;
-    //public string Left_Hand_Idle;
+    public string Right_Hand_Idle;
+    public string Left_Hand_Idle;
     //public string Two_Hand_Idle;
 
     [Header("One Hand attack animations")]
