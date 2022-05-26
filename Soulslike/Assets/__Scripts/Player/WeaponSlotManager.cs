@@ -11,6 +11,7 @@ public class WeaponSlotManager : MonoBehaviour
     InputHandler inputHandler;
     PlayerInventory playerInventory;
     Animator animator;
+    QuickSlotUI quickSlotsUI;
 
     public DamageCollider leftHandDamageCollider;
     public DamageCollider rightHandDamageCollider;
@@ -20,7 +21,7 @@ public class WeaponSlotManager : MonoBehaviour
         playerManager = GetComponentInParent<PlayerManager>();
         playerInventory = GetComponentInParent<PlayerInventory>();
         animator = GetComponent<Animator>();
-        //quickSlotsUI = FindObjectOfType<QuickSlotsUI>();
+        quickSlotsUI = FindObjectOfType<QuickSlotUI>();
         playerStats = GetComponentInParent<PlayerStats>();
         inputHandler = GetComponentInParent<InputHandler>();
 
@@ -48,6 +49,7 @@ public class WeaponSlotManager : MonoBehaviour
         {
             leftHandSlot.LoadWeaponModel(weaponItem);
             LoadLeftWeaponCollider();
+            quickSlotsUI.UpdateWeaponSlotsUI(true, weaponItem);
 
             #region Handle weapon idle animations
             if (weaponItem != null)
@@ -64,6 +66,7 @@ public class WeaponSlotManager : MonoBehaviour
         {
             rightHandSlot.LoadWeaponModel(weaponItem);
             LoadRightWeaponCollider();
+            quickSlotsUI.UpdateWeaponSlotsUI(false, weaponItem);
 
             #region Handle weapon idle animations
 
@@ -85,13 +88,15 @@ public class WeaponSlotManager : MonoBehaviour
     private void LoadLeftWeaponCollider()
     {
         leftHandDamageCollider = leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
-        leftHandDamageCollider.currentWeaponDamage = playerInventory.leftWeapon.baseDamage;
+        if (leftHandDamageCollider != null)
+            leftHandDamageCollider.currentWeaponDamage = playerInventory.leftWeapon.baseDamage;
     }
 
     private void LoadRightWeaponCollider()
     {
         rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
-        rightHandDamageCollider.currentWeaponDamage = playerInventory.rightWeapon.baseDamage;
+        if (rightHandDamageCollider != null)
+            rightHandDamageCollider.currentWeaponDamage = playerInventory.rightWeapon.baseDamage;
     }
 
     public void OpenDamageCollider()
