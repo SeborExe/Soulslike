@@ -149,7 +149,6 @@ public class PlayerLocomotion : MonoBehaviour
             }
         }
     }
-
     public void HandleFall(float delta, Vector3 moveDirection)
     {
         playerManager.isGrounded = false;
@@ -192,7 +191,7 @@ public class PlayerLocomotion : MonoBehaviour
                 }
                 else
                 {
-                    animationHandler.PlayTargetAnimation("Locomotion", false);
+                    animationHandler.PlayTargetAnimation("Empty", false);
                     inAirTimer = 0;
                 }
 

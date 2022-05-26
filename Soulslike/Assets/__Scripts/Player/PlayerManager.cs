@@ -37,7 +37,7 @@ public class PlayerManager : MonoBehaviour
         float delta = Time.deltaTime;
 
         isInteracting = anim.GetBool("isInteracting");
-        //canDoCombo = anim.GetBool("canDoCombo");
+        canDoCombo = anim.GetBool("canDoCombo");
         //isUsingRightHand = anim.GetBool("isUsingRightHand");
         //isUsingLeftHand = anim.GetBool("isUsingLeftHand");
         //isInvulnerable = anim.GetBool("isInvulnerable");
@@ -60,13 +60,12 @@ public class PlayerManager : MonoBehaviour
     {
         inputHandler.rollFlag = false;
         inputHandler.sprintFlag = false;
-        isSprinting = inputHandler.b_Input;
-        //inputHandler.rb_Input = false;
-        //inputHandler.rt_Input = false;
-        //inputHandler.d_pad_up = false;
-        //inputHandler.d_pad_down = false;
-        //inputHandler.d_pad_left = false;
-        //inputHandler.d_pad_right = false;
+        inputHandler.rb_Input = false;
+        inputHandler.rt_Input = false;
+        inputHandler.d_pad_up = false;
+        inputHandler.d_pad_down = false;
+        inputHandler.d_pad_left = false;
+        inputHandler.d_pad_right = false;
         //inputHandler.a_Input = false;
         //inputHandler.jump_Input = false;
         //inputHandler.inventory_Input = false;
