@@ -13,6 +13,8 @@ public class WeaponSlotManager : MonoBehaviour
     Animator animator;
     QuickSlotUI quickSlotsUI;
 
+    public WeaponItem attackingWeapon;
+
     public DamageCollider leftHandDamageCollider;
     public DamageCollider rightHandDamageCollider;
 
@@ -122,5 +124,17 @@ public class WeaponSlotManager : MonoBehaviour
             leftHandDamageCollider.DisableDamageCollider();
     }
 
+    #endregion
+
+    #region DrainStamina
+    public void DrainStaminaLightAttack()
+    {
+        playerStats.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStamina * attackingWeapon.lightAttackMultiplier));
+    }
+
+    public void DrainStaminaHeavyAttack()
+    {
+        playerStats.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStamina * attackingWeapon.heavyAttackMultiplier));
+    }
     #endregion
 }

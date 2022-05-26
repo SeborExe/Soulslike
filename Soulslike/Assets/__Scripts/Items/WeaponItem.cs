@@ -21,9 +21,9 @@ public class WeaponItem : Item
     //public string TH_Light_Attack_02;
 
     [Header("Stamin Costs")]
-    //public int baseStamina;
-    //public float lightAttackMultiplier;
-    //public float heavyAttackMultiplier;
+    public int baseStamina;
+    public float lightAttackMultiplier;
+    public float heavyAttackMultiplier;
 
     [Header("Weapon type")]
     //public bool isSpellCaster;

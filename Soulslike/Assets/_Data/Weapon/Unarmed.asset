@@ -21,5 +21,8 @@ MonoBehaviour:
   OH_Light_attack_01: 
   OH_Light_attack_02: 
   OH_Heavy_attack_01: 
+  baseStamina: 0
+  lightAttackMultiplier: 0
+  heavyAttackMultiplier: 0
   baseDamage: 1
   criticalDamageMultiplier: 2

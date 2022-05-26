@@ -8,9 +8,14 @@ public class PlayerStats : MonoBehaviour
     public int maxHealth;
     public int currentHealth;
 
+    public int staminaLevel = 10;
+    public float maxStamina;
+    public float currentStamina;
+
     public bool isDead;
 
     [SerializeField] HealthBar healthBar;
+    [SerializeField] StaminaBar staminaBar;
     PlayerAnimatorManager animationHandler;
 
     private void Awake()
@@ -19,7 +24,7 @@ public class PlayerStats : MonoBehaviour
         animationHandler = GetComponentInChildren<PlayerAnimatorManager>();
 
         healthBar = FindObjectOfType<HealthBar>();
-        //staminaBar = FindObjectOfType<StaminaBar>();
+        staminaBar = FindObjectOfType<StaminaBar>();
         //manaBar = FindObjectOfType<ManaBar>();
     }
 
@@ -28,12 +33,22 @@ public class PlayerStats : MonoBehaviour
         maxHealth = SetMaxLevelHalth();
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+
+        maxStamina = SetMaxStamina();
+        currentStamina = maxStamina;
+        staminaBar.SetMaxStamina(maxStamina);
     }
 
     private int SetMaxLevelHalth()
     {
         maxHealth = healthLevel * 10;
         return maxHealth;
+    }
+
+    private float SetMaxStamina()
+    {
+        maxStamina = staminaLevel * 10;
+        return maxStamina;
     }
 
     public void TakeDamage(int damage)
@@ -52,5 +67,12 @@ public class PlayerStats : MonoBehaviour
             animationHandler.PlayTargetAnimation("Dead_01", true);
             isDead = true;
         }
+    }
+
+    public void TakeStaminaDamage(int damage)
+    {
+        currentStamina -= damage;
+
+        staminaBar.SetCurrentStamina(currentStamina);
     }
 }

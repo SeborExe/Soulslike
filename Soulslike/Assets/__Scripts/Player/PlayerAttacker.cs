@@ -6,7 +6,7 @@ public class PlayerAttacker : MonoBehaviour
 {
     PlayerAnimatorManager animationHandler;
     PlayerManager playerManager;
-    //PlayerStats playerStats;
+    PlayerStats playerStats;
     PlayerInventory playerInventory;
     InputHandler inputHandler;
     WeaponSlotManager weaponSlotManager;
@@ -18,9 +18,9 @@ public class PlayerAttacker : MonoBehaviour
     {
         animationHandler = GetComponentInChildren<PlayerAnimatorManager>();
         playerManager = GetComponentInParent<PlayerManager>();
-        //playerStats = GetComponentInParent<PlayerStats>();
+        playerStats = GetComponentInParent<PlayerStats>();
         playerInventory = GetComponentInParent<PlayerInventory>();
-        weaponSlotManager = GetComponent<WeaponSlotManager>();
+        weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
         inputHandler = GetComponentInParent<InputHandler>();
     }
 
@@ -51,7 +51,7 @@ public class PlayerAttacker : MonoBehaviour
         //if (playerStats.currentStamina <= 0)
         //    return;
 
-        //weaponSlotManager.attackingWeapon = weapon;
+        weaponSlotManager.attackingWeapon = weapon;
 
         //if (inputHandler.twoHandFlag)
         //{
@@ -70,7 +70,7 @@ public class PlayerAttacker : MonoBehaviour
         //if (playerStats.currentStamina <= 0)
         //    return;
 
-        //weaponSlotManager.attackingWeapon = weapon;
+        weaponSlotManager.attackingWeapon = weapon;
 
         //if (inputHandler.twoHandFlag)
         //{
