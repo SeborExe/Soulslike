@@ -85,7 +85,7 @@ public class PlayerManager : MonoBehaviour
         inputHandler.d_pad_right = false;
         inputHandler.a_Input = false;
         inputHandler.jump_Input = false;
-        //inputHandler.inventory_Input = false;
+        inputHandler.inventory_Input = false;
 
         float delta = Time.deltaTime;
         if (cameraHandler != null)
