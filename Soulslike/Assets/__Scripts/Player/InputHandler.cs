@@ -19,6 +19,7 @@ public class InputHandler : MonoBehaviour
     public bool d_pad_left;
     public bool d_pad_right;
     public bool a_Input;
+    public bool jump_Input;
 
     [Header("Flags")]
     public float rollInputTimer;
@@ -63,6 +64,7 @@ public class InputHandler : MonoBehaviour
             inputActions.PlayerQuickSlot.DPadRight.performed += i => d_pad_right = true;
             inputActions.PlayerQuickSlot.DPadLeft.performed += i => d_pad_left = true;
             inputActions.PlayerActions.A.performed += i => a_Input = true;
+            inputActions.PlayerActions.Jump.performed += i => jump_Input = true;
         }
 
         inputActions.Enable();

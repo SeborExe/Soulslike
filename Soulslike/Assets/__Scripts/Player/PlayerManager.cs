@@ -50,7 +50,7 @@ public class PlayerManager : MonoBehaviour
         //isUsingRightHand = anim.GetBool("isUsingRightHand");
         //isUsingLeftHand = anim.GetBool("isUsingLeftHand");
         //isInvulnerable = anim.GetBool("isInvulnerable");
-        //anim.SetBool("isInAir", isInAir);
+        anim.SetBool("isInAir", isInAir);
         //anim.SetBool("isDead", playerStats.isDead);
         //playerAnimatorManager.canRotate = anim.GetBool("canRotate");
 
@@ -58,7 +58,7 @@ public class PlayerManager : MonoBehaviour
         playerLocomotion.HandleMovement(delta);
         playerLocomotion.HandleRollingAndSprinting();
         playerLocomotion.HandleFall(delta, playerLocomotion.moveDirection);
-        //playerLocomotion.HandleJumping();
+        playerLocomotion.HandleJumping();
 
         //playerStats.RegenerateStamina();
 
@@ -84,7 +84,7 @@ public class PlayerManager : MonoBehaviour
         inputHandler.d_pad_left = false;
         inputHandler.d_pad_right = false;
         inputHandler.a_Input = false;
-        //inputHandler.jump_Input = false;
+        inputHandler.jump_Input = false;
         //inputHandler.inventory_Input = false;
 
         float delta = Time.deltaTime;
