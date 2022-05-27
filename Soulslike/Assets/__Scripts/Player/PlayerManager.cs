@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     PlayerLocomotion playerLocomotion;
     Animator anim;
     PlayerAnimatorManager playerAnimatorManager;
+    InteractableUI interactableUI;
 
     [Header("Player flags")]
     public bool isInteracting;
@@ -20,6 +22,13 @@ public class PlayerManager : MonoBehaviour
     public bool isUsingLeftHand;
     public bool isInvulnerable;
 
+    [Header("Interactable objects")]
+    [SerializeField] float fadeSpeed = 0.2f;
+    [SerializeField] GameObject interactableUIGameObject;
+    public GameObject itemInteractableObject;
+    bool hide = false;
+    float originalTransparency;
+
     private void Awake()
     {
         cameraHandler = FindObjectOfType<CameraHandler>();
@@ -28,7 +37,7 @@ public class PlayerManager : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         //playerStats = GetComponent<PlayerStats>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
-        //interactableUI = FindObjectOfType<InteractableUI>();
+        interactableUI = FindObjectOfType<InteractableUI>();
         playerAnimatorManager = GetComponentInChildren<PlayerAnimatorManager>();
     }
 
@@ -54,6 +63,14 @@ public class PlayerManager : MonoBehaviour
         //playerStats.RegenerateStamina();
 
         CheckForInteractable();
+    }
+
+    private void FixedUpdate()
+    {
+        if (hide)
+        {
+            SlowlyHideText();
+        }
     }
 
     private void LateUpdate()
@@ -96,8 +113,8 @@ public class PlayerManager : MonoBehaviour
                 if (interactableObject != null)
                 {
                     string interactableText = interactableObject.interactableText;
-                    //interactableUI.interactableText.text = interactableText;
-                    //interactableUIGameObject.SetActive(true);
+                    interactableUI.interactableText.text = interactableText;
+                    interactableUIGameObject.SetActive(true);
 
                     if (inputHandler.a_Input)
                     {
@@ -109,10 +126,10 @@ public class PlayerManager : MonoBehaviour
 
         else
         {
-            //if (interactableUIGameObject != null)
-            //{
-            //    interactableUIGameObject.SetActive(false);
-            //}
+            if (interactableUIGameObject != null)
+            {
+                interactableUIGameObject.SetActive(false);
+            }
         }
     }
     
@@ -123,5 +140,35 @@ public class PlayerManager : MonoBehaviour
         playerAnimatorManager.PlayTargetAnimation("Open Chest", true);
     }
 
+    #endregion
+
+    #region Show text after pick up item
+    public void PickUpItem()
+    {
+        itemInteractableObject.SetActive(true);
+        StartCoroutine(HideTextObjectCoroutine());
+    }
+
+    IEnumerator HideTextObjectCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
+        hide = true;
+    }
+
+    private void SlowlyHideText()
+    {
+        Color color = itemInteractableObject.GetComponent<Image>().color;
+
+        color.a -= Time.deltaTime * fadeSpeed;
+        Color newColor = new Color(0, 0, 0, color.a);
+        itemInteractableObject.GetComponent<Image>().color = newColor;
+
+        if (itemInteractableObject != null && (itemInteractableObject.GetComponent<Image>().color.a <= 0.01 || inputHandler.a_Input))
+        {
+            itemInteractableObject.GetComponent<Image>().color = new Color(0, 0, 0, originalTransparency);
+            itemInteractableObject.SetActive(false);
+            hide = false;
+        }
+    }
     #endregion
 }
