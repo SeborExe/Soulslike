@@ -53,7 +53,7 @@ public class PlayerManager : MonoBehaviour
 
         //playerStats.RegenerateStamina();
 
-        //CheckForInteractable();
+        CheckForInteractable();
     }
 
     private void LateUpdate()
@@ -66,7 +66,7 @@ public class PlayerManager : MonoBehaviour
         inputHandler.d_pad_down = false;
         inputHandler.d_pad_left = false;
         inputHandler.d_pad_right = false;
-        //inputHandler.a_Input = false;
+        inputHandler.a_Input = false;
         //inputHandler.jump_Input = false;
         //inputHandler.inventory_Input = false;
 
@@ -82,4 +82,46 @@ public class PlayerManager : MonoBehaviour
             playerLocomotion.inAirTimer = playerLocomotion.inAirTimer + Time.deltaTime;
         }
     }
+
+    #region Player Interactions
+    public void CheckForInteractable()
+    {
+        RaycastHit hit;
+        if (Physics.SphereCast(transform.position, -0.3f, transform.forward, out hit, 1f, cameraHandler.ignoreLayers))
+        {
+            if (hit.collider.tag == "Interactable")
+            {
+                Interactable interactableObject = hit.collider.GetComponent<Interactable>();
+
+                if (interactableObject != null)
+                {
+                    string interactableText = interactableObject.interactableText;
+                    //interactableUI.interactableText.text = interactableText;
+                    //interactableUIGameObject.SetActive(true);
+
+                    if (inputHandler.a_Input)
+                    {
+                        hit.collider.GetComponent<Interactable>().Interact(this);
+                    }
+                }
+            }
+        }
+
+        else
+        {
+            //if (interactableUIGameObject != null)
+            //{
+            //    interactableUIGameObject.SetActive(false);
+            //}
+        }
+    }
+    
+    public void OpenChectInteraction(Transform playrStandingPosition)
+    {
+        playerLocomotion.rigidbody.velocity = Vector3.zero; //Stop player
+        transform.position = playrStandingPosition.transform.position;
+        playerAnimatorManager.PlayTargetAnimation("Open Chest", true);
+    }
+
+    #endregion
 }
