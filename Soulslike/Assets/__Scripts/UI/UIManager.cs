@@ -5,7 +5,7 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] PlayerInventory playerInventory;
-    //public EquipmentWindowUI equipmentWindowUI;
+    public EquipmentWindowUI equipmentWindowUI;
 
     [Header("UI Windows")]
     public GameObject hudWindow;
@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
          weaponInventorySlots = weaponInventorySlotParent.GetComponentsInChildren<WeaponInventorySlot>();
-         //equipmentWindowUI.LoadWeaponOnEquipmentScreen(playerInventory);
+         equipmentWindowUI.LoadWeaponOnEquipmentScreen(playerInventory);
     }
 
     
@@ -69,9 +69,9 @@ public class UIManager : MonoBehaviour
 
     public void CloseAllInventoryWindows()
     {
-        //ResetAllSelectedSlots();
+        ResetAllSelectedSlots();
         weaponInventoryWindow.SetActive(false);
-        //equipmentScreenWindow.SetActive(false);
+        equipmentScreenWindow.SetActive(false);
     }
 
     public void ResetAllSelectedSlots()
