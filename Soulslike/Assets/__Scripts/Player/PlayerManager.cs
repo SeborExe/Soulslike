@@ -44,19 +44,19 @@ public class PlayerManager : CharacterManager
     private void Update()
     {
         float delta = Time.deltaTime;
-        inputHandler.TickInput(delta);
 
         isInteracting = anim.GetBool("isInteracting");
         canDoCombo = anim.GetBool("canDoCombo");
-        //isUsingRightHand = anim.GetBool("isUsingRightHand");
+       // isUsingRightHand = anim.GetBool("isUsingRightHand");
         //isUsingLeftHand = anim.GetBool("isUsingLeftHand");
         //isInvulnerable = anim.GetBool("isInvulnerable");
         anim.SetBool("isInAir", isInAir);
         //anim.SetBool("isDead", playerStats.isDead);
         //playerAnimatorManager.canRotate = anim.GetBool("canRotate");
-        playerLocomotion.HandleRollingAndSprinting();
-        playerLocomotion.HandleJumping();
 
+        inputHandler.TickInput(delta);
+        playerLocomotion.HandleJumping();
+        playerLocomotion.HandleRollingAndSprinting(delta);
         //playerStats.RegenerateStamina();
 
         CheckForInteractable();
@@ -64,8 +64,9 @@ public class PlayerManager : CharacterManager
 
     private void FixedUpdate()
     {
-        float delta = Time.deltaTime;
+        float delta = Time.fixedDeltaTime;
         playerLocomotion.HandleMovement(delta);
+        playerLocomotion.HandlerRotation(delta);
         playerLocomotion.HandleFall(delta, playerLocomotion.moveDirection);
 
         if (hide)
@@ -77,7 +78,6 @@ public class PlayerManager : CharacterManager
     private void LateUpdate()
     {
         inputHandler.rollFlag = false;
-        inputHandler.sprintFlag = false;
         inputHandler.rb_Input = false;
         inputHandler.rt_Input = false;
         inputHandler.d_pad_up = false;

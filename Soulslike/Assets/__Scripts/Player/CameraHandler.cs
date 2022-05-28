@@ -53,6 +53,11 @@ public class CameraHandler : MonoBehaviour
         ignoreLayers = ~(1 << 8 | 1 << 9 | 1 << 10);
     }
 
+    private void Start()
+    {
+        enviromentLayer = LayerMask.NameToLayer("Enviroment");
+    }
+
     public void FollowTarget(float delta)
     {
         Vector3 targetPosition = Vector3.SmoothDamp
@@ -149,20 +154,20 @@ public class CameraHandler : MonoBehaviour
                 if (character.transform.root != targetTransform.transform.root && viewableAngle > -50
                     && viewableAngle < 50 && distanceFromTarget <= maximumLockOnDistance)
                 {
-                    //if (Physics.Linecast(playerManager.lockOnTransform.position, character.lockOnTransform.position, out hit))
-                    //{
-                        //if (hit.transform.gameObject.layer == enviromentLayer)
-                        //{
+                    if (Physics.Linecast(playerManager.lockOnTransform.position, character.lockOnTransform.position, out hit))
+                    {
+                        if (hit.transform.gameObject.layer == enviromentLayer)
+                        {
                             //Cannot Lockon
-                        //}
-                        //else
-                        //{
+                        }
+                        else 
+                        {
                             availableTargets.Add(character);
-                        //}
+                        }
                     }
                 }
             }
-        //}
+        }
 
         for (int k = 0; k < availableTargets.Count; k++)
         {
