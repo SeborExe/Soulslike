@@ -18,6 +18,9 @@ public class InputHandler : MonoBehaviour
     public bool d_pad_down;
     public bool d_pad_left;
     public bool d_pad_right;
+    public bool a_Input;
+    public bool jump_Input;
+    public bool inventory_Input;
 
     [Header("Flags")]
     public float rollInputTimer;
@@ -25,12 +28,14 @@ public class InputHandler : MonoBehaviour
     public bool sprintFlag;
     public bool lockOnFlag;
     public bool comboFlag;
+    public bool inventoryFlag;
 
     PlayerControls inputActions;
     PlayerAnimatorManager animationHandler;
     PlayerManager playerManager;
     PlayerInventory playerInventory;
     PlayerAttacker playerAttacker;
+    UIManager uIManager;
 
     Vector2 movementInput;
     Vector2 cameraInput;
@@ -41,7 +46,7 @@ public class InputHandler : MonoBehaviour
         playerInventory = GetComponent<PlayerInventory>();
         playerManager = GetComponent<PlayerManager>();
         //weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
-        //uIManager = FindObjectOfType<UIManager>();
+        uIManager = FindObjectOfType<UIManager>();
         animationHandler = GetComponentInChildren<PlayerAnimatorManager>();
         //playerStats = GetComponent<PlayerStats>();
     }
@@ -61,6 +66,9 @@ public class InputHandler : MonoBehaviour
             inputActions.PlayerActions.Roll.canceled += i => b_Input = false;
             inputActions.PlayerQuickSlot.DPadRight.performed += i => d_pad_right = true;
             inputActions.PlayerQuickSlot.DPadLeft.performed += i => d_pad_left = true;
+            inputActions.PlayerActions.A.performed += i => a_Input = true;
+            inputActions.PlayerActions.Jump.performed += i => jump_Input = true;
+            inputActions.PlayerActions.Inventory.performed += i => inventory_Input = true;
         }
 
         inputActions.Enable();
@@ -77,6 +85,7 @@ public class InputHandler : MonoBehaviour
         HandleRollInput(delta);
         HandleAttackInput();
         HandleQuickSlotInput();
+        HandleInventoryWindow();
     }
 
     public void HandleMoveInput(float delta)
@@ -150,6 +159,27 @@ public class InputHandler : MonoBehaviour
         else if (d_pad_left)
         {
             playerInventory.ChangeLeftWeapon();
+        }
+    }
+
+    private void HandleInventoryWindow()
+    {
+        if (inventory_Input)
+        {
+            inventoryFlag = !inventoryFlag;
+
+            if (inventoryFlag)
+            {
+                uIManager.OpenSelectWindow();
+                uIManager.UpdateUI();
+                uIManager.hudWindow.SetActive(false);
+            }
+            else
+            {
+                uIManager.CloseSelectWindow();
+                uIManager.CloseAllInventoryWindows();
+                uIManager.hudWindow.SetActive(true);
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     PlayerLocomotion playerLocomotion;
     Animator anim;
     PlayerAnimatorManager playerAnimatorManager;
+    InteractableUI interactableUI;
 
     [Header("Player flags")]
     public bool isInteracting;
@@ -20,6 +22,13 @@ public class PlayerManager : MonoBehaviour
     public bool isUsingLeftHand;
     public bool isInvulnerable;
 
+    [Header("Interactable objects")]
+    [SerializeField] float fadeSpeed = 0.2f;
+    [SerializeField] GameObject interactableUIGameObject;
+    public GameObject itemInteractableObject;
+    bool hide = false;
+    float originalTransparency;
+
     private void Awake()
     {
         cameraHandler = FindObjectOfType<CameraHandler>();
@@ -28,32 +37,41 @@ public class PlayerManager : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         //playerStats = GetComponent<PlayerStats>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
-        //interactableUI = FindObjectOfType<InteractableUI>();
+        interactableUI = FindObjectOfType<InteractableUI>();
         playerAnimatorManager = GetComponentInChildren<PlayerAnimatorManager>();
     }
 
     private void Update()
     {
         float delta = Time.deltaTime;
+        inputHandler.TickInput(delta);
 
         isInteracting = anim.GetBool("isInteracting");
         canDoCombo = anim.GetBool("canDoCombo");
         //isUsingRightHand = anim.GetBool("isUsingRightHand");
         //isUsingLeftHand = anim.GetBool("isUsingLeftHand");
         //isInvulnerable = anim.GetBool("isInvulnerable");
-        //anim.SetBool("isInAir", isInAir);
+        anim.SetBool("isInAir", isInAir);
         //anim.SetBool("isDead", playerStats.isDead);
         //playerAnimatorManager.canRotate = anim.GetBool("canRotate");
-
-        inputHandler.TickInput(delta);
-        playerLocomotion.HandleMovement(delta);
         playerLocomotion.HandleRollingAndSprinting();
-        playerLocomotion.HandleFall(delta, playerLocomotion.moveDirection);
-        //playerLocomotion.HandleJumping();
+        playerLocomotion.HandleJumping();
 
         //playerStats.RegenerateStamina();
 
-        //CheckForInteractable();
+        CheckForInteractable();
+    }
+
+    private void FixedUpdate()
+    {
+        float delta = Time.deltaTime;
+        playerLocomotion.HandleMovement(delta);
+        playerLocomotion.HandleFall(delta, playerLocomotion.moveDirection);
+
+        if (hide)
+        {
+            SlowlyHideText();
+        }
     }
 
     private void LateUpdate()
@@ -66,9 +84,9 @@ public class PlayerManager : MonoBehaviour
         inputHandler.d_pad_down = false;
         inputHandler.d_pad_left = false;
         inputHandler.d_pad_right = false;
-        //inputHandler.a_Input = false;
-        //inputHandler.jump_Input = false;
-        //inputHandler.inventory_Input = false;
+        inputHandler.a_Input = false;
+        inputHandler.jump_Input = false;
+        inputHandler.inventory_Input = false;
 
         float delta = Time.deltaTime;
         if (cameraHandler != null)
@@ -82,4 +100,76 @@ public class PlayerManager : MonoBehaviour
             playerLocomotion.inAirTimer = playerLocomotion.inAirTimer + Time.deltaTime;
         }
     }
+
+    #region Player Interactions
+    public void CheckForInteractable()
+    {
+        RaycastHit hit;
+        if (Physics.SphereCast(transform.position, -0.3f, transform.forward, out hit, 1f, cameraHandler.ignoreLayers))
+        {
+            if (hit.collider.tag == "Interactable")
+            {
+                Interactable interactableObject = hit.collider.GetComponent<Interactable>();
+
+                if (interactableObject != null)
+                {
+                    string interactableText = interactableObject.interactableText;
+                    interactableUI.interactableText.text = interactableText;
+                    interactableUIGameObject.SetActive(true);
+
+                    if (inputHandler.a_Input)
+                    {
+                        hit.collider.GetComponent<Interactable>().Interact(this);
+                    }
+                }
+            }
+        }
+
+        else
+        {
+            if (interactableUIGameObject != null)
+            {
+                interactableUIGameObject.SetActive(false);
+            }
+        }
+    }
+    
+    public void OpenChectInteraction(Transform playrStandingPosition)
+    {
+        playerLocomotion.rigidbody.velocity = Vector3.zero; //Stop player
+        transform.position = playrStandingPosition.transform.position;
+        playerAnimatorManager.PlayTargetAnimation("Open Chest", true);
+    }
+
+    #endregion
+
+    #region Show text after pick up item
+    public void PickUpItem()
+    {
+        itemInteractableObject.SetActive(true);
+        StartCoroutine(HideTextObjectCoroutine());
+    }
+
+    IEnumerator HideTextObjectCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
+        hide = true;
+    }
+
+    private void SlowlyHideText()
+    {
+        Color color = itemInteractableObject.GetComponent<Image>().color;
+
+        color.a -= Time.deltaTime * fadeSpeed;
+        Color newColor = new Color(0, 0, 0, color.a);
+        itemInteractableObject.GetComponent<Image>().color = newColor;
+
+        if (itemInteractableObject != null && (itemInteractableObject.GetComponent<Image>().color.a <= 0.01 || inputHandler.a_Input))
+        {
+            itemInteractableObject.GetComponent<Image>().color = new Color(0, 0, 0, originalTransparency);
+            itemInteractableObject.SetActive(false);
+            hide = false;
+        }
+    }
+    #endregion
 }
