@@ -177,7 +177,6 @@ public class InputHandler : MonoBehaviour
             else
             {
                 uIManager.CloseSelectWindow();
-                
                 uIManager.CloseAllInventoryWindows();
                 uIManager.hudWindow.SetActive(true);
             }

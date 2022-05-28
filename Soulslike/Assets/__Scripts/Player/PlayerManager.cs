@@ -44,6 +44,7 @@ public class PlayerManager : MonoBehaviour
     private void Update()
     {
         float delta = Time.deltaTime;
+        inputHandler.TickInput(delta);
 
         isInteracting = anim.GetBool("isInteracting");
         canDoCombo = anim.GetBool("canDoCombo");
@@ -53,11 +54,7 @@ public class PlayerManager : MonoBehaviour
         anim.SetBool("isInAir", isInAir);
         //anim.SetBool("isDead", playerStats.isDead);
         //playerAnimatorManager.canRotate = anim.GetBool("canRotate");
-
-        inputHandler.TickInput(delta);
-        playerLocomotion.HandleMovement(delta);
         playerLocomotion.HandleRollingAndSprinting();
-        playerLocomotion.HandleFall(delta, playerLocomotion.moveDirection);
         playerLocomotion.HandleJumping();
 
         //playerStats.RegenerateStamina();
@@ -67,6 +64,10 @@ public class PlayerManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        float delta = Time.deltaTime;
+        playerLocomotion.HandleMovement(delta);
+        playerLocomotion.HandleFall(delta, playerLocomotion.moveDirection);
+
         if (hide)
         {
             SlowlyHideText();

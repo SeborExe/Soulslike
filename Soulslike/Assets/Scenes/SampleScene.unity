@@ -3299,7 +3299,7 @@ MonoBehaviour:
   equipmentWindowUI: {fileID: 132871750}
   hudWindow: {fileID: 561155049}
   selectWindow: {fileID: 2010855575}
-  equipmentScreenWindow: {fileID: 0}
+  equipmentScreenWindow: {fileID: 1028278891}
   weaponInventoryWindow: {fileID: 1726619713}
   rightHandSlot01Selected: 0
   rightHandSlot02Selected: 0
@@ -5856,6 +5856,14 @@ PrefabInstance:
     - target: {fileID: 6959367209406945167, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7118373120143941676, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+      propertyPath: fallingSpeed
+      value: 475
+      objectReference: {fileID: 0}
+    - target: {fileID: 7118373120143941678, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7118373120143941680, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
       propertyPath: itemInteractableObject
