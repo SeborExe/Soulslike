@@ -21,6 +21,7 @@ public class InputHandler : MonoBehaviour
     public bool a_Input;
     public bool jump_Input;
     public bool inventory_Input;
+    public bool lockOn_Input;
 
     [Header("Flags")]
     public float rollInputTimer;
@@ -36,6 +37,9 @@ public class InputHandler : MonoBehaviour
     PlayerInventory playerInventory;
     PlayerAttacker playerAttacker;
     UIManager uIManager;
+    CameraHandler cameraHandler;
+    WeaponSlotManager weaponSlotManager;
+    PlayerStats playerStats;
 
     Vector2 movementInput;
     Vector2 cameraInput;
@@ -45,10 +49,11 @@ public class InputHandler : MonoBehaviour
         playerAttacker = GetComponentInChildren<PlayerAttacker>();
         playerInventory = GetComponent<PlayerInventory>();
         playerManager = GetComponent<PlayerManager>();
-        //weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
+        weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
         uIManager = FindObjectOfType<UIManager>();
         animationHandler = GetComponentInChildren<PlayerAnimatorManager>();
-        //playerStats = GetComponent<PlayerStats>();
+        cameraHandler = FindObjectOfType<CameraHandler>();
+        playerStats = GetComponent<PlayerStats>();
     }
 
     public void OnEnable()
@@ -69,6 +74,7 @@ public class InputHandler : MonoBehaviour
             inputActions.PlayerActions.A.performed += i => a_Input = true;
             inputActions.PlayerActions.Jump.performed += i => jump_Input = true;
             inputActions.PlayerActions.Inventory.performed += i => inventory_Input = true;
+            inputActions.PlayerActions.LockOn.performed += i => lockOn_Input = true;
         }
 
         inputActions.Enable();
@@ -86,6 +92,7 @@ public class InputHandler : MonoBehaviour
         HandleAttackInput();
         HandleQuickSlotInput();
         HandleInventoryWindow();
+        HandleLockOnInput();
     }
 
     public void HandleMoveInput(float delta)
@@ -182,4 +189,52 @@ public class InputHandler : MonoBehaviour
             }
         }
     }
+
+    
+    private void HandleLockOnInput()
+    {
+        if (lockOn_Input && !lockOnFlag)
+        {
+            lockOn_Input = false;
+            cameraHandler.HandleLockOn();
+
+            if (cameraHandler.nearestLockOnTarget != null)
+            {
+                cameraHandler.currentLockOnTarget = cameraHandler.nearestLockOnTarget;
+                lockOnFlag = true;
+            }
+        }
+
+        else if (lockOn_Input && lockOnFlag)
+        {
+            lockOn_Input = false;
+            lockOnFlag = false;
+            cameraHandler.ClearLockOnTargets();
+        }
+
+        /*
+        if (lockOnFlag && right_Stick_Left_Input)
+        {
+            right_Stick_Left_Input = false;
+            cameraHandler.HandleLockOn();
+            if (cameraHandler.leftLockTarget != null)
+            {
+                cameraHandler.currentLockOnTarget = cameraHandler.leftLockTarget;
+            }
+        }
+
+        if (lockOnFlag && right_Stick_Right_Input)
+        {
+            right_Stick_Right_Input = false;
+            cameraHandler.HandleLockOn();
+            if (cameraHandler.rightLockTarget != null)
+            {
+                cameraHandler.currentLockOnTarget = cameraHandler.rightLockTarget;
+            }
+        }
+        */
+
+        //cameraHandler.SetCameraHeight();
+    }
+    
 }
