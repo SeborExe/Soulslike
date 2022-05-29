@@ -34,7 +34,7 @@ public class WeaponInventorySlot : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    /*
+    
     public void EquipThisItem()
     {
         if (uiManager.rightHandSlot01Selected)
@@ -75,8 +75,7 @@ public class WeaponInventorySlot : MonoBehaviour
         weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon, false);
         weaponSlotManager.LoadWeaponOnSlot(playerInventory.leftWeapon, true);
 
-        //uiManager.equipmentWindowUI.LoadWeaponOnEquipmentScreen(playerInventory);
+        uiManager.equipmentWindowUI.LoadWeaponOnEquipmentScreen(playerInventory);
         uiManager.ResetAllSelectedSlots();
     }
-    */
 }
