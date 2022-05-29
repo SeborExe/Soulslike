@@ -21,6 +21,10 @@ public class InputHandler : MonoBehaviour
     public bool a_Input;
     public bool jump_Input;
     public bool inventory_Input;
+    public bool lockOn_Input;
+    public bool right_Stick_Right_Input;
+    public bool right_Stick_Left_Input;
+    public bool y_Input;
 
     [Header("Flags")]
     public float rollInputTimer;
@@ -29,6 +33,7 @@ public class InputHandler : MonoBehaviour
     public bool lockOnFlag;
     public bool comboFlag;
     public bool inventoryFlag;
+    public bool twoHandFlag;
 
     PlayerControls inputActions;
     PlayerAnimatorManager animationHandler;
@@ -36,6 +41,9 @@ public class InputHandler : MonoBehaviour
     PlayerInventory playerInventory;
     PlayerAttacker playerAttacker;
     UIManager uIManager;
+    CameraHandler cameraHandler;
+    WeaponSlotManager weaponSlotManager;
+    PlayerStats playerStats;
 
     Vector2 movementInput;
     Vector2 cameraInput;
@@ -45,10 +53,11 @@ public class InputHandler : MonoBehaviour
         playerAttacker = GetComponentInChildren<PlayerAttacker>();
         playerInventory = GetComponent<PlayerInventory>();
         playerManager = GetComponent<PlayerManager>();
-        //weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
+        weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
         uIManager = FindObjectOfType<UIManager>();
         animationHandler = GetComponentInChildren<PlayerAnimatorManager>();
-        //playerStats = GetComponent<PlayerStats>();
+        cameraHandler = FindObjectOfType<CameraHandler>();
+        playerStats = GetComponent<PlayerStats>();
     }
 
     public void OnEnable()
@@ -60,6 +69,8 @@ public class InputHandler : MonoBehaviour
             //Movement
             inputActions.PlayerMovement.Movement.performed += inputActions => movementInput = inputActions.ReadValue<Vector2>();
             inputActions.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
+            inputActions.PlayerMovement.LockOnTargetRight.performed += i => right_Stick_Right_Input = true;
+            inputActions.PlayerMovement.LockOnTargetLeft.performed += i => right_Stick_Left_Input = true;
 
             //Actions
             inputActions.PlayerActions.Roll.performed += i => b_Input = true;
@@ -69,6 +80,8 @@ public class InputHandler : MonoBehaviour
             inputActions.PlayerActions.A.performed += i => a_Input = true;
             inputActions.PlayerActions.Jump.performed += i => jump_Input = true;
             inputActions.PlayerActions.Inventory.performed += i => inventory_Input = true;
+            inputActions.PlayerActions.LockOn.performed += i => lockOn_Input = true;
+            inputActions.PlayerActions.Y.performed += i => y_Input = true;
         }
 
         inputActions.Enable();
@@ -83,9 +96,12 @@ public class InputHandler : MonoBehaviour
     {
         HandleMoveInput(delta);
         HandleRollInput(delta);
-        HandleAttackInput();
+        HandleAttackInput(delta);
         HandleQuickSlotInput();
         HandleInventoryWindow();
+        HandleLockOnInput();
+        HandleTwoHandInput();
+        //HandleCriticalAttackInput();
     }
 
     public void HandleMoveInput(float delta)
@@ -100,15 +116,26 @@ public class InputHandler : MonoBehaviour
     private void HandleRollInput(float delta)
     {
         if (b_Input)
-        { 
+        {
             rollInputTimer += delta;
-            sprintFlag = true;
+
+            if (playerStats.currentStamina <= 0)
+            {
+                b_Input = false;
+                sprintFlag = false;
+            }
+
+            if (moveAmount > 0.5f && playerStats.currentStamina > 0)
+            {
+                sprintFlag = true;
+            }
         }
         else
         {
+            sprintFlag = false;
+
             if (rollInputTimer > 0 && rollInputTimer < 0.5f)
             {
-                sprintFlag = false;
                 rollFlag = true;
             }
 
@@ -116,7 +143,7 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    private void HandleAttackInput()
+    private void HandleAttackInput(float delta)
     {
         inputActions.PlayerActions.RB.performed += i => rb_Input = true;
         inputActions.PlayerActions.RT.performed += i => rt_Input = true;
@@ -182,4 +209,71 @@ public class InputHandler : MonoBehaviour
             }
         }
     }
+
+    private void HandleLockOnInput()
+    {
+        if (lockOn_Input && !lockOnFlag)
+        {
+            lockOn_Input = false;
+            cameraHandler.HandleLockOn();
+
+            if (cameraHandler.nearestLockOnTarget != null)
+            {
+                cameraHandler.currentLockOnTarget = cameraHandler.nearestLockOnTarget;
+                lockOnFlag = true;
+            }
+        }
+
+        else if (lockOn_Input && lockOnFlag)
+        {
+            lockOn_Input = false;
+            lockOnFlag = false;
+            cameraHandler.ClearLockOnTargets();
+        }
+
+        
+        if (lockOnFlag && right_Stick_Left_Input)
+        {
+            right_Stick_Left_Input = false;
+            cameraHandler.HandleLockOn();
+            if (cameraHandler.leftLockTarget != null)
+            {
+                cameraHandler.currentLockOnTarget = cameraHandler.leftLockTarget;
+            }
+        }
+
+        if (lockOnFlag && right_Stick_Right_Input)
+        {
+            right_Stick_Right_Input = false;
+            cameraHandler.HandleLockOn();
+            if (cameraHandler.rightLockTarget != null)
+            {
+                cameraHandler.currentLockOnTarget = cameraHandler.rightLockTarget;
+            }
+        }
+        
+
+        cameraHandler.SetCameraHeight();
+    }
+
+    private void HandleTwoHandInput()
+    {
+        if (y_Input)
+        {
+            y_Input = false;
+
+            twoHandFlag = !twoHandFlag;
+
+            if (twoHandFlag)
+            {
+                weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon, false);
+            }
+            else
+            {
+                weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon, false);
+                weaponSlotManager.LoadWeaponOnSlot(playerInventory.leftWeapon, true);
+            }
+        }
+    }
+
 }

@@ -38,10 +38,10 @@ public class PlayerAttacker : MonoBehaviour
             {
                 animationHandler.PlayTargetAnimation(weapon.OH_Light_attack_02, true);
             }
-            //else if (lastAttack == weapon.TH_Light_Attack_01)
-            //{
-            //    animationHandler.PlayTargetAnimation(weapon.TH_Light_Attack_02, true);
-            //}
+            else if (lastAttack == weapon.TH_Light_Attack_01)
+            {
+                animationHandler.PlayTargetAnimation(weapon.TH_Light_Attack_02, true);
+            }
         }
     }
     
@@ -53,16 +53,16 @@ public class PlayerAttacker : MonoBehaviour
 
         weaponSlotManager.attackingWeapon = weapon;
 
-        //if (inputHandler.twoHandFlag)
-        //{
-        //    animationHandler.PlayTargetAnimation(weapon.TH_Light_Attack_01, true);
-        //    lastAttack = weapon.TH_Light_Attack_01;
-        //}
-        //else
-        //{
+        if (inputHandler.twoHandFlag)
+        {
+            animationHandler.PlayTargetAnimation(weapon.TH_Light_Attack_01, true);
+            lastAttack = weapon.TH_Light_Attack_01;
+        }
+        else
+        {
             animationHandler.PlayTargetAnimation(weapon.OH_Light_attack_01, true);
             lastAttack = weapon.OH_Light_attack_01;
-        //}
+        }
     }
 
     public void HandleHeavyAttack(WeaponItem weapon)
