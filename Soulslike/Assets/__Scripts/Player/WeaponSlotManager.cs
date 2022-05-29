@@ -39,10 +39,10 @@ public class WeaponSlotManager : MonoBehaviour
             {
                 rightHandSlot = weaponSlot;
             }
-            //else if (weaponSlot.isBackSlot)
-            //{
-            //    backSlot = weaponSlot;
-            //}
+            else if (weaponSlot.isBackSlot)
+            {
+                backSlot = weaponSlot;
+            }
         }
     }
 
@@ -70,7 +70,7 @@ public class WeaponSlotManager : MonoBehaviour
         {
             if (inputHandler.twoHandFlag)
             {
-                //backSlot.LoadWeaponModel(leftHandSlot.currentWeapon);
+                backSlot.LoadWeaponModel(leftHandSlot.currentWeapon);
                 leftHandSlot.UnloadWeaponAndDestroy();
                 animator.CrossFade(weaponItem.Two_Hand_Idle, 0.2f);
             }
@@ -79,7 +79,7 @@ public class WeaponSlotManager : MonoBehaviour
                 #region Handle weapon idle animations
                 animator.CrossFade("Both Arms Empty", 0.2f);
 
-                //backSlot.UnloadWeaponAndDestroy();
+                backSlot.UnloadWeaponAndDestroy();
 
                 if (weaponItem != null)
                 {
