@@ -24,6 +24,7 @@ public class InputHandler : MonoBehaviour
     public bool lockOn_Input;
     public bool right_Stick_Right_Input;
     public bool right_Stick_Left_Input;
+    public bool y_Input;
 
     [Header("Flags")]
     public float rollInputTimer;
@@ -32,6 +33,7 @@ public class InputHandler : MonoBehaviour
     public bool lockOnFlag;
     public bool comboFlag;
     public bool inventoryFlag;
+    public bool twoHandFlag;
 
     PlayerControls inputActions;
     PlayerAnimatorManager animationHandler;
@@ -79,6 +81,7 @@ public class InputHandler : MonoBehaviour
             inputActions.PlayerActions.Jump.performed += i => jump_Input = true;
             inputActions.PlayerActions.Inventory.performed += i => inventory_Input = true;
             inputActions.PlayerActions.LockOn.performed += i => lockOn_Input = true;
+            inputActions.PlayerActions.Y.performed += i => y_Input = true;
         }
 
         inputActions.Enable();
@@ -97,7 +100,7 @@ public class InputHandler : MonoBehaviour
         HandleQuickSlotInput();
         HandleInventoryWindow();
         HandleLockOnInput();
-        //HandleTwoHandInput();
+        HandleTwoHandInput();
         //HandleCriticalAttackInput();
     }
 
@@ -252,5 +255,25 @@ public class InputHandler : MonoBehaviour
 
         cameraHandler.SetCameraHeight();
     }
-    
+
+    private void HandleTwoHandInput()
+    {
+        if (y_Input)
+        {
+            y_Input = false;
+
+            twoHandFlag = !twoHandFlag;
+
+            if (twoHandFlag)
+            {
+                weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon, false);
+            }
+            else
+            {
+                weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon, false);
+                weaponSlotManager.LoadWeaponOnSlot(playerInventory.leftWeapon, true);
+            }
+        }
+    }
+
 }
