@@ -11,6 +11,7 @@ public class PlayerManager : CharacterManager
     Animator anim;
     PlayerAnimatorManager playerAnimatorManager;
     InteractableUI interactableUI;
+    PlayerStats playerStats;
 
     [Header("Player flags")]
     public bool isInteracting;
@@ -35,7 +36,7 @@ public class PlayerManager : CharacterManager
         //backStabCollider = GetComponentInChildren<BackStabCollider>();
         inputHandler = GetComponent<InputHandler>();
         anim = GetComponentInChildren<Animator>();
-        //playerStats = GetComponent<PlayerStats>();
+        playerStats = GetComponent<PlayerStats>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
         interactableUI = FindObjectOfType<InteractableUI>();
         playerAnimatorManager = GetComponentInChildren<PlayerAnimatorManager>();
@@ -47,7 +48,7 @@ public class PlayerManager : CharacterManager
 
         isInteracting = anim.GetBool("isInteracting");
         canDoCombo = anim.GetBool("canDoCombo");
-       // isUsingRightHand = anim.GetBool("isUsingRightHand");
+        //isUsingRightHand = anim.GetBool("isUsingRightHand");
         //isUsingLeftHand = anim.GetBool("isUsingLeftHand");
         //isInvulnerable = anim.GetBool("isInvulnerable");
         anim.SetBool("isInAir", isInAir);
