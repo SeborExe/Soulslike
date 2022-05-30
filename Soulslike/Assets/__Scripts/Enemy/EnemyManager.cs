@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyManager : CharacterManager
 {
     //public State currentState;
     public CharacterStats currentTarget;
-    //public NavMeshAgent navMeshAgent;
+    public NavMeshAgent navMeshAgent;
     public Rigidbody enemyRigidbody;
     EnemyLocomotionManager enemyLocomotionManager;
 
@@ -27,9 +28,16 @@ public class EnemyManager : CharacterManager
     private void Awake()
     {
         enemyLocomotionManager = GetComponent<EnemyLocomotionManager>();
+        navMeshAgent = GetComponentInChildren<NavMeshAgent>();
+        enemyRigidbody = GetComponent<Rigidbody>();
     }
 
     private void Update()
+    {
+
+    }
+
+    private void FixedUpdate()
     {
         HandleCurrentAction();
     }
@@ -39,6 +47,10 @@ public class EnemyManager : CharacterManager
         if (currentTarget == null)
         {
             enemyLocomotionManager.HandleDetection();
+        }
+        else
+        {
+            enemyLocomotionManager.HandleMoveToTarget();
         }
     }
 }
