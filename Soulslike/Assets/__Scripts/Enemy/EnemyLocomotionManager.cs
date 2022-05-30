@@ -49,6 +49,8 @@ public class EnemyLocomotionManager : MonoBehaviour
 
     public void HandleMoveToTarget()
     {
+        if (enemyManager.isPerformingAction) return;
+
         Vector3 direction = enemyManager.currentTarget.transform.position - transform.position;
         float viewableAngle = Vector3.Angle(direction, transform.forward);
         distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, transform.position);
