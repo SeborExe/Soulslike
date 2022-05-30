@@ -2,21 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStats : MonoBehaviour
+public class PlayerStats : CharacterStats
 {
-    public int healthLevel = 10;
-    public int maxHealth;
-    public int currentHealth;
-
-    public int staminaLevel = 10;
-    public float maxStamina;
-    public float currentStamina;
-
-    public bool isDead;
-
     [SerializeField] HealthBar healthBar;
     [SerializeField] StaminaBar staminaBar;
     PlayerAnimatorManager animationHandler;
+
+    public bool isDead;
 
     private void Awake()
     {
