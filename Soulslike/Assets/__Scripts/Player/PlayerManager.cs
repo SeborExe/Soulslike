@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class PlayerManager : CharacterManager
 {
+    public Animator anim;
     InputHandler inputHandler;
     CameraHandler cameraHandler;
     PlayerLocomotion playerLocomotion;
-    Animator anim;
     PlayerAnimatorManager playerAnimatorManager;
     InteractableUI interactableUI;
+    PlayerStats playerStats;
 
     [Header("Player flags")]
     public bool isInteracting;
@@ -35,7 +36,7 @@ public class PlayerManager : CharacterManager
         //backStabCollider = GetComponentInChildren<BackStabCollider>();
         inputHandler = GetComponent<InputHandler>();
         anim = GetComponentInChildren<Animator>();
-        //playerStats = GetComponent<PlayerStats>();
+        playerStats = GetComponent<PlayerStats>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
         interactableUI = FindObjectOfType<InteractableUI>();
         playerAnimatorManager = GetComponentInChildren<PlayerAnimatorManager>();
@@ -47,11 +48,11 @@ public class PlayerManager : CharacterManager
 
         isInteracting = anim.GetBool("isInteracting");
         canDoCombo = anim.GetBool("canDoCombo");
-       // isUsingRightHand = anim.GetBool("isUsingRightHand");
-        //isUsingLeftHand = anim.GetBool("isUsingLeftHand");
+        isUsingRightHand = anim.GetBool("isUsingRightHand");
+        isUsingLeftHand = anim.GetBool("isUsingLeftHand");
         //isInvulnerable = anim.GetBool("isInvulnerable");
         anim.SetBool("isInAir", isInAir);
-        //anim.SetBool("isDead", playerStats.isDead);
+        anim.SetBool("isDead", playerStats.isDead);
         //playerAnimatorManager.canRotate = anim.GetBool("canRotate");
 
         inputHandler.TickInput(delta);

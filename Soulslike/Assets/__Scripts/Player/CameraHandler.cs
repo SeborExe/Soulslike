@@ -50,7 +50,7 @@ public class CameraHandler : MonoBehaviour
         sigleton = this;
         myTranfroms = transform;
         defaultPosition = cameraTransform.localPosition.z;
-        ignoreLayers = ~(1 << 8 | 1 << 9 | 1 << 10);
+        //ignoreLayers = ~(1 << 8 | 1 << 9 | 1 << 10);
     }
 
     private void Start()
