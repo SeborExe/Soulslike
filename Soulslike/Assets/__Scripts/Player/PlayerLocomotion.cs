@@ -15,6 +15,9 @@ public class PlayerLocomotion : MonoBehaviour
     [HideInInspector] public Transform myTransform;
     [HideInInspector] public PlayerAnimatorManager animationHandler;
 
+    public CapsuleCollider characterCollider;
+    public CapsuleCollider characterCollisionBlocker;
+
     public GameObject normalCamera;
 
     [Header("Movement Stats")]
@@ -48,7 +51,7 @@ public class PlayerLocomotion : MonoBehaviour
         animationHandler.Initialize();
         playerManager.isGrounded = true;
         ignoreForGoundCheck = ~(1 << 8 | 1 << 11);
-        //Physics.IgnoreCollision(characterCollider, characterCollisionBlocker, true);
+        Physics.IgnoreCollision(characterCollider, characterCollisionBlocker, true);
     }
 
     #region Movement
@@ -57,6 +60,8 @@ public class PlayerLocomotion : MonoBehaviour
 
     public void HandleMovement(float delta)
     {
+        if (playerManager.anim.GetBool("isDead") == true) return;
+
         if (inputHandler.rollFlag)
             return;
 
@@ -110,9 +115,11 @@ public class PlayerLocomotion : MonoBehaviour
     }
     public void HandlerRotation(float delta)
     {
+        if (playerManager.anim.GetBool("isDead") == true) return;
+
         //if (animationHandler.canRotate)
         //{
-            if (inputHandler.lockOnFlag)
+        if (inputHandler.lockOnFlag)
             {
                 if (inputHandler.sprintFlag || inputHandler.rollFlag)
                 {

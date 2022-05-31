@@ -6,8 +6,6 @@ public class EnemyStats : CharacterStats
 {
     Animator anim;
 
-    public bool isDead;
-
     private void Awake()
     {
         //playerManager = GetComponent<PlayerManager>();

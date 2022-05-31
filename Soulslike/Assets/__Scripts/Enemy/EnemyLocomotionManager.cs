@@ -10,7 +10,7 @@ public class EnemyLocomotionManager : MonoBehaviour
     public CapsuleCollider characterCollider;
     public CapsuleCollider characterCollisionBlocker;
 
-    public LayerMask detectionLayer;
+    //public LayerMask detectionLayer;
 
     private void Awake()
     {
@@ -20,6 +20,6 @@ public class EnemyLocomotionManager : MonoBehaviour
 
     private void Start()
     {
-        //Physics.IgnoreCollision(characterCollider, characterCollisionBlocker, true);
+        Physics.IgnoreCollision(characterCollider, characterCollisionBlocker, true);
     }
 }

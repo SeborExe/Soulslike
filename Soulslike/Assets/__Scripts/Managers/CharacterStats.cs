@@ -11,4 +11,6 @@ public class CharacterStats : MonoBehaviour
     public int staminaLevel = 10;
     public float maxStamina;
     public float currentStamina;
+
+    public bool isDead;
 }

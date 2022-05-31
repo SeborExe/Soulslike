@@ -7,12 +7,11 @@ public class PlayerStats : CharacterStats
     [SerializeField] HealthBar healthBar;
     [SerializeField] StaminaBar staminaBar;
     PlayerAnimatorManager animationHandler;
-
-    public bool isDead;
+    PlayerManager playerManager;
 
     private void Awake()
     {
-        //playerManager = GetComponent<PlayerManager>();
+        playerManager = GetComponent<PlayerManager>();
         animationHandler = GetComponentInChildren<PlayerAnimatorManager>();
 
         healthBar = FindObjectOfType<HealthBar>();

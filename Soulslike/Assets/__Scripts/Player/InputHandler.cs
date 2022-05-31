@@ -82,6 +82,8 @@ public class InputHandler : MonoBehaviour
             inputActions.PlayerActions.Inventory.performed += i => inventory_Input = true;
             inputActions.PlayerActions.LockOn.performed += i => lockOn_Input = true;
             inputActions.PlayerActions.Y.performed += i => y_Input = true;
+            inputActions.PlayerActions.RB.performed += i => rb_Input = true;
+            inputActions.PlayerActions.RT.performed += i => rt_Input = true;
         }
 
         inputActions.Enable();
@@ -144,10 +146,7 @@ public class InputHandler : MonoBehaviour
     }
 
     private void HandleAttackInput(float delta)
-    {
-        inputActions.PlayerActions.RB.performed += i => rb_Input = true;
-        inputActions.PlayerActions.RT.performed += i => rt_Input = true;
-        
+    {     
         if (rb_Input)
         {
             if (playerManager.canDoCombo)
@@ -162,7 +161,8 @@ public class InputHandler : MonoBehaviour
 
                 if (playerManager.canDoCombo) return;
 
-                playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
+                animationHandler.anim.SetBool("isUsingRightHand", true);
+                playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
             }
         }
 
@@ -172,6 +172,7 @@ public class InputHandler : MonoBehaviour
 
             if (playerManager.canDoCombo) return;
 
+            animationHandler.anim.SetBool("isUsingRightHand", true);
             playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
         }
     }
