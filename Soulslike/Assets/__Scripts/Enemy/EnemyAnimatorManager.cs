@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class EnemyAnimatorManager : AnimatorManager
 {
-    EnemyManager enemyManager;
-    EnemyStats enemyStats;
+    [SerializeField] EnemyManager enemyManager;
+    [SerializeField] EnemyStats enemyStats;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        enemyManager = GetComponentInParent<EnemyManager>();
-        enemyStats = GetComponentInParent<EnemyStats>();
     }
 
     /*
