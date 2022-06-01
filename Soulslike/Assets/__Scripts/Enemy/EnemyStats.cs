@@ -8,7 +8,6 @@ public class EnemyStats : CharacterStats
 
     private void Awake()
     {
-        //playerManager = GetComponent<PlayerManager>();
         anim = GetComponentInChildren<Animator>();
 
         //staminaBar = FindObjectOfType<StaminaBar>();
@@ -29,7 +28,6 @@ public class EnemyStats : CharacterStats
 
     public void TakeDamage(int damage)
     {
-        //if (playerManager.isInvulnerable) return;
         if (isDead) return;
 
         currentHealth -= damage;

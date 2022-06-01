@@ -50,7 +50,7 @@ public class PlayerManager : CharacterManager
         canDoCombo = anim.GetBool("canDoCombo");
         isUsingRightHand = anim.GetBool("isUsingRightHand");
         isUsingLeftHand = anim.GetBool("isUsingLeftHand");
-        //isInvulnerable = anim.GetBool("isInvulnerable");
+        isInvulnerable = anim.GetBool("isInvulnerable");
         anim.SetBool("isInAir", isInAir);
         anim.SetBool("isDead", playerStats.isDead);
         //playerAnimatorManager.canRotate = anim.GetBool("canRotate");
@@ -58,7 +58,7 @@ public class PlayerManager : CharacterManager
         inputHandler.TickInput(delta);
         playerLocomotion.HandleJumping();
         playerLocomotion.HandleRollingAndSprinting(delta);
-        //playerStats.RegenerateStamina();
+        playerStats.RegenerateStamina();
 
         CheckForInteractable();
     }

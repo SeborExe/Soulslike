@@ -9,6 +9,10 @@ public class PlayerStats : CharacterStats
     PlayerAnimatorManager animationHandler;
     PlayerManager playerManager;
 
+    [Header("Stamina")]
+    [SerializeField] float staminaRegenerationAmount = 25;
+    float staminaRegenerationTimer = 0;
+
     private void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
@@ -44,7 +48,8 @@ public class PlayerStats : CharacterStats
 
     public void TakeDamage(int damage)
     {
-        //if (playerManager.isInvulnerable) return;
+        if (playerManager.isInvulnerable) return;
+
         if (isDead) return;
 
         currentHealth -= damage;
@@ -60,10 +65,63 @@ public class PlayerStats : CharacterStats
         }
     }
 
+    public void TakeDamageNoAnimation(int damage)
+    {
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            isDead = true;
+        }
+    }
+
     public void TakeStaminaDamage(int damage)
     {
         currentStamina -= damage;
 
         staminaBar.SetCurrentStamina(currentStamina);
     }
+
+    public void RegenerateStamina()
+    {
+        if (playerManager.isInteracting)
+            staminaRegenerationTimer = 0;
+
+        else
+        {
+            staminaRegenerationTimer += Time.deltaTime;
+
+            if (currentStamina < maxStamina && staminaRegenerationTimer > 1f)
+            {
+                currentStamina += staminaRegenerationAmount * Time.deltaTime;
+                staminaBar.SetCurrentStamina(Mathf.RoundToInt(currentStamina));
+            }
+        }
+
+    }
+
+    public void HealPlayer(int amount)
+    {
+        currentHealth += amount;
+
+        if (currentHealth > maxHealth)
+            currentHealth = maxHealth;
+
+        healthBar.SetCurrentHealth(currentHealth);
+    }
+
+    /*
+    public void DeductManaPoints(int mana)
+    {
+        currentMana -= mana;
+
+        if (currentMana < 0)
+        {
+            currentMana = 0;
+        }
+
+        manaBar.SetCurrentMana(currentMana);
+    }
+    */
 }
