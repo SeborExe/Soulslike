@@ -26,10 +26,10 @@ public class WeaponItem : Item
     public float heavyAttackMultiplier;
 
     [Header("Weapon type")]
-    //public bool isSpellCaster;
-    //public bool isFaithCaster;
-    //public bool isPyroCaster;
-    //public bool isMeleeWeapon;
+    public bool isSpellCaster;
+    public bool isFaithCaster;
+    public bool isPyroCaster;
+    public bool isMeleeWeapon;
 
     [Header("Damage")]
     public int baseDamage = 25;

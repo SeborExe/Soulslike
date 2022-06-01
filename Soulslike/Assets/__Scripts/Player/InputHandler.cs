@@ -146,31 +146,19 @@ public class InputHandler : MonoBehaviour
     }
 
     private void HandleAttackInput(float delta)
-    {     
+    {
         if (rb_Input)
         {
-            if (playerManager.canDoCombo)
-            {
-                comboFlag = true;
-                playerAttacker.HandleWeaponCombo(playerInventory.rightWeapon);
-                comboFlag = false;
-            }
-            else
-            {
-                if (playerManager.isInteracting) return;
-
-                if (playerManager.canDoCombo) return;
-
-                animationHandler.anim.SetBool("isUsingRightHand", true);
-                playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
-            }
+            playerAttacker.HandleRBAction();
         }
 
         if (rt_Input)
         {
-            if (playerManager.isInteracting) return;
+            if (playerManager.isInteracting)
+                return;
 
-            if (playerManager.canDoCombo) return;
+            if (playerManager.canDoCombo)
+                return;
 
             animationHandler.anim.SetBool("isUsingRightHand", true);
             playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
