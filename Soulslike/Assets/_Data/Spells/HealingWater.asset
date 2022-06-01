@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 700ead828467d4248b609829fb8bd961, type: 3}
+  m_Name: HealingWater
+  m_EditorClassIdentifier: 
+  itemIcon: {fileID: 0}
+  itemName: HealingWave
+  spallWarmUpFX: {fileID: 1376905856516238, guid: 3b89a0b81c18f8548ae1e630445434b9, type: 3}
+  spellCastFX: {fileID: 1001209505210446, guid: 172998df67304734aaab369580dd9b98, type: 3}
+  spellAnimation: SpellCast
+  manaCost: 0
+  isFaithSpell: 1
+  isMagicSpell: 0
+  isPyroSpell: 0
+  spellDiscription: Restor half player health.
+  healAmount: 50
