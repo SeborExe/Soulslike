@@ -6,6 +6,7 @@ public class PlayerStats : CharacterStats
 {
     [SerializeField] HealthBar healthBar;
     [SerializeField] StaminaBar staminaBar;
+    [SerializeField] ManaBar manaBar;
     PlayerAnimatorManager animationHandler;
     PlayerManager playerManager;
 
@@ -18,8 +19,8 @@ public class PlayerStats : CharacterStats
         playerManager = GetComponent<PlayerManager>();
         animationHandler = GetComponentInChildren<PlayerAnimatorManager>();
 
-        healthBar = FindObjectOfType<HealthBar>();
-        staminaBar = FindObjectOfType<StaminaBar>();
+        //healthBar = FindObjectOfType<HealthBar>();
+        //staminaBar = FindObjectOfType<StaminaBar>();
         //manaBar = FindObjectOfType<ManaBar>();
     }
 
@@ -32,6 +33,10 @@ public class PlayerStats : CharacterStats
         maxStamina = SetMaxStamina();
         currentStamina = maxStamina;
         staminaBar.SetMaxStamina(maxStamina);
+
+        maxMana = SetMaxMana();
+        currentMana = maxMana;
+        manaBar.SetMaxMana(maxMana);
     }
 
     private int SetMaxLevelHalth()
@@ -44,6 +49,12 @@ public class PlayerStats : CharacterStats
     {
         maxStamina = staminaLevel * 10;
         return maxStamina;
+    }
+
+    private float SetMaxMana()
+    {
+        maxMana = manaLevel * 10;
+        return maxMana;
     }
 
     public void TakeDamage(int damage)
@@ -111,7 +122,7 @@ public class PlayerStats : CharacterStats
         healthBar.SetCurrentHealth(currentHealth);
     }
 
-    /*
+    
     public void DeductManaPoints(int mana)
     {
         currentMana -= mana;
@@ -123,5 +134,5 @@ public class PlayerStats : CharacterStats
 
         manaBar.SetCurrentMana(currentMana);
     }
-    */
+    
 }

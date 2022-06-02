@@ -17,7 +17,7 @@ MonoBehaviour:
   spallWarmUpFX: {fileID: 1376905856516238, guid: 3b89a0b81c18f8548ae1e630445434b9, type: 3}
   spellCastFX: {fileID: 1001209505210446, guid: 172998df67304734aaab369580dd9b98, type: 3}
   spellAnimation: SpellCast
-  manaCost: 0
+  manaCost: 25
   isFaithSpell: 1
   isMagicSpell: 0
   isPyroSpell: 0

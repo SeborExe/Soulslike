@@ -812,12 +812,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75eeffaa0460e1a48b39f094074cafcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSpell: {fileID: 0}
-  rightWeapon: {fileID: 11400000, guid: bd9a043903685c34bb5e4dc88739c85b, type: 2}
+  currentSpell: {fileID: 11400000, guid: acf85b8f847944d469650f808d57a31d, type: 2}
+  rightWeapon: {fileID: 11400000, guid: 3f65c062ef7bd394aa6d75c19c552797, type: 2}
   leftWeapon: {fileID: 11400000, guid: bd9a043903685c34bb5e4dc88739c85b, type: 2}
   unarmedWeapon: {fileID: 11400000, guid: 1b64a0e46be3bad4cb7c881b8b988baf, type: 2}
   weaponsInRightHandSlots:
-  - {fileID: 11400000, guid: bd9a043903685c34bb5e4dc88739c85b, type: 2}
+  - {fileID: 11400000, guid: 3f65c062ef7bd394aa6d75c19c552797, type: 2}
   - {fileID: 11400000, guid: bd9a043903685c34bb5e4dc88739c85b, type: 2}
   weaponsInLeftHandSlots:
   - {fileID: 11400000, guid: bd9a043903685c34bb5e4dc88739c85b, type: 2}
@@ -843,10 +843,14 @@ MonoBehaviour:
   staminaLevel: 10
   maxStamina: 0
   currentStamina: 0
+  manaLevel: 10
+  maxMana: 0
+  currentMana: 0
   isDead: 0
   healthBar: {fileID: 0}
   staminaBar: {fileID: 0}
-  staminaRegenerationAmount: 25
+  manaBar: {fileID: 0}
+  staminaRegenerationAmount: 15
 --- !u!1 &676019834853981589
 GameObject:
   m_ObjectHideFlags: 0

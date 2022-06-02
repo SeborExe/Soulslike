@@ -129,13 +129,13 @@ public class PlayerAttacker : MonoBehaviour
         {
             if (playerInventory.currentSpell != null && playerInventory.currentSpell.isFaithSpell)
             {
-                //if (playerStats.currentMana >= playerInventory.currentSpell.manaCost)
+                if (playerStats.currentMana >= playerInventory.currentSpell.manaCost)
                     playerInventory.currentSpell.AttemptToCastSpell(animationHandler, playerStats);
 
-                //else
-                //{
-                //    animationHandler.PlayTargetAnimation("Shrug", true);
-                //}
+                else
+                {
+                    animationHandler.PlayTargetAnimation("Shrug", true);
+                }
             }
         }
     }
