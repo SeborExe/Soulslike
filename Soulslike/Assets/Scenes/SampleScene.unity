@@ -6147,6 +6147,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7118373120143941676, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+      propertyPath: rotationSpeed
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 7118373120143941680, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
       propertyPath: backStabBoxCollider
       value: 

@@ -117,9 +117,9 @@ public class PlayerLocomotion : MonoBehaviour
     {
         if (playerManager.anim.GetBool("isDead") == true) return;
 
-        //if (animationHandler.canRotate)
-        //{
-        if (inputHandler.lockOnFlag)
+        if (animationHandler.canRotate)
+        {
+            if (inputHandler.lockOnFlag)
             {
                 if (inputHandler.sprintFlag || inputHandler.rollFlag)
                 {
@@ -171,7 +171,7 @@ public class PlayerLocomotion : MonoBehaviour
 
                 myTransform.rotation = targetRotation;
             }
-        //}
+        }
     }
     public void HandleRollingAndSprinting(float delta)
     {

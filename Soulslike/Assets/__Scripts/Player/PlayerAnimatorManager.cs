@@ -11,8 +11,6 @@ public class PlayerAnimatorManager : AnimatorManager
     int vertical;
     int horizontal;
 
-    public bool canRotate;
-
     public void Initialize()
     {
         playerManager = GetComponentInParent<PlayerManager>();
@@ -97,12 +95,12 @@ public class PlayerAnimatorManager : AnimatorManager
 
     public void CanRotate()
     {
-        canRotate = true;
+        anim.SetBool("canRotate", true);
     }
 
     public void StopRotation()
     {
-        canRotate = false;
+        anim.SetBool("canRotate", false);
     }
 
     public void EnableCombo()
