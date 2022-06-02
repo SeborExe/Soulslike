@@ -5,10 +5,12 @@ using UnityEngine;
 public class EnemyStats : CharacterStats
 {
     Animator anim;
+    BackStabCollider backStabCollider;
 
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
+        backStabCollider = GetComponentInChildren<BackStabCollider>();
 
         //staminaBar = FindObjectOfType<StaminaBar>();
         //manaBar = FindObjectOfType<ManaBar>();
@@ -39,6 +41,7 @@ public class EnemyStats : CharacterStats
             currentHealth = 0;
             anim.Play("Dead_01");
             isDead = true;
+            backStabCollider.DeactivateBackStabCollider();
         }
     }
 }
