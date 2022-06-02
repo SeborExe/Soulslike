@@ -33,7 +33,7 @@ public class PlayerManager : CharacterManager
     private void Awake()
     {
         cameraHandler = FindObjectOfType<CameraHandler>();
-        //backStabCollider = GetComponentInChildren<BackStabCollider>();
+        backStabCollider = GetComponentInChildren<BackStabCollider>();
         inputHandler = GetComponent<InputHandler>();
         anim = GetComponentInChildren<Animator>();
         playerStats = GetComponent<PlayerStats>();
@@ -88,6 +88,7 @@ public class PlayerManager : CharacterManager
         inputHandler.a_Input = false;
         inputHandler.jump_Input = false;
         inputHandler.inventory_Input = false;
+        inputHandler.critical_attack_Input = false;
 
         float delta = Time.deltaTime;
         if (cameraHandler != null)

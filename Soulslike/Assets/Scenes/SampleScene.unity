@@ -592,6 +592,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 146492607}
   m_CullTransparentMesh: 1
+--- !u!65 &171253536 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 171253536, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
+  m_PrefabInstance: {fileID: 6634466567798021656}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &177331915
 GameObject:
   m_ObjectHideFlags: 0
@@ -6090,6 +6095,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 818644964, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 660275544297276887, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
       propertyPath: m_Name
       value: Player
@@ -6138,6 +6147,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7118373120143941680, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+      propertyPath: backStabBoxCollider
+      value: 
+      objectReference: {fileID: 171253536}
     - target: {fileID: 7118373120143941680, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
       propertyPath: itemInteractableObject
       value: 
@@ -6303,6 +6316,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 171253534, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1187471530403977232, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
       propertyPath: m_Name
       value: Enemy

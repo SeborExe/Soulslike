@@ -12,7 +12,7 @@ public class PlayerAttacker : MonoBehaviour
     WeaponSlotManager weaponSlotManager;
     public string lastAttack;
 
-    //LayerMask backStabLayer = 1 << 12;
+    LayerMask backStabLayer = 1 << 10;
 
     private void Awake()
     {
@@ -26,8 +26,8 @@ public class PlayerAttacker : MonoBehaviour
 
     public void HandleWeaponCombo(WeaponItem weapon)
     {
-        //if (playerStats.currentStamina <= 0)
-        //    return;
+        if (playerStats.currentStamina <= 0)
+            return;
 
         if (inputHandler.comboFlag)
         {
@@ -46,8 +46,8 @@ public class PlayerAttacker : MonoBehaviour
    
     public void HandleLightAttack(WeaponItem weapon)
     {
-        //if (playerStats.currentStamina <= 0)
-        //    return;
+        if (playerStats.currentStamina <= 0)
+            return;
 
         weaponSlotManager.attackingWeapon = weapon;
 
@@ -65,8 +65,8 @@ public class PlayerAttacker : MonoBehaviour
 
     public void HandleHeavyAttack(WeaponItem weapon)
     {
-        //if (playerStats.currentStamina <= 0)
-        //    return;
+        if (playerStats.currentStamina <= 0)
+            return;
 
         weaponSlotManager.attackingWeapon = weapon;
 
@@ -136,6 +136,48 @@ public class PlayerAttacker : MonoBehaviour
                 {
                     animationHandler.PlayTargetAnimation("Shrug", true);
                 }
+            }
+        }
+    }
+
+    public void AttemptBackStabOrRipost()
+    {
+        if (playerStats.currentStamina <= 0)
+            return;
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(inputHandler.criticalAttackRaycastStartPoint.position, transform.TransformDirection(Vector3.forward),
+            out hit, 0.5f, backStabLayer))
+        {
+            CharacterManager enemyCharacterManager = hit.transform.gameObject.GetComponentInParent<CharacterManager>();
+            DamageCollider rightWeapon = weaponSlotManager.rightHandDamageCollider;
+
+            if (enemyCharacterManager != null)
+            {
+                //Check for team mate id
+                playerManager.transform.position = enemyCharacterManager.backStabCollider.backStabberStandPoint.position;
+                Vector3 rotationDirection = playerManager.transform.root.eulerAngles;
+                rotationDirection = hit.transform.position - playerManager.transform.position;
+                rotationDirection.y = 0;
+                rotationDirection.Normalize();
+                Quaternion tr = Quaternion.LookRotation(rotationDirection);
+                Quaternion targetRotation = Quaternion.Slerp(playerManager.transform.rotation, tr, 500 * Time.deltaTime);
+                playerManager.transform.rotation = targetRotation;
+
+                if (rightWeapon != null)
+                {
+                    int criticalDamage = playerInventory.rightWeapon.criticalDamageMultiplier * rightWeapon.currentWeaponDamage;
+                    enemyCharacterManager.pendingCriticalDamage = criticalDamage;
+                }
+                else
+                {
+                    int criticalDamage = playerInventory.rightWeapon.criticalDamageMultiplier * playerInventory.rightWeapon.baseDamage;
+                    enemyCharacterManager.pendingCriticalDamage = criticalDamage;
+                }
+
+                animationHandler.PlayTargetAnimation("BackStab", true);
+                enemyCharacterManager.GetComponentInChildren<AnimatorManager>().PlayTargetAnimation("BackStabbed", true);
             }
         }
     }
