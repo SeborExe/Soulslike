@@ -6,11 +6,13 @@ public class EnemyStats : CharacterStats
 {
     Animator anim;
     BackStabCollider backStabCollider;
+    EnemyAnimatorManager enemyAnimatorManager;
 
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
         backStabCollider = GetComponentInChildren<BackStabCollider>();
+        enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
 
         //staminaBar = FindObjectOfType<StaminaBar>();
         //manaBar = FindObjectOfType<ManaBar>();
@@ -43,5 +45,23 @@ public class EnemyStats : CharacterStats
             isDead = true;
             backStabCollider.DeactivateBackStabCollider();
         }
+    }
+
+    public void TakeDamageNoAnimation(int damage)
+    {
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            isDead = true;
+        }
+    }
+
+    private void HandleDeath()
+    {
+        currentHealth = 0;
+        enemyAnimatorManager.PlayTargetAnimation("Dead_01", true);
+        isDead = true;
     }
 }

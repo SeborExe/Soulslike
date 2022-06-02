@@ -10,15 +10,17 @@ public class EnemyAnimatorManager : AnimatorManager
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        enemyStats = GetComponentInParent<EnemyStats>();
     }
 
-    /*
+    
     public override void TakeCriticalDamageEvent()
     {
         enemyStats.TakeDamageNoAnimation(enemyManager.pendingCriticalDamage);
         enemyManager.pendingCriticalDamage = 0;
     }
 
+    /*
     public void AwardSoulsOnDeath()
     {
         PlayerStats playerStats = FindObjectOfType<PlayerStats>();
