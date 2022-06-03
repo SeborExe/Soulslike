@@ -6,6 +6,13 @@ using UnityEngine.UI;
 public class StaminaBar : MonoBehaviour
 {
     public Slider slider;
+    [SerializeField] PlayerStats playerStats;
+
+    private void Update()
+    {
+        if (slider.value == playerStats.currentStamina) return;
+        slider.value = Mathf.Lerp(slider.value, playerStats.currentStamina, 3f * Time.deltaTime);
+    }
 
     public void SetMaxStamina(float maxStamina)
     {

@@ -33,7 +33,7 @@ public class PlayerManager : CharacterManager
     private void Awake()
     {
         cameraHandler = FindObjectOfType<CameraHandler>();
-        //backStabCollider = GetComponentInChildren<BackStabCollider>();
+        backStabCollider = GetComponentInChildren<BackStabCollider>();
         inputHandler = GetComponent<InputHandler>();
         anim = GetComponentInChildren<Animator>();
         playerStats = GetComponent<PlayerStats>();
@@ -50,15 +50,15 @@ public class PlayerManager : CharacterManager
         canDoCombo = anim.GetBool("canDoCombo");
         isUsingRightHand = anim.GetBool("isUsingRightHand");
         isUsingLeftHand = anim.GetBool("isUsingLeftHand");
-        //isInvulnerable = anim.GetBool("isInvulnerable");
+        isInvulnerable = anim.GetBool("isInvulnerable");
         anim.SetBool("isInAir", isInAir);
         anim.SetBool("isDead", playerStats.isDead);
-        //playerAnimatorManager.canRotate = anim.GetBool("canRotate");
+        playerAnimatorManager.canRotate = anim.GetBool("canRotate");
 
         inputHandler.TickInput(delta);
         playerLocomotion.HandleJumping();
         playerLocomotion.HandleRollingAndSprinting(delta);
-        //playerStats.RegenerateStamina();
+        playerStats.RegenerateStamina();
 
         CheckForInteractable();
     }
@@ -88,6 +88,7 @@ public class PlayerManager : CharacterManager
         inputHandler.a_Input = false;
         inputHandler.jump_Input = false;
         inputHandler.inventory_Input = false;
+        inputHandler.critical_attack_Input = false;
 
         float delta = Time.deltaTime;
         if (cameraHandler != null)

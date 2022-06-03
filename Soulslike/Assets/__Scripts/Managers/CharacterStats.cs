@@ -12,5 +12,11 @@ public class CharacterStats : MonoBehaviour
     public float maxStamina;
     public float currentStamina;
 
+    public int manaLevel = 10;
+    public float maxMana;
+    public float currentMana;
+
+    public int soulCount = 0;
+
     public bool isDead;
 }

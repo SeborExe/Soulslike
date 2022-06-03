@@ -25,6 +25,7 @@ public class InputHandler : MonoBehaviour
     public bool right_Stick_Right_Input;
     public bool right_Stick_Left_Input;
     public bool y_Input;
+    public bool critical_attack_Input;
 
     [Header("Flags")]
     public float rollInputTimer;
@@ -47,6 +48,8 @@ public class InputHandler : MonoBehaviour
 
     Vector2 movementInput;
     Vector2 cameraInput;
+
+    public Transform criticalAttackRaycastStartPoint;
 
     private void Awake()
     {
@@ -84,6 +87,7 @@ public class InputHandler : MonoBehaviour
             inputActions.PlayerActions.Y.performed += i => y_Input = true;
             inputActions.PlayerActions.RB.performed += i => rb_Input = true;
             inputActions.PlayerActions.RT.performed += i => rt_Input = true;
+            inputActions.PlayerActions.CriticalAttack.performed += i => critical_attack_Input = true;
         }
 
         inputActions.Enable();
@@ -103,7 +107,7 @@ public class InputHandler : MonoBehaviour
         HandleInventoryWindow();
         HandleLockOnInput();
         HandleTwoHandInput();
-        //HandleCriticalAttackInput();
+        HandleCriticalAttackInput();
     }
 
     public void HandleMoveInput(float delta)
@@ -146,31 +150,19 @@ public class InputHandler : MonoBehaviour
     }
 
     private void HandleAttackInput(float delta)
-    {     
+    {
         if (rb_Input)
         {
-            if (playerManager.canDoCombo)
-            {
-                comboFlag = true;
-                playerAttacker.HandleWeaponCombo(playerInventory.rightWeapon);
-                comboFlag = false;
-            }
-            else
-            {
-                if (playerManager.isInteracting) return;
-
-                if (playerManager.canDoCombo) return;
-
-                animationHandler.anim.SetBool("isUsingRightHand", true);
-                playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
-            }
+            playerAttacker.HandleRBAction();
         }
 
         if (rt_Input)
         {
-            if (playerManager.isInteracting) return;
+            if (playerManager.isInteracting)
+                return;
 
-            if (playerManager.canDoCombo) return;
+            if (playerManager.canDoCombo)
+                return;
 
             animationHandler.anim.SetBool("isUsingRightHand", true);
             playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
@@ -274,6 +266,15 @@ public class InputHandler : MonoBehaviour
                 weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon, false);
                 weaponSlotManager.LoadWeaponOnSlot(playerInventory.leftWeapon, true);
             }
+        }
+    }
+
+    private void HandleCriticalAttackInput()
+    {
+        if (critical_attack_Input)
+        {
+            critical_attack_Input = false;
+            playerAttacker.AttemptBackStabOrRipost();
         }
     }
 

@@ -6,6 +6,13 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     public Slider slider;
+    [SerializeField] PlayerStats playerStats;
+
+    private void Update()
+    {
+        if (slider.value == playerStats.currentHealth) return;
+        slider.value = Mathf.Lerp(slider.value, playerStats.currentHealth, 3f * Time.deltaTime);
+    }
 
     public void SetMaxHealth(int maxHealth)
     {

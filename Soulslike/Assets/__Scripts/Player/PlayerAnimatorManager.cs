@@ -11,8 +11,6 @@ public class PlayerAnimatorManager : AnimatorManager
     int vertical;
     int horizontal;
 
-    public bool canRotate;
-
     public void Initialize()
     {
         playerManager = GetComponentInParent<PlayerManager>();
@@ -97,12 +95,12 @@ public class PlayerAnimatorManager : AnimatorManager
 
     public void CanRotate()
     {
-        canRotate = true;
+        anim.SetBool("canRotate", true);
     }
 
     public void StopRotation()
     {
-        canRotate = false;
+        anim.SetBool("canRotate", false);
     }
 
     public void EnableCombo()
@@ -113,6 +111,16 @@ public class PlayerAnimatorManager : AnimatorManager
     public void DisableCombo()
     {
         anim.SetBool("canDoCombo", false);
+    }
+
+    public void EnableIsInvulnerable()
+    {
+        anim.SetBool("isInvulnerable", true);
+    }
+
+    public void DisableIsInbulnerable()
+    {
+        anim.SetBool("isInvulnerable", false);
     }
 
     private void OnAnimatorMove()

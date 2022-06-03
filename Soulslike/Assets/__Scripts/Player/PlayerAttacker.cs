@@ -12,23 +12,22 @@ public class PlayerAttacker : MonoBehaviour
     WeaponSlotManager weaponSlotManager;
     public string lastAttack;
 
-    //LayerMask backStabLayer = 1 << 12;
+    LayerMask backStabLayer = 1 << 10;
 
     private void Awake()
     {
-        animationHandler = GetComponentInChildren<PlayerAnimatorManager>();
+        animationHandler = GetComponent<PlayerAnimatorManager>();
         playerManager = GetComponentInParent<PlayerManager>();
         playerStats = GetComponentInParent<PlayerStats>();
         playerInventory = GetComponentInParent<PlayerInventory>();
-        weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
+        weaponSlotManager = GetComponent<WeaponSlotManager>();
         inputHandler = GetComponentInParent<InputHandler>();
     }
 
-    
     public void HandleWeaponCombo(WeaponItem weapon)
     {
-        //if (playerStats.currentStamina <= 0)
-        //    return;
+        if (playerStats.currentStamina <= 0)
+            return;
 
         if (inputHandler.comboFlag)
         {
@@ -44,12 +43,11 @@ public class PlayerAttacker : MonoBehaviour
             }
         }
     }
-    
-
+   
     public void HandleLightAttack(WeaponItem weapon)
     {
-        //if (playerStats.currentStamina <= 0)
-        //    return;
+        if (playerStats.currentStamina <= 0)
+            return;
 
         weaponSlotManager.attackingWeapon = weapon;
 
@@ -67,8 +65,8 @@ public class PlayerAttacker : MonoBehaviour
 
     public void HandleHeavyAttack(WeaponItem weapon)
     {
-        //if (playerStats.currentStamina <= 0)
-        //    return;
+        if (playerStats.currentStamina <= 0)
+            return;
 
         weaponSlotManager.attackingWeapon = weapon;
 
@@ -82,4 +80,111 @@ public class PlayerAttacker : MonoBehaviour
             lastAttack = weapon.OH_Heavy_attack_01;
         //}
     }
+
+    #region Input Actions
+    public void HandleRBAction()
+    {
+        if (playerInventory.rightWeapon.isMeleeWeapon)
+        {
+            PerformRBMeleeAction();
+        }
+
+        else if (playerInventory.rightWeapon.isSpellCaster ||
+            playerInventory.rightWeapon.isFaithCaster ||
+            playerInventory.rightWeapon.isPyroCaster)
+        {
+            PerformRBMagicAction(playerInventory.rightWeapon);
+        }
+    }
+
+    #endregion
+
+    #region Attack Actions
+    private void PerformRBMeleeAction()
+    {
+        if (playerManager.canDoCombo)
+        {
+            inputHandler.comboFlag = true;
+            HandleWeaponCombo(playerInventory.rightWeapon);
+            inputHandler.comboFlag = false;
+        }
+        else
+        {
+            if (playerManager.isInteracting)
+                return;
+
+            if (playerManager.canDoCombo)
+                return;
+
+            animationHandler.anim.SetBool("isUsingRightHand", true);
+            HandleLightAttack(playerInventory.rightWeapon);
+        }
+    }
+
+    private void PerformRBMagicAction(WeaponItem weapon)
+    {
+        if (playerManager.isInteracting) return;
+
+        if (weapon.isFaithCaster)
+        {
+            if (playerInventory.currentSpell != null && playerInventory.currentSpell.isFaithSpell)
+            {
+                if (playerStats.currentMana >= playerInventory.currentSpell.manaCost)
+                    playerInventory.currentSpell.AttemptToCastSpell(animationHandler, playerStats);
+
+                else
+                {
+                    animationHandler.PlayTargetAnimation("Shrug", true);
+                }
+            }
+        }
+    }
+
+    public void AttemptBackStabOrRipost()
+    {
+        if (playerStats.currentStamina <= 0) return;
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(inputHandler.criticalAttackRaycastStartPoint.position, transform.TransformDirection(Vector3.forward),
+            out hit, 0.5f, backStabLayer))
+        {
+            CharacterManager enemyCharacterManager = hit.transform.gameObject.GetComponentInParent<CharacterManager>();
+            DamageCollider rightWeapon = weaponSlotManager.rightHandDamageCollider;
+
+            if (enemyCharacterManager != null)
+            {
+                //Check for team mate id
+                playerManager.transform.position = enemyCharacterManager.backStabCollider.backStabberStandPoint.position;
+                Vector3 rotationDirection = playerManager.transform.root.eulerAngles;
+                rotationDirection = hit.transform.position - playerManager.transform.position;
+                rotationDirection.y = 0;
+                rotationDirection.Normalize();
+                Quaternion tr = Quaternion.LookRotation(rotationDirection);
+                Quaternion targetRotation = Quaternion.Slerp(playerManager.transform.rotation, tr, 500 * Time.deltaTime);
+                playerManager.transform.rotation = targetRotation;
+
+                if (rightWeapon != null)
+                {
+                    int criticalDamage = playerInventory.rightWeapon.criticalDamageMultiplier * rightWeapon.currentWeaponDamage;
+                    enemyCharacterManager.pendingCriticalDamage = criticalDamage;
+                }
+                else
+                {
+                    int criticalDamage = playerInventory.rightWeapon.criticalDamageMultiplier * playerInventory.rightWeapon.baseDamage;
+                    enemyCharacterManager.pendingCriticalDamage = criticalDamage;
+                }
+
+                animationHandler.PlayTargetAnimation("BackStab", true);
+                enemyCharacterManager.GetComponentInChildren<AnimatorManager>().PlayTargetAnimation("BackStabbed", true);
+            }
+        }
+    }
+
+    private void SuccessfulyCastSpell()
+    {
+        playerInventory.currentSpell.SuccessfullyCastSpell(animationHandler, playerStats);
+    }
+
+    #endregion
 }

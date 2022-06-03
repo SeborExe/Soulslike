@@ -5,11 +5,16 @@ using UnityEngine;
 public class EnemyStats : CharacterStats
 {
     Animator anim;
+    BackStabCollider backStabCollider;
+    EnemyAnimatorManager enemyAnimatorManager;
+
+    public int soulsAwardedOnDeath = 1;
 
     private void Awake()
     {
-        //playerManager = GetComponent<PlayerManager>();
         anim = GetComponentInChildren<Animator>();
+        backStabCollider = GetComponentInChildren<BackStabCollider>();
+        enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
 
         //staminaBar = FindObjectOfType<StaminaBar>();
         //manaBar = FindObjectOfType<ManaBar>();
@@ -29,18 +34,34 @@ public class EnemyStats : CharacterStats
 
     public void TakeDamage(int damage)
     {
-        //if (playerManager.isInvulnerable) return;
         if (isDead) return;
 
         currentHealth -= damage;
 
-        anim.Play("Damage_01");
+        enemyAnimatorManager.PlayTargetAnimation("Damage_01", true);
+
+        if (currentHealth <= 0)
+        {
+            HandleDeath();
+        }
+    }
+
+    public void TakeDamageNoAnimation(int damage)
+    {
+        currentHealth -= damage;
 
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            anim.Play("Dead_01");
             isDead = true;
         }
+    }
+
+    private void HandleDeath()
+    {
+        currentHealth = 0;
+        enemyAnimatorManager.PlayTargetAnimation("Dead_01", true);
+        isDead = true;
+        backStabCollider.DeactivateBackStabCollider();
     }
 }

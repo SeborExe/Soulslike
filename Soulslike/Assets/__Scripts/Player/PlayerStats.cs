@@ -6,17 +6,18 @@ public class PlayerStats : CharacterStats
 {
     [SerializeField] HealthBar healthBar;
     [SerializeField] StaminaBar staminaBar;
+    [SerializeField] ManaBar manaBar;
     PlayerAnimatorManager animationHandler;
     PlayerManager playerManager;
+
+    [Header("Stamina")]
+    [SerializeField] float staminaRegenerationAmount = 25;
+    float staminaRegenerationTimer = 0;
 
     private void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
         animationHandler = GetComponentInChildren<PlayerAnimatorManager>();
-
-        healthBar = FindObjectOfType<HealthBar>();
-        staminaBar = FindObjectOfType<StaminaBar>();
-        //manaBar = FindObjectOfType<ManaBar>();
     }
 
     private void Start()
@@ -28,6 +29,10 @@ public class PlayerStats : CharacterStats
         maxStamina = SetMaxStamina();
         currentStamina = maxStamina;
         staminaBar.SetMaxStamina(maxStamina);
+
+        maxMana = SetMaxMana();
+        currentMana = maxMana;
+        manaBar.SetMaxMana(maxMana);
     }
 
     private int SetMaxLevelHalth()
@@ -42,14 +47,21 @@ public class PlayerStats : CharacterStats
         return maxStamina;
     }
 
+    private float SetMaxMana()
+    {
+        maxMana = manaLevel * 10;
+        return maxMana;
+    }
+
     public void TakeDamage(int damage)
     {
-        //if (playerManager.isInvulnerable) return;
+        if (playerManager.isInvulnerable) return;
+
         if (isDead) return;
 
         currentHealth -= damage;
 
-        healthBar.SetCurrentHealth(currentHealth);
+        //healthBar.SetCurrentHealth(currentHealth);
         animationHandler.PlayTargetAnimation("Damage_01", true);
 
         if (currentHealth <= 0)
@@ -60,10 +72,70 @@ public class PlayerStats : CharacterStats
         }
     }
 
+    public void TakeDamageNoAnimation(int damage)
+    {
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            isDead = true;
+        }
+    }
+
     public void TakeStaminaDamage(int damage)
     {
         currentStamina -= damage;
 
-        staminaBar.SetCurrentStamina(currentStamina);
+        //staminaBar.SetCurrentStamina(currentStamina);
+    }
+
+    public void RegenerateStamina()
+    {
+        if (playerManager.isInteracting)
+            staminaRegenerationTimer = 0;
+
+        else
+        {
+            staminaRegenerationTimer += Time.deltaTime;
+
+            if (currentStamina < maxStamina && staminaRegenerationTimer > 1f)
+            {
+                currentStamina += staminaRegenerationAmount * Time.deltaTime;
+                //staminaBar.SetCurrentStamina(Mathf.RoundToInt(currentStamina));
+            }
+        }
+
+    }
+
+    public void HealPlayer(int amount)
+    {
+        currentHealth += amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        //healthBar.SetCurrentHealth(currentHealth);
+    }
+  
+    public void DeductManaPoints(int mana)
+    {
+        currentMana -= mana;
+
+        if (currentMana < 0)
+        {
+            currentMana = 0;
+        }
+
+        //manaBar.SetCurrentMana(currentMana);
+    }
+
+    public void RestoreMana(int amount)
+    {
+        currentMana += amount;
+        currentMana = Mathf.Clamp(currentMana, 0, maxMana);
+    }
+
+    public void AddSouls(int souls)
+    {
+        soulCount += souls;
     }
 }
