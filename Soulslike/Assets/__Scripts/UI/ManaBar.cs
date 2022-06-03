@@ -6,6 +6,12 @@ using UnityEngine.UI;
 public class ManaBar : MonoBehaviour
 {
     public Slider slider;
+    [SerializeField] PlayerStats playerStats;
+
+    private void Update()
+    {
+        slider.value = Mathf.Lerp(slider.value, playerStats.currentMana, 3f * Time.deltaTime);
+    }
 
     public void SetMaxMana(float maxMana)
     {

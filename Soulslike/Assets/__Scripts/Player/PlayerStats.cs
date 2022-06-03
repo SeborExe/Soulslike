@@ -18,10 +18,6 @@ public class PlayerStats : CharacterStats
     {
         playerManager = GetComponent<PlayerManager>();
         animationHandler = GetComponentInChildren<PlayerAnimatorManager>();
-
-        //healthBar = FindObjectOfType<HealthBar>();
-        //staminaBar = FindObjectOfType<StaminaBar>();
-        //manaBar = FindObjectOfType<ManaBar>();
     }
 
     private void Start()
@@ -65,7 +61,7 @@ public class PlayerStats : CharacterStats
 
         currentHealth -= damage;
 
-        healthBar.SetCurrentHealth(currentHealth);
+        //healthBar.SetCurrentHealth(currentHealth);
         animationHandler.PlayTargetAnimation("Damage_01", true);
 
         if (currentHealth <= 0)
@@ -91,7 +87,7 @@ public class PlayerStats : CharacterStats
     {
         currentStamina -= damage;
 
-        staminaBar.SetCurrentStamina(currentStamina);
+        //staminaBar.SetCurrentStamina(currentStamina);
     }
 
     public void RegenerateStamina()
@@ -106,7 +102,7 @@ public class PlayerStats : CharacterStats
             if (currentStamina < maxStamina && staminaRegenerationTimer > 1f)
             {
                 currentStamina += staminaRegenerationAmount * Time.deltaTime;
-                staminaBar.SetCurrentStamina(Mathf.RoundToInt(currentStamina));
+                //staminaBar.SetCurrentStamina(Mathf.RoundToInt(currentStamina));
             }
         }
 
@@ -119,10 +115,9 @@ public class PlayerStats : CharacterStats
         if (currentHealth > maxHealth)
             currentHealth = maxHealth;
 
-        healthBar.SetCurrentHealth(currentHealth);
+        //healthBar.SetCurrentHealth(currentHealth);
     }
-
-    
+  
     public void DeductManaPoints(int mana)
     {
         currentMana -= mana;
@@ -132,7 +127,7 @@ public class PlayerStats : CharacterStats
             currentMana = 0;
         }
 
-        manaBar.SetCurrentMana(currentMana);
+        //manaBar.SetCurrentMana(currentMana);
     }
     
 }
