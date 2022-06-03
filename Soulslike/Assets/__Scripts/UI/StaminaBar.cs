@@ -10,6 +10,7 @@ public class StaminaBar : MonoBehaviour
 
     private void Update()
     {
+        if (slider.value == playerStats.currentStamina) return;
         slider.value = Mathf.Lerp(slider.value, playerStats.currentStamina, 3f * Time.deltaTime);
     }
 

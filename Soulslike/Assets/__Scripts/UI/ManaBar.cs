@@ -10,6 +10,7 @@ public class ManaBar : MonoBehaviour
 
     private void Update()
     {
+        if (slider.value == playerStats.currentMana) return;
         slider.value = Mathf.Lerp(slider.value, playerStats.currentMana, 3f * Time.deltaTime);
     }
 

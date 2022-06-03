@@ -111,9 +111,7 @@ public class PlayerStats : CharacterStats
     public void HealPlayer(int amount)
     {
         currentHealth += amount;
-
-        if (currentHealth > maxHealth)
-            currentHealth = maxHealth;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
         //healthBar.SetCurrentHealth(currentHealth);
     }
@@ -128,6 +126,12 @@ public class PlayerStats : CharacterStats
         }
 
         //manaBar.SetCurrentMana(currentMana);
+    }
+
+    public void RestoreMana(int amount)
+    {
+        currentMana += amount;
+        currentMana = Mathf.Clamp(currentMana, 0, maxMana);
     }
     
 }

@@ -10,6 +10,7 @@ public class HealthBar : MonoBehaviour
 
     private void Update()
     {
+        if (slider.value == playerStats.currentHealth) return;
         slider.value = Mathf.Lerp(slider.value, playerStats.currentHealth, 3f * Time.deltaTime);
     }
 
