@@ -133,5 +133,9 @@ public class PlayerStats : CharacterStats
         currentMana += amount;
         currentMana = Mathf.Clamp(currentMana, 0, maxMana);
     }
-    
+
+    public void AddSouls(int souls)
+    {
+        soulCount += souls;
+    }
 }

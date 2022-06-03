@@ -20,11 +20,11 @@ public class EnemyAnimatorManager : AnimatorManager
         enemyManager.pendingCriticalDamage = 0;
     }
 
-    /*
+    
     public void AwardSoulsOnDeath()
     {
         PlayerStats playerStats = FindObjectOfType<PlayerStats>();
-        SoulsCount soulsCout = FindObjectOfType<SoulsCount>();
+        SoulCount soulsCout = FindObjectOfType<SoulCount>();
 
         if (playerStats != null)
         {
@@ -36,7 +36,7 @@ public class EnemyAnimatorManager : AnimatorManager
             }
         }
     }
-    */
+    
 
     private void OnAnimatorMove()
     {
