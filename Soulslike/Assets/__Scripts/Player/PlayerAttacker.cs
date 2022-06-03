@@ -142,8 +142,7 @@ public class PlayerAttacker : MonoBehaviour
 
     public void AttemptBackStabOrRipost()
     {
-        if (playerStats.currentStamina <= 0)
-            return;
+        if (playerStats.currentStamina <= 0) return;
 
         RaycastHit hit;
 

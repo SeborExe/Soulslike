@@ -8,6 +8,7 @@ public class PlayerLocomotion : MonoBehaviour
     InputHandler inputHandler;
     PlayerManager playerManager;
     CameraHandler cameraHandler;
+    PlayerStats playerStats;
     public Rigidbody rigidbody;
         
     public Vector3 moveDirection;
@@ -34,6 +35,11 @@ public class PlayerLocomotion : MonoBehaviour
     LayerMask ignoreForGoundCheck;
     public float inAirTimer;
 
+    [Header("Stamina costs")]
+    [SerializeField] int rollStaminaCost = 15;
+    [SerializeField] int backStabStaminaCost = 12;
+    [SerializeField] int sprintStaminaCost = 1;
+
     private void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
@@ -41,6 +47,7 @@ public class PlayerLocomotion : MonoBehaviour
         inputHandler = GetComponent<InputHandler>();
         animationHandler = GetComponentInChildren<PlayerAnimatorManager>();
         cameraHandler = FindObjectOfType<CameraHandler>();
+        playerStats = GetComponent<PlayerStats>();
     }
 
     private void Start()
@@ -60,13 +67,11 @@ public class PlayerLocomotion : MonoBehaviour
 
     public void HandleMovement(float delta)
     {
-        if (playerManager.anim.GetBool("isDead") == true) return;
+        if (playerStats.isDead) return;
 
-        if (inputHandler.rollFlag)
-            return;
+        if (inputHandler.rollFlag) return;
 
-        if (playerManager.isInteracting)
-            return;
+        if (playerManager.isInteracting) return;
 
         moveDirection = cameraObject.forward * inputHandler.vertical;
         moveDirection += cameraObject.right * inputHandler.horizontal;
@@ -80,7 +85,7 @@ public class PlayerLocomotion : MonoBehaviour
             speed = sprintSpeed;
             playerManager.isSprinting = true;
             moveDirection *= speed;
-            //playerStats.TakeStaminaDamage(sprintStaminaCost);
+            playerStats.TakeStaminaDamage(sprintStaminaCost);
         }
         else
         {
@@ -178,8 +183,8 @@ public class PlayerLocomotion : MonoBehaviour
         if (animationHandler.anim.GetBool("isInteracting"))
             return;
 
-        //if (playerStats.currentStamina <= 0)
-        //    return;
+        if (playerStats.currentStamina <= 0)
+            return;
 
         if (inputHandler.rollFlag)
         {
@@ -192,12 +197,12 @@ public class PlayerLocomotion : MonoBehaviour
                 moveDirection.y = 0;
                 Quaternion rollRotation = Quaternion.LookRotation(moveDirection);
                 myTransform.rotation = rollRotation;
-                //playerStats.TakeStaminaDamage(rollStaminaCost);
+                playerStats.TakeStaminaDamage(rollStaminaCost);
             }
             else
             {
                 animationHandler.PlayTargetAnimation("BackStep", true);
-                //playerStats.TakeStaminaDamage(backStabStaminaCost);
+                playerStats.TakeStaminaDamage(backStabStaminaCost);
             }
         }
     }
@@ -297,8 +302,8 @@ public class PlayerLocomotion : MonoBehaviour
     {
         if (playerManager.isInteracting) return;
 
-        //if (playerStats.currentStamina <= 0)
-        //    return;
+        if (playerStats.currentStamina <= 0)
+            return;
 
         if (inputHandler.jump_Input)
         {
