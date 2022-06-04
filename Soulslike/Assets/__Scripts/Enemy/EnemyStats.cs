@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyStats : CharacterStats
 {
     Animator anim;
-    BackStabCollider backStabCollider;
+    CriticalDamageCollider backStabCollider;
     EnemyAnimatorManager enemyAnimatorManager;
 
     public int soulsAwardedOnDeath = 1;
@@ -13,7 +13,7 @@ public class EnemyStats : CharacterStats
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
-        backStabCollider = GetComponentInChildren<BackStabCollider>();
+        backStabCollider = GetComponentInChildren<CriticalDamageCollider>();
         enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
 
         //staminaBar = FindObjectOfType<StaminaBar>();

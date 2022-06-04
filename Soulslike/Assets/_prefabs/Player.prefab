@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 818644965}
   - component: {fileID: 818644966}
   - component: {fileID: 751275926660860837}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BackStabCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -857,11 +857,14 @@ MonoBehaviour:
   walkingSpeed: 2
   movementSpeed: 5
   sprintSpeed: 7
-  rotationSpeed: 10
+  rotationSpeed: 16
   fallingSpeed: 475
   minimumDistanceNeededToBeginFall: 1
   groundDirectionRayDistance: 0.2
   inAirTimer: 0
+  rollStaminaCost: 15
+  backStabStaminaCost: 12
+  sprintStaminaCost: 1
 --- !u!114 &7118373120143941677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -976,6 +979,7 @@ MonoBehaviour:
   manaLevel: 10
   maxMana: 0
   currentMana: 0
+  soulCount: 0
   isDead: 0
   healthBar: {fileID: 0}
   staminaBar: {fileID: 0}

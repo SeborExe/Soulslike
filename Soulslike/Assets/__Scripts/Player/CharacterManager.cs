@@ -8,8 +8,11 @@ public class CharacterManager : MonoBehaviour
     public Transform lockOnTransform;
 
     [Header("Combat colliders")]
-    public BoxCollider backStabBoxCollider;
-    public BackStabCollider backStabCollider;
+    public CriticalDamageCollider backStabCollider;
+    public CriticalDamageCollider ripostCollider;
+
+    [Header("Combat flag")]
+    public bool canBeReposted;
 
     public int pendingCriticalDamage;
 }

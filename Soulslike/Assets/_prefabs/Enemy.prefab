@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 171253535}
   - component: {fileID: 171253536}
   - component: {fileID: 5125545668311457806}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BackStabCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -706,6 +706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
+  canRotate: 0
   enemyManager: {fileID: 1187471530403977247}
   enemyStats: {fileID: 1187471530403977235}
 --- !u!114 &7138343987575046647
@@ -1126,7 +1127,9 @@ MonoBehaviour:
   manaLevel: 10
   maxMana: 0
   currentMana: 0
+  soulCount: 0
   isDead: 0
+  soulsAwardedOnDeath: 1
 --- !u!114 &1187471530403977247
 MonoBehaviour:
   m_ObjectHideFlags: 0

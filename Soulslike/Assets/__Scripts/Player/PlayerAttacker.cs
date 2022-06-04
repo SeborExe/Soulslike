@@ -13,6 +13,7 @@ public class PlayerAttacker : MonoBehaviour
     public string lastAttack;
 
     LayerMask backStabLayer = 1 << 10;
+    LayerMask ripostLayer = 1 << 11;
 
     private void Awake()
     {
@@ -155,7 +156,7 @@ public class PlayerAttacker : MonoBehaviour
             if (enemyCharacterManager != null)
             {
                 //Check for team mate id
-                playerManager.transform.position = enemyCharacterManager.backStabCollider.backStabberStandPoint.position;
+                playerManager.transform.position = enemyCharacterManager.backStabCollider.CriticalDamageStandingPosition.position;
                 Vector3 rotationDirection = playerManager.transform.root.eulerAngles;
                 rotationDirection = hit.transform.position - playerManager.transform.position;
                 rotationDirection.y = 0;
@@ -164,19 +165,47 @@ public class PlayerAttacker : MonoBehaviour
                 Quaternion targetRotation = Quaternion.Slerp(playerManager.transform.rotation, tr, 500 * Time.deltaTime);
                 playerManager.transform.rotation = targetRotation;
 
-                if (rightWeapon != null)
-                {
-                    int criticalDamage = playerInventory.rightWeapon.criticalDamageMultiplier * rightWeapon.currentWeaponDamage;
-                    enemyCharacterManager.pendingCriticalDamage = criticalDamage;
-                }
-                else
-                {
-                    int criticalDamage = playerInventory.rightWeapon.criticalDamageMultiplier * playerInventory.rightWeapon.baseDamage;
-                    enemyCharacterManager.pendingCriticalDamage = criticalDamage;
-                }
+                //if (rightWeapon != null)
+                //{
+                int criticalDamage = playerInventory.rightWeapon.criticalDamageMultiplier * rightWeapon.currentWeaponDamage;
+                enemyCharacterManager.pendingCriticalDamage = criticalDamage;
+                //}
+                //else
+                //{
+                //    int criticalDamage = playerInventory.rightWeapon.criticalDamageMultiplier * playerInventory.rightWeapon.baseDamage;
+                //    enemyCharacterManager.pendingCriticalDamage = criticalDamage;
+                //}
 
                 animationHandler.PlayTargetAnimation("BackStab", true);
                 enemyCharacterManager.GetComponentInChildren<AnimatorManager>().PlayTargetAnimation("BackStabbed", true);
+            }
+        }
+
+        else if (Physics.Raycast(inputHandler.criticalAttackRaycastStartPoint.position, transform.TransformDirection(Vector3.forward),
+            out hit, 0.7f, ripostLayer))
+        {
+            //Check for team mate id
+            CharacterManager enemyCharacterManager = hit.transform.gameObject.GetComponentInParent<CharacterManager>();
+            DamageCollider rightWeapon = weaponSlotManager.rightHandDamageCollider;
+
+            if (enemyCharacterManager != null && enemyCharacterManager.canBeReposted)
+            {
+                playerManager.transform.position = enemyCharacterManager.ripostCollider.CriticalDamageStandingPosition.position;
+
+                Vector3 rotationDirection = playerManager.transform.root.eulerAngles;
+                rotationDirection = hit.transform.position - playerManager.transform.position; //Rotate player toward to enemy
+                rotationDirection.y = 0;
+                rotationDirection.Normalize();
+
+                Quaternion tr = Quaternion.LookRotation(rotationDirection);
+                Quaternion targetRotation = Quaternion.Slerp(playerManager.transform.rotation, tr, 500 * Time.deltaTime);
+                playerManager.transform.rotation = targetRotation;
+
+                int criticalDamage = playerInventory.rightWeapon.criticalDamageMultiplier * rightWeapon.currentWeaponDamage;
+                enemyCharacterManager.pendingCriticalDamage = criticalDamage;
+
+                animationHandler.PlayTargetAnimation("Ripost", true);
+                enemyCharacterManager.GetComponentInChildren<AnimatorManager>().PlayTargetAnimation("Riposted", true);
             }
         }
     }

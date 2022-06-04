@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackStabCollider : MonoBehaviour
+public class CriticalDamageCollider : MonoBehaviour
 {
-    public Transform backStabberStandPoint;
+    public Transform CriticalDamageStandingPosition;
 
     public void DeactivateBackStabCollider()
     {
