@@ -11,6 +11,8 @@ public class CombatStanceState : State
     {
         if (enemyStats.isDead) return null;
 
+        if (enemyManager.isInteracting) return this;
+
         float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
 
         HandleRotateTowardsToTarget(enemyManager);

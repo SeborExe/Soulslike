@@ -15,6 +15,7 @@ public class CharacterManager : MonoBehaviour
     public bool canBeReposted;
     public bool isParrying;
     public bool canBeParried;
+    public bool isRepostableCharacter;
 
     public int pendingCriticalDamage;
 }

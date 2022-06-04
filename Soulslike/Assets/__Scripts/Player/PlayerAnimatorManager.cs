@@ -143,6 +143,16 @@ public class PlayerAnimatorManager : AnimatorManager
         playerManager.canBeReposted = false;
     }
 
+    public void EnableRepost()
+    {
+        playerManager.canBeReposted = true;
+    }
+
+    public void DesableRepost()
+    {
+        playerManager.canBeReposted = false;
+    }
+
     private void OnAnimatorMove()
     {
         if (playerManager.isInteracting == false) return;

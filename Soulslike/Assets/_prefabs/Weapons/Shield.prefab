@@ -75,7 +75,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.81, y: 1.1, z: 0.15282513}
+  m_Size: {x: 1.3, y: 1.5, z: 0.15282513}
   m_Center: {x: 0.000055736662, y: 0.02637124, z: 0.0764125}
 --- !u!114 &6641822467559606035
 MonoBehaviour:
@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3630f735fd2be1147b45ae963392adae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterManager: {fileID: 0}
   currentWeaponDamage: 5
 --- !u!1001 &2604848817870908739
 PrefabInstance:

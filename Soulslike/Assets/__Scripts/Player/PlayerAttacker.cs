@@ -214,7 +214,7 @@ public class PlayerAttacker : MonoBehaviour
             CharacterManager enemyCharacterManager = hit.transform.gameObject.GetComponentInParent<CharacterManager>();
             DamageCollider rightWeapon = weaponSlotManager.rightHandDamageCollider;
 
-            if (enemyCharacterManager != null && enemyCharacterManager.canBeReposted)
+            if (enemyCharacterManager != null && enemyCharacterManager.canBeReposted && enemyCharacterManager.isRepostableCharacter)
             {
                 playerManager.transform.position = enemyCharacterManager.ripostCollider.CriticalDamageStandingPosition.position;
 
