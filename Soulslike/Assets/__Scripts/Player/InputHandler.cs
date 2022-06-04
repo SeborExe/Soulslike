@@ -14,6 +14,7 @@ public class InputHandler : MonoBehaviour
     public bool b_Input;
     public bool rb_Input;
     public bool rt_Input;
+    public bool lt_Input;
     public bool d_pad_up;
     public bool d_pad_down;
     public bool d_pad_left;
@@ -87,6 +88,7 @@ public class InputHandler : MonoBehaviour
             inputActions.PlayerActions.Y.performed += i => y_Input = true;
             inputActions.PlayerActions.RB.performed += i => rb_Input = true;
             inputActions.PlayerActions.RT.performed += i => rt_Input = true;
+            inputActions.PlayerActions.LT.performed += i => lt_Input = true;
             inputActions.PlayerActions.CriticalAttack.performed += i => critical_attack_Input = true;
         }
 
@@ -166,6 +168,18 @@ public class InputHandler : MonoBehaviour
 
             animationHandler.anim.SetBool("isUsingRightHand", true);
             playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
+        }
+
+        if (lt_Input)
+        {
+            if (twoHandFlag)
+            {
+
+            }
+            else
+            {
+                playerAttacker.HandleLTAction();
+            }
         }
     }
 

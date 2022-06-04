@@ -89,6 +89,7 @@ public class PlayerManager : CharacterManager
         inputHandler.jump_Input = false;
         inputHandler.inventory_Input = false;
         inputHandler.critical_attack_Input = false;
+        inputHandler.lt_Input = false;
 
         float delta = Time.deltaTime;
         if (cameraHandler != null)

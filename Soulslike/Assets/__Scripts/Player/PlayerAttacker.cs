@@ -98,6 +98,18 @@ public class PlayerAttacker : MonoBehaviour
         }
     }
 
+    public void HandleLTAction()
+    {
+        if (playerInventory.leftWeapon.isShieldWeapon)
+        {
+            PerformLTWeaponArt(inputHandler.twoHandFlag);
+        }
+        else if (playerInventory.leftWeapon.isMeleeWeapon)
+        {
+
+        }
+    }
+
     #endregion
 
     #region Attack Actions
@@ -138,6 +150,20 @@ public class PlayerAttacker : MonoBehaviour
                     animationHandler.PlayTargetAnimation("Shrug", true);
                 }
             }
+        }
+    }
+
+    private void PerformLTWeaponArt(bool isTwoHanding)
+    {
+        if (playerManager.isInteracting) return;
+
+        if (isTwoHanding)
+        {
+
+        }
+        else
+        {
+            animationHandler.PlayTargetAnimation(playerInventory.leftWeapon.weapon_art, true);
         }
     }
 

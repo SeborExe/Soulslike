@@ -13,6 +13,8 @@ public class CharacterManager : MonoBehaviour
 
     [Header("Combat flag")]
     public bool canBeReposted;
+    public bool isParrying;
+    public bool canBeParried;
 
     public int pendingCriticalDamage;
 }

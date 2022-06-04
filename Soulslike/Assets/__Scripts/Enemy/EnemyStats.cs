@@ -42,6 +42,7 @@ public class EnemyStats : CharacterStats
 
         if (currentHealth <= 0)
         {
+            enemyAnimatorManager.PlayTargetAnimation("Dead_01", true);
             HandleDeath();
         }
     }
@@ -52,16 +53,19 @@ public class EnemyStats : CharacterStats
 
         if (currentHealth <= 0)
         {
-            currentHealth = 0;
-            isDead = true;
+            HandleDeath();
         }
     }
 
     private void HandleDeath()
     {
         currentHealth = 0;
-        enemyAnimatorManager.PlayTargetAnimation("Dead_01", true);
         isDead = true;
-        backStabCollider.DeactivateBackStabCollider();
+        BoxCollider[] criticalColliders = GetComponentsInChildren<BoxCollider>();
+
+        foreach (BoxCollider collider in criticalColliders)
+        {
+            Destroy(collider);
+        }
     }
 }

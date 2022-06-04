@@ -123,6 +123,26 @@ public class PlayerAnimatorManager : AnimatorManager
         anim.SetBool("isInvulnerable", false);
     }
 
+    public void EnableIsParrying()
+    {
+        playerManager.isParrying = true;
+    }
+
+    public void DisableIsParrying()
+    {
+        playerManager.isParrying = false;
+    }
+
+    public void EnableCanBeReposted()
+    {
+        playerManager.canBeReposted = true;
+    }
+
+    public void DisableCanBeReposed()
+    {
+        playerManager.canBeReposted = false;
+    }
+
     private void OnAnimatorMove()
     {
         if (playerManager.isInteracting == false) return;

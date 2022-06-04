@@ -12,7 +12,6 @@ public class EnemyAnimatorManager : AnimatorManager
         anim = GetComponent<Animator>();
         enemyStats = GetComponentInParent<EnemyStats>();
     }
-
     
     public override void TakeCriticalDamageEvent()
     {
@@ -20,7 +19,26 @@ public class EnemyAnimatorManager : AnimatorManager
         enemyManager.pendingCriticalDamage = 0;
     }
 
-    
+    public void EnableIsParrying()
+    {
+        enemyManager.isParrying = true;
+    }
+
+    public void DisableIsParrying()
+    {
+        enemyManager.isParrying = false;
+    }
+
+    public void EnableCanBeReposted()
+    {
+        enemyManager.canBeReposted = true;
+    }
+
+    public void DisableCanBeReposed()
+    {
+        enemyManager.canBeReposted = false;
+    }
+
     public void AwardSoulsOnDeath()
     {
         PlayerStats playerStats = FindObjectOfType<PlayerStats>();
@@ -36,7 +54,6 @@ public class EnemyAnimatorManager : AnimatorManager
             }
         }
     }
-    
 
     private void OnAnimatorMove()
     {
