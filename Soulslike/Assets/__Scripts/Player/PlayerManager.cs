@@ -22,6 +22,7 @@ public class PlayerManager : CharacterManager
     public bool isUsingRightHand;
     public bool isUsingLeftHand;
     public bool isInvulnerable;
+    public bool isBlocking;
 
     [Header("Interactable objects")]
     [SerializeField] float fadeSpeed = 0.2f;
@@ -53,6 +54,7 @@ public class PlayerManager : CharacterManager
         isInvulnerable = anim.GetBool("isInvulnerable");
         anim.SetBool("isInAir", isInAir);
         anim.SetBool("isDead", playerStats.isDead);
+        anim.SetBool("isBlocking", isBlocking);
         playerAnimatorManager.canRotate = anim.GetBool("canRotate");
 
         inputHandler.TickInput(delta);

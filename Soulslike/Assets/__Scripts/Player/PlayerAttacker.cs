@@ -110,6 +110,11 @@ public class PlayerAttacker : MonoBehaviour
         }
     }
 
+    public void HandleLBAction()
+    {
+        PerformLBBlockAction();
+    }
+
     #endregion
 
     #region Attack Actions
@@ -239,6 +244,20 @@ public class PlayerAttacker : MonoBehaviour
     private void SuccessfulyCastSpell()
     {
         playerInventory.currentSpell.SuccessfullyCastSpell(animationHandler, playerStats);
+    }
+
+    #endregion
+
+    #region Defense Actions
+
+    void PerformLBBlockAction()
+    {
+        if (playerManager.isInteracting) return;
+
+        if (playerManager.isBlocking) return;
+
+        animationHandler.PlayTargetAnimation("Block_Start", false, true);
+        playerManager.isBlocking = true;
     }
 
     #endregion

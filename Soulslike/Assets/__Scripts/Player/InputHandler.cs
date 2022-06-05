@@ -15,6 +15,7 @@ public class InputHandler : MonoBehaviour
     public bool rb_Input;
     public bool rt_Input;
     public bool lt_Input;
+    public bool lb_Input;
     public bool d_pad_up;
     public bool d_pad_down;
     public bool d_pad_left;
@@ -89,6 +90,8 @@ public class InputHandler : MonoBehaviour
             inputActions.PlayerActions.RB.performed += i => rb_Input = true;
             inputActions.PlayerActions.RT.performed += i => rt_Input = true;
             inputActions.PlayerActions.LT.performed += i => lt_Input = true;
+            inputActions.PlayerActions.LB.performed += i => lb_Input = true;
+            inputActions.PlayerActions.LB.canceled += i => lb_Input = false;
             inputActions.PlayerActions.CriticalAttack.performed += i => critical_attack_Input = true;
         }
 
@@ -104,7 +107,7 @@ public class InputHandler : MonoBehaviour
     {
         HandleMoveInput(delta);
         HandleRollInput(delta);
-        HandleAttackInput(delta);
+        HandleCombatInput(delta);
         HandleQuickSlotInput();
         HandleInventoryWindow();
         HandleLockOnInput();
@@ -151,7 +154,7 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    private void HandleAttackInput(float delta)
+    private void HandleCombatInput(float delta)
     {
         if (rb_Input)
         {
@@ -168,6 +171,15 @@ public class InputHandler : MonoBehaviour
 
             animationHandler.anim.SetBool("isUsingRightHand", true);
             playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
+        }
+
+        if (lb_Input)
+        {
+            playerAttacker.HandleLBAction();
+        }
+        else
+        {
+            playerManager.isBlocking = false;
         }
 
         if (lt_Input)
