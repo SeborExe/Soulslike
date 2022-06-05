@@ -26,6 +26,13 @@ public class EnemyManager : CharacterManager
     public float minimumDetectionAngle = -50f;
     public float maximumDetectionAngle = 50f;
 
+    [Header("AI combat setting")]
+    public bool allAIToPerformCombos = true;
+    public float comboLikelyHood = 50;
+
+    [Header("Combat flags")]
+    public bool canDoCombo;
+
     public float currentRecoveryTime = 0;
 
     private void Awake()
@@ -34,7 +41,6 @@ public class EnemyManager : CharacterManager
         enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
         enemyStats = GetComponent<EnemyStats>();
         enemyRigidbody = GetComponent<Rigidbody>();
-        backStabCollider = GetComponentInChildren<BackStabCollider>();
         navMeshAgent = GetComponentInChildren<NavMeshAgent>();
         navMeshAgent.enabled = false;
     }
@@ -47,13 +53,17 @@ public class EnemyManager : CharacterManager
     private void Update()
     {
         HandleRecoveryTimer();
+        HandleStateMachine();
+
         isInteracting = enemyAnimatorManager.anim.GetBool("isInteracting");
+        canDoCombo = enemyAnimatorManager.anim.GetBool("canDoCombo");
         enemyAnimatorManager.anim.SetBool("isDead", enemyStats.isDead);
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
-        HandleStateMachine();
+        navMeshAgent.transform.localPosition = Vector3.zero;
+        navMeshAgent.transform.localRotation = Quaternion.identity;
     }
 
     void HandleStateMachine()

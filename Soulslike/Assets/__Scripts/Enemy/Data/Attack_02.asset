@@ -15,6 +15,8 @@ MonoBehaviour:
   actionAnimation: OH_Heavy_attack_01
   attackScore: 3
   recoveryTime: 2
+  canCombo: 0
+  comboAction: {fileID: 11400000, guid: 79136e823bfbdc743b0d62b13dc3cd54, type: 2}
   maximumAttackAngle: 35
   minimumAttackAngle: -35
   minimumDistanceNeededToAttack: 0

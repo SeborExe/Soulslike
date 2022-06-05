@@ -16,6 +16,8 @@ public class PursueTargetState : State
             return this;
         }
 
+        if (enemyManager.isInteracting) return this;
+
         Vector3 targetDirection = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
         float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
         float viewableAngle = Vector3.Angle(targetDirection, enemyManager.transform.forward);
@@ -26,8 +28,6 @@ public class PursueTargetState : State
         }
 
         HandleRotateTowardsToTarget(enemyManager);
-        enemyManager.navMeshAgent.transform.localPosition = Vector3.zero;
-        enemyManager.navMeshAgent.transform.localRotation = Quaternion.identity;
 
         if (distanceFromTarget <= enemyManager.maximumAttackRange)
         {

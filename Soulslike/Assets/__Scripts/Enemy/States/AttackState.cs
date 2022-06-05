@@ -9,9 +9,21 @@ public class AttackState : State
     public EnemyAttackAction[] enemyAttacks;
     public EnemyAttackAction currentAttack;
 
+    bool willDoComboOnNextAttack = false;
+
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
     {
         if (enemyStats.isDead) return null;
+
+        if (enemyManager.isInteracting && !enemyManager.canDoCombo) return this;
+        else if (enemyManager.isInteracting && enemyManager.canDoCombo)
+        {
+            if (willDoComboOnNextAttack)
+            {
+                willDoComboOnNextAttack = false;
+                enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
+            }
+        }
 
         Vector3 targetDirection = enemyManager.currentTarget.transform.position - transform.position;
         float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
@@ -38,9 +50,19 @@ public class AttackState : State
                         enemyAnimatorManager.anim.SetFloat("Horizontal", 0, 0.1f, Time.deltaTime);
                         enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
                         enemyManager.isPerformingAction = true;
-                        enemyManager.currentRecoveryTime = currentAttack.recoveryTime;
-                        currentAttack = null;
-                        return combatStanceState;
+                        RollForComboChance(enemyManager);
+
+                        if (currentAttack.canCombo && willDoComboOnNextAttack)
+                        {
+                            currentAttack = currentAttack.comboAction;
+                            return this;
+                        }
+                        else
+                        {
+                            enemyManager.currentRecoveryTime = currentAttack.recoveryTime;
+                            currentAttack = null;
+                            return combatStanceState;
+                        }
                     }
                 }
             }
@@ -125,6 +147,16 @@ public class AttackState : State
             enemyManager.navMeshAgent.SetDestination(enemyManager.currentTarget.transform.position);
             enemyManager.enemyRigidbody.velocity = targetVelocity;
             enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, enemyManager.navMeshAgent.transform.rotation, enemyManager.rotationSpeed / Time.deltaTime);
+        }
+    }
+
+    void RollForComboChance(EnemyManager enemyManager)
+    {
+        float comboChance = Random.Range(0, 100);
+
+        if (enemyManager.allAIToPerformCombos && comboChance <= enemyManager.comboLikelyHood)
+        {
+            willDoComboOnNextAttack = true;
         }
     }
 }

@@ -30,8 +30,15 @@ public class WeaponItem : Item
     public bool isFaithCaster;
     public bool isPyroCaster;
     public bool isMeleeWeapon;
+    public bool isShieldWeapon;
+
+    [Header("Weapon Art")]
+    public string weapon_art;
 
     [Header("Damage")]
     public int baseDamage = 25;
     public int criticalDamageMultiplier = 4;
+
+    [Header("Absorption")]
+    public float physicalDamageAbsorption;
 }

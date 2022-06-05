@@ -5,25 +5,26 @@ using UnityEngine;
 public class EnemyStats : CharacterStats
 {
     Animator anim;
-    BackStabCollider backStabCollider;
+    CriticalDamageCollider backStabCollider;
     EnemyAnimatorManager enemyAnimatorManager;
+    EnemyManager enemyManager;
+    [SerializeField] UIEnemyHealthBar enemyHealthBar;
 
     public int soulsAwardedOnDeath = 1;
 
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
-        backStabCollider = GetComponentInChildren<BackStabCollider>();
+        backStabCollider = GetComponentInChildren<CriticalDamageCollider>();
         enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
-
-        //staminaBar = FindObjectOfType<StaminaBar>();
-        //manaBar = FindObjectOfType<ManaBar>();
+        enemyManager = GetComponentInParent<EnemyManager>();
     }
 
     private void Start()
     {
         maxHealth = SetMaxLevelHalth();
         currentHealth = maxHealth;
+        enemyHealthBar.SetMaxHealth(maxHealth);
     }
 
     private int SetMaxLevelHalth()
@@ -32,16 +33,24 @@ public class EnemyStats : CharacterStats
         return maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, string damageAnimation = "Damage_01")
     {
         if (isDead) return;
 
         currentHealth -= damage;
+        enemyHealthBar.SetHealth(currentHealth);
 
-        enemyAnimatorManager.PlayTargetAnimation("Damage_01", true);
+        if (enemyManager.currentTarget == null)
+        {
+            enemyManager.maximumDetectionAngle = 360f;
+            enemyManager.minimumDetectionAngle = -360f;
+        }   
+
+        enemyAnimatorManager.PlayTargetAnimation(damageAnimation, true);
 
         if (currentHealth <= 0)
         {
+            enemyAnimatorManager.PlayTargetAnimation("Dead_01", true);
             HandleDeath();
         }
     }
@@ -49,19 +58,23 @@ public class EnemyStats : CharacterStats
     public void TakeDamageNoAnimation(int damage)
     {
         currentHealth -= damage;
+        enemyHealthBar.SetHealth(currentHealth);
 
         if (currentHealth <= 0)
         {
-            currentHealth = 0;
-            isDead = true;
+            HandleDeath();
         }
     }
 
     private void HandleDeath()
     {
         currentHealth = 0;
-        enemyAnimatorManager.PlayTargetAnimation("Dead_01", true);
         isDead = true;
-        backStabCollider.DeactivateBackStabCollider();
+        BoxCollider[] criticalColliders = GetComponentsInChildren<BoxCollider>();
+
+        foreach (BoxCollider collider in criticalColliders)
+        {
+            Destroy(collider);
+        }
     }
 }

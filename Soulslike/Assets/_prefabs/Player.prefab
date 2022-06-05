@@ -32,6 +32,65 @@ Transform:
   m_Father: {fileID: 6959367209406945167}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &212603064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 212603065}
+  - component: {fileID: 212603067}
+  - component: {fileID: 212603066}
+  m_Layer: 11
+  m_Name: RiposteCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &212603065
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212603064}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.4, z: 0.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1170717207}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &212603067
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212603064}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.60267097, y: 0.719133, z: 0.03407288}
+  m_Center: {x: -0.0046393573, y: -0.1094051, z: 0.024518969}
+--- !u!114 &212603066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212603064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a81f308ae1a9d34e895484d851bbf4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CriticalDamageStandingPosition: {fileID: 1097842147}
 --- !u!1 &336712233
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,8 +195,8 @@ GameObject:
   m_Component:
   - component: {fileID: 818644965}
   - component: {fileID: 818644966}
-  - component: {fileID: 751275926660860837}
-  m_Layer: 0
+  - component: {fileID: 209171349}
+  m_Layer: 10
   m_Name: BackStabCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +231,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.60267097, y: 0.719133, z: 0.03407288}
   m_Center: {x: -0.0046393573, y: -0.1094051, z: 0.024518969}
---- !u!114 &751275926660860837
+--- !u!114 &209171349
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,10 +240,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 818644964}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f366e415aaeef74fb3d0404133f1732, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a81f308ae1a9d34e895484d851bbf4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backStabberStandPoint: {fileID: 8952646086331105049}
+  CriticalDamageStandingPosition: {fileID: 8952646086331105049}
 --- !u!1 &860598164
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,6 +273,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6959367209406945167}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1097842146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1097842147}
+  m_Layer: 9
+  m_Name: RipostStartPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1097842147
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097842146}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9005077586241104643}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1170717206
@@ -246,6 +336,7 @@ Transform:
   m_Children:
   - {fileID: 336712234}
   - {fileID: 818644965}
+  - {fileID: 212603065}
   m_Father: {fileID: 6959367209406945167}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -857,11 +948,14 @@ MonoBehaviour:
   walkingSpeed: 2
   movementSpeed: 5
   sprintSpeed: 7
-  rotationSpeed: 10
+  rotationSpeed: 16
   fallingSpeed: 475
   minimumDistanceNeededToBeginFall: 1
   groundDirectionRayDistance: 0.2
   inAirTimer: 0
+  rollStaminaCost: 15
+  backStabStaminaCost: 12
+  sprintStaminaCost: 1
 --- !u!114 &7118373120143941677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -882,6 +976,7 @@ MonoBehaviour:
   b_Input: 0
   rb_Input: 0
   rt_Input: 0
+  lt_Input: 0
   d_pad_up: 0
   d_pad_down: 0
   d_pad_left: 0
@@ -915,8 +1010,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lockOnTransform: {fileID: 860598165}
-  backStabBoxCollider: {fileID: 0}
-  backStabCollider: {fileID: 0}
+  backStabCollider: {fileID: 209171349}
+  ripostCollider: {fileID: 212603066}
+  canBeReposted: 0
+  isParrying: 0
+  canBeParried: 0
   pendingCriticalDamage: 0
   anim: {fileID: 0}
   isInteracting: 0
@@ -943,14 +1041,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSpell: {fileID: 11400000, guid: acf85b8f847944d469650f808d57a31d, type: 2}
-  rightWeapon: {fileID: 11400000, guid: 3f65c062ef7bd394aa6d75c19c552797, type: 2}
-  leftWeapon: {fileID: 11400000, guid: bd9a043903685c34bb5e4dc88739c85b, type: 2}
+  rightWeapon: {fileID: 11400000, guid: bd9a043903685c34bb5e4dc88739c85b, type: 2}
+  leftWeapon: {fileID: 11400000, guid: 83a5d874717b59f4e8544fd5d4572a5c, type: 2}
   unarmedWeapon: {fileID: 11400000, guid: 1b64a0e46be3bad4cb7c881b8b988baf, type: 2}
   weaponsInRightHandSlots:
+  - {fileID: 11400000, guid: bd9a043903685c34bb5e4dc88739c85b, type: 2}
   - {fileID: 11400000, guid: 3f65c062ef7bd394aa6d75c19c552797, type: 2}
-  - {fileID: 11400000, guid: bd9a043903685c34bb5e4dc88739c85b, type: 2}
   weaponsInLeftHandSlots:
-  - {fileID: 11400000, guid: bd9a043903685c34bb5e4dc88739c85b, type: 2}
+  - {fileID: 11400000, guid: 83a5d874717b59f4e8544fd5d4572a5c, type: 2}
   - {fileID: 11400000, guid: bd9a043903685c34bb5e4dc88739c85b, type: 2}
   currentRightWeaponIndex: 0
   currentLeftWeaponIndex: 0
@@ -976,6 +1074,7 @@ MonoBehaviour:
   manaLevel: 10
   maxMana: 0
   currentMana: 0
+  soulCount: 0
   isDead: 0
   healthBar: {fileID: 0}
   staminaBar: {fileID: 0}
@@ -2929,6 +3028,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8952646086331105049}
+  - {fileID: 1097842147}
   m_Father: {fileID: 6959367209406945167}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

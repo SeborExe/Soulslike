@@ -33,7 +33,7 @@ public class PlayerManager : CharacterManager
     private void Awake()
     {
         cameraHandler = FindObjectOfType<CameraHandler>();
-        backStabCollider = GetComponentInChildren<BackStabCollider>();
+        backStabCollider = GetComponentInChildren<CriticalDamageCollider>();
         inputHandler = GetComponent<InputHandler>();
         anim = GetComponentInChildren<Animator>();
         playerStats = GetComponent<PlayerStats>();
@@ -53,6 +53,7 @@ public class PlayerManager : CharacterManager
         isInvulnerable = anim.GetBool("isInvulnerable");
         anim.SetBool("isInAir", isInAir);
         anim.SetBool("isDead", playerStats.isDead);
+        anim.SetBool("isBlocking", isBlocking);
         playerAnimatorManager.canRotate = anim.GetBool("canRotate");
 
         inputHandler.TickInput(delta);
@@ -89,6 +90,7 @@ public class PlayerManager : CharacterManager
         inputHandler.jump_Input = false;
         inputHandler.inventory_Input = false;
         inputHandler.critical_attack_Input = false;
+        inputHandler.lt_Input = false;
 
         float delta = Time.deltaTime;
         if (cameraHandler != null)
