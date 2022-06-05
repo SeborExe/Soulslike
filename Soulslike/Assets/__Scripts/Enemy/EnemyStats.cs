@@ -7,6 +7,7 @@ public class EnemyStats : CharacterStats
     Animator anim;
     CriticalDamageCollider backStabCollider;
     EnemyAnimatorManager enemyAnimatorManager;
+    EnemyManager enemyManager;
 
     public int soulsAwardedOnDeath = 1;
 
@@ -15,6 +16,7 @@ public class EnemyStats : CharacterStats
         anim = GetComponentInChildren<Animator>();
         backStabCollider = GetComponentInChildren<CriticalDamageCollider>();
         enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
+        enemyManager = GetComponentInParent<EnemyManager>();
 
         //staminaBar = FindObjectOfType<StaminaBar>();
         //manaBar = FindObjectOfType<ManaBar>();
@@ -37,6 +39,12 @@ public class EnemyStats : CharacterStats
         if (isDead) return;
 
         currentHealth -= damage;
+
+        if (enemyManager.currentTarget == null)
+        {
+            enemyManager.maximumDetectionAngle = 360f;
+            enemyManager.minimumDetectionAngle = -360f;
+        }   
 
         enemyAnimatorManager.PlayTargetAnimation(damageAnimation, true);
 

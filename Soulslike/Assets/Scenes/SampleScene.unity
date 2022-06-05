@@ -6763,6 +6763,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1187471530403977247, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
+      propertyPath: canDoCombo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1187471530403977247, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
       propertyPath: canBeReposted
       value: 0
       objectReference: {fileID: 0}

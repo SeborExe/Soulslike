@@ -26,6 +26,10 @@ public class EnemyManager : CharacterManager
     public float minimumDetectionAngle = -50f;
     public float maximumDetectionAngle = 50f;
 
+    [Header("AI combat setting")]
+    public bool allAIToPerformCombos = true;
+    public float comboLikelyHood = 50;
+
     [Header("Combat flags")]
     public bool canDoCombo;
 
