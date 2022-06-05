@@ -8,6 +8,7 @@ public class EnemyStats : CharacterStats
     CriticalDamageCollider backStabCollider;
     EnemyAnimatorManager enemyAnimatorManager;
     EnemyManager enemyManager;
+    [SerializeField] UIEnemyHealthBar enemyHealthBar;
 
     public int soulsAwardedOnDeath = 1;
 
@@ -17,15 +18,13 @@ public class EnemyStats : CharacterStats
         backStabCollider = GetComponentInChildren<CriticalDamageCollider>();
         enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
         enemyManager = GetComponentInParent<EnemyManager>();
-
-        //staminaBar = FindObjectOfType<StaminaBar>();
-        //manaBar = FindObjectOfType<ManaBar>();
     }
 
     private void Start()
     {
         maxHealth = SetMaxLevelHalth();
         currentHealth = maxHealth;
+        enemyHealthBar.SetMaxHealth(maxHealth);
     }
 
     private int SetMaxLevelHalth()
@@ -39,6 +38,7 @@ public class EnemyStats : CharacterStats
         if (isDead) return;
 
         currentHealth -= damage;
+        enemyHealthBar.SetHealth(currentHealth);
 
         if (enemyManager.currentTarget == null)
         {
@@ -58,6 +58,7 @@ public class EnemyStats : CharacterStats
     public void TakeDamageNoAnimation(int damage)
     {
         currentHealth -= damage;
+        enemyHealthBar.SetHealth(currentHealth);
 
         if (currentHealth <= 0)
         {
