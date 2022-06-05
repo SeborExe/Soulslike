@@ -47,6 +47,7 @@ public class InputHandler : MonoBehaviour
     CameraHandler cameraHandler;
     WeaponSlotManager weaponSlotManager;
     PlayerStats playerStats;
+    BlockingCollider blockingCollider;
 
     Vector2 movementInput;
     Vector2 cameraInput;
@@ -63,6 +64,7 @@ public class InputHandler : MonoBehaviour
         animationHandler = GetComponentInChildren<PlayerAnimatorManager>();
         cameraHandler = FindObjectOfType<CameraHandler>();
         playerStats = GetComponent<PlayerStats>();
+        blockingCollider = GetComponentInChildren<BlockingCollider>();
     }
 
     public void OnEnable()
@@ -180,6 +182,11 @@ public class InputHandler : MonoBehaviour
         else
         {
             playerManager.isBlocking = false;
+
+            if (blockingCollider.blockingCollider.enabled)
+            {
+                blockingCollider.DisableBlockingCollider();
+            }
         }
 
         if (lt_Input)

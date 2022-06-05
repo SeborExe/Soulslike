@@ -38,4 +38,7 @@ public class WeaponItem : Item
     [Header("Damage")]
     public int baseDamage = 25;
     public int criticalDamageMultiplier = 4;
+
+    [Header("Absorption")]
+    public float physicalDamageAbsorption;
 }

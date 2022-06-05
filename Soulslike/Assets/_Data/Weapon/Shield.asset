@@ -35,3 +35,4 @@ MonoBehaviour:
   weapon_art: Parry
   baseDamage: 25
   criticalDamageMultiplier: 4
+  physicalDamageAbsorption: 85

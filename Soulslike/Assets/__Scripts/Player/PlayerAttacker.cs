@@ -10,6 +10,8 @@ public class PlayerAttacker : MonoBehaviour
     PlayerInventory playerInventory;
     InputHandler inputHandler;
     WeaponSlotManager weaponSlotManager;
+    PlayerEquipmentManager playerEquipmentManager;
+
     public string lastAttack;
 
     LayerMask backStabLayer = 1 << 10;
@@ -23,6 +25,7 @@ public class PlayerAttacker : MonoBehaviour
         playerInventory = GetComponentInParent<PlayerInventory>();
         weaponSlotManager = GetComponent<WeaponSlotManager>();
         inputHandler = GetComponentInParent<InputHandler>();
+        playerEquipmentManager = GetComponent<PlayerEquipmentManager>();
     }
 
     public void HandleWeaponCombo(WeaponItem weapon)
@@ -257,6 +260,7 @@ public class PlayerAttacker : MonoBehaviour
         if (playerManager.isBlocking) return;
 
         animationHandler.PlayTargetAnimation("Block_Start", false, true);
+        playerEquipmentManager.OpenBlockingCollider();
         playerManager.isBlocking = true;
     }
 
