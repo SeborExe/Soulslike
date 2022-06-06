@@ -28,6 +28,7 @@ public class InputHandler : MonoBehaviour
     public bool right_Stick_Left_Input;
     public bool y_Input;
     public bool critical_attack_Input;
+    public bool x_Input;
 
     [Header("Flags")]
     public float rollInputTimer;
@@ -48,6 +49,7 @@ public class InputHandler : MonoBehaviour
     WeaponSlotManager weaponSlotManager;
     PlayerStats playerStats;
     BlockingCollider blockingCollider;
+    PlayerEffectsManager playerEffectsManager;
 
     Vector2 movementInput;
     Vector2 cameraInput;
@@ -65,6 +67,7 @@ public class InputHandler : MonoBehaviour
         cameraHandler = FindObjectOfType<CameraHandler>();
         playerStats = GetComponent<PlayerStats>();
         blockingCollider = GetComponentInChildren<BlockingCollider>();
+        playerEffectsManager = GetComponentInChildren<PlayerEffectsManager>();
     }
 
     public void OnEnable()
@@ -95,6 +98,7 @@ public class InputHandler : MonoBehaviour
             inputActions.PlayerActions.LB.performed += i => lb_Input = true;
             inputActions.PlayerActions.LB.canceled += i => lb_Input = false;
             inputActions.PlayerActions.CriticalAttack.performed += i => critical_attack_Input = true;
+            inputActions.PlayerActions.X.performed += i => x_Input = true;
         }
 
         inputActions.Enable();
@@ -115,6 +119,7 @@ public class InputHandler : MonoBehaviour
         HandleLockOnInput();
         HandleTwoHandInput();
         HandleCriticalAttackInput();
+        HandleUseConsumableInput();
     }
 
     public void HandleMoveInput(float delta)
@@ -311,4 +316,12 @@ public class InputHandler : MonoBehaviour
         }
     }
 
+    private void HandleUseConsumableInput()
+    {
+        if (x_Input)
+        {
+            x_Input = false;
+            playerInventory.currentConsumableItem.AttemptToConsumableItem(animationHandler, weaponSlotManager, playerEffectsManager);
+        }
+    }
 }
