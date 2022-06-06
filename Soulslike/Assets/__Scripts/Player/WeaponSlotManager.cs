@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class WeaponSlotManager : MonoBehaviour
 {
-    WeaponHolderSlot leftHandSlot;
-    WeaponHolderSlot rightHandSlot;
+    public WeaponHolderSlot leftHandSlot;
+    public WeaponHolderSlot rightHandSlot;
+
     PlayerManager playerManager;
     PlayerStats playerStats;
     InputHandler inputHandler;
@@ -44,6 +45,12 @@ public class WeaponSlotManager : MonoBehaviour
                 backSlot = weaponSlot;
             }
         }
+    }
+
+    public void LoadBothWeaponsOnSlot()
+    {
+        LoadWeaponOnSlot(playerInventory.rightWeapon, false);
+        LoadWeaponOnSlot(playerInventory.leftWeapon, true);
     }
 
     public void LoadWeaponOnSlot(WeaponItem weaponItem, bool isLeft)

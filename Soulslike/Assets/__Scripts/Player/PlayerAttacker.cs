@@ -11,6 +11,7 @@ public class PlayerAttacker : MonoBehaviour
     InputHandler inputHandler;
     WeaponSlotManager weaponSlotManager;
     PlayerEquipmentManager playerEquipmentManager;
+    CameraHandler cameraHandler;
 
     public string lastAttack;
 
@@ -26,6 +27,7 @@ public class PlayerAttacker : MonoBehaviour
         weaponSlotManager = GetComponent<WeaponSlotManager>();
         inputHandler = GetComponentInParent<InputHandler>();
         playerEquipmentManager = GetComponent<PlayerEquipmentManager>();
+        cameraHandler = FindObjectOfType<CameraHandler>();
     }
 
     public void HandleWeaponCombo(WeaponItem weapon)
@@ -151,7 +153,20 @@ public class PlayerAttacker : MonoBehaviour
             if (playerInventory.currentSpell != null && playerInventory.currentSpell.isFaithSpell)
             {
                 if (playerStats.currentMana >= playerInventory.currentSpell.manaCost)
-                    playerInventory.currentSpell.AttemptToCastSpell(animationHandler, playerStats);
+                    playerInventory.currentSpell.AttemptToCastSpell(animationHandler, playerStats, weaponSlotManager);
+
+                else
+                {
+                    animationHandler.PlayTargetAnimation("Shrug", true);
+                }
+            }
+        }
+        else if (weapon.isPyroCaster)
+        {
+            if (playerInventory.currentSpell != null && playerInventory.currentSpell.isPyroSpell)
+            {
+                if (playerStats.currentMana >= playerInventory.currentSpell.manaCost)
+                    playerInventory.currentSpell.AttemptToCastSpell(animationHandler, playerStats, weaponSlotManager);
 
                 else
                 {
@@ -246,7 +261,8 @@ public class PlayerAttacker : MonoBehaviour
 
     private void SuccessfulyCastSpell()
     {
-        playerInventory.currentSpell.SuccessfullyCastSpell(animationHandler, playerStats);
+        playerInventory.currentSpell.SuccessfullyCastSpell(animationHandler, playerStats, cameraHandler, weaponSlotManager);
+        animationHandler.anim.SetBool("isFiringSpell", true);
     }
 
     #endregion

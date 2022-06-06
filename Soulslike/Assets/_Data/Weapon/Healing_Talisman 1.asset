@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6780ad0464ca3f40b75a85788e00bc8, type: 3}
+  m_Name: Healing_Talisman 1
+  m_EditorClassIdentifier: 
+  itemIcon: {fileID: 21300000, guid: e6a79183ad8277e43acc964847c9efdc, type: 3}
+  itemName: Talisman
+  modelPrefab: {fileID: 2389171109191739649, guid: 1438149cf10e95949833c11aa6d2c2ca, type: 3}
+  isUnarmed: 0
+  Right_Hand_Idle: Right_Arm_Idle
+  Left_Hand_Idle: Left_Arm_Idle
+  Two_Hand_Idle: Two_Hand_Idle
+  OH_Light_attack_01: OH_Light_attack_01
+  OH_Light_attack_02: OH_Light_attack_02
+  OH_Heavy_attack_01: OH_Heavy_attack_01
+  TH_Light_Attack_01: TH_Sword_Attack_01
+  TH_Light_Attack_02: TH_Sword_Attack_02
+  baseStamina: 0
+  lightAttackMultiplier: 0
+  heavyAttackMultiplier: 0
+  isSpellCaster: 0
+  isFaithCaster: 1
+  isPyroCaster: 0
+  isMeleeWeapon: 0
+  baseDamage: 1
+  criticalDamageMultiplier: 2
