@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class WeaponSlotManager : MonoBehaviour
 {
-    WeaponHolderSlot leftHandSlot;
-    WeaponHolderSlot rightHandSlot;
+    public WeaponHolderSlot leftHandSlot;
+    public WeaponHolderSlot rightHandSlot;
+
     PlayerManager playerManager;
     PlayerStats playerStats;
     InputHandler inputHandler;

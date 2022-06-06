@@ -35,11 +35,6 @@ AnimatorState:
   m_Transitions: []
   m_StateMachineBehaviours:
   - {fileID: 5640751126174764150}
-  - {fileID: -3641008934838617125}
-  - {fileID: 2501988784551841718}
-  - {fileID: -8819825544557336640}
-  - {fileID: -393509734156414524}
-  - {fileID: -1648307388721569680}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -81,20 +76,6 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!114 &-8819825544557336640
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 938d6d414e0ee0248b0812fee5b79fa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetBool: isUsingLeftHand
-  status: 0
 --- !u!1102 &-8032129724597945739
 AnimatorState:
   serializedVersion: 6
@@ -418,20 +399,6 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!114 &-3641008934838617125
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 938d6d414e0ee0248b0812fee5b79fa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetBool: canDoCombo
-  status: 0
 --- !u!1101 &-3446069971389593505
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -598,20 +565,6 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!114 &-1648307388721569680
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 938d6d414e0ee0248b0812fee5b79fa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetBool: canRotate
-  status: 1
 --- !u!1102 &-1562356296035102156
 AnimatorState:
   serializedVersion: 6
@@ -825,20 +778,6 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!114 &-393509734156414524
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 938d6d414e0ee0248b0812fee5b79fa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetBool: isInvulnerable
-  status: 0
 --- !u!1101 &-247296985895706440
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -896,6 +835,12 @@ AnimatorController:
   m_Name: Humanoid AC
   serializedVersion: 5
   m_AnimatorParameters:
+  - m_Name: isFiringSpell
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   - m_Name: isBlocking
     m_Type: 4
     m_DefaultFloat: 0
@@ -1455,20 +1400,6 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!114 &2501988784551841718
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 938d6d414e0ee0248b0812fee5b79fa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetBool: isUsingRightHand
-  status: 0
 --- !u!1102 &2651211444782594977
 AnimatorState:
   serializedVersion: 6
@@ -1930,8 +1861,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 938d6d414e0ee0248b0812fee5b79fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetBool: isInteracting
-  status: 0
+  isInteractingBool: isInteracting
+  isInteractingStatus: 0
+  isFiringSpellBool: isFiringSpell
+  isFiringSpellStatus: 0
+  canRotateBool: canRotate
+  canRotateStatus: 1
 --- !u!1102 &5674642853726295792
 AnimatorState:
   serializedVersion: 6

@@ -51,6 +51,7 @@ public class PlayerManager : CharacterManager
         isUsingRightHand = anim.GetBool("isUsingRightHand");
         isUsingLeftHand = anim.GetBool("isUsingLeftHand");
         isInvulnerable = anim.GetBool("isInvulnerable");
+        isFiringSpell = anim.GetBool("isFiringSpell");
         anim.SetBool("isInAir", isInAir);
         anim.SetBool("isDead", playerStats.isDead);
         anim.SetBool("isBlocking", isBlocking);

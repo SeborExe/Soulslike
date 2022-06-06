@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpellItem : Item
 {
-    public GameObject spallWarmUpFX;
+    public GameObject spellWarmUpFX;
     public GameObject spellCastFX;
     public string spellAnimation;
 
@@ -19,7 +19,7 @@ public class SpellItem : Item
     [Header("Spell Discription")]
     [TextArea] public string spellDiscription;
 
-    public virtual void AttemptToCastSpell(PlayerAnimatorManager animationHandler, PlayerStats playerStats)
+    public virtual void AttemptToCastSpell(PlayerAnimatorManager animationHandler, PlayerStats playerStats, WeaponSlotManager weaponSlot)
     {
         Debug.Log("You attempt to cast a spell");
     }

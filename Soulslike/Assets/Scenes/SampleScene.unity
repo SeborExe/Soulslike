@@ -6898,6 +6898,18 @@ PrefabInstance:
       propertyPath: interactableUIGameObject
       value: 
       objectReference: {fileID: 540528552}
+    - target: {fileID: 7118373120143941681, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+      propertyPath: currentSpell
+      value: 
+      objectReference: {fileID: 11400000, guid: ed50ad058937d544e9f5efca40b3a16f, type: 2}
+    - target: {fileID: 7118373120143941681, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+      propertyPath: weaponsInRightHandSlots.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3f65c062ef7bd394aa6d75c19c552797, type: 2}
+    - target: {fileID: 7118373120143941681, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+      propertyPath: weaponsInRightHandSlots.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: bd9a043903685c34bb5e4dc88739c85b, type: 2}
     - target: {fileID: 7118373120143941687, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
       propertyPath: manaBar
       value: 
