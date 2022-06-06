@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 199911259714252772}
   - component: {fileID: -6589977532712281561}
   - component: {fileID: 3871073205435906144}
+  - component: {fileID: -3200956262245539667}
   m_Layer: 0
-  m_Name: FireBall
+  m_Name: FireBall_Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4765,3 +4766,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-3200956262245539667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1884747205189362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ca512db8284a7b48b7c4b67570d5c65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterManager: {fileID: 0}
+  enabledDamageColliderOnStartUp: 1
+  currentWeaponDamage: 50
+  impactParticles: {fileID: 1685874166552172, guid: ad2721ee01d1f5f4c81b9b0b4c3fcd31, type: 3}
+  projectileParticles: {fileID: 1884747205189362, guid: a40adbe4640eafa488ed937af887f47e, type: 3}
+  muzzleParticles: {fileID: 0}

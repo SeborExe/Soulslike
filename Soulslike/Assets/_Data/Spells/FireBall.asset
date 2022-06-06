@@ -17,10 +17,13 @@ MonoBehaviour:
   spellWarmUpFX: {fileID: 1884747205189362, guid: c88f22a04a02cbc4ab89f8acae589dc1, type: 3}
   spellCastFX: {fileID: 1884747205189362, guid: 954f842abc957174391b2449d0c45a96, type: 3}
   spellAnimation: SpellCast
-  manaCost: 50
+  manaCost: 20
   isFaithSpell: 0
   isMagicSpell: 0
   isPyroSpell: 1
   spellDiscription: 'Deal a lot of damage to enemy. '
   baseDamage: 100
-  projectileVelocity: 0
+  projectileForwardVelocity: 500
+  projcetileUpwardVelocity: 150
+  projectileMass: 25
+  isEffectedByGravity: 1

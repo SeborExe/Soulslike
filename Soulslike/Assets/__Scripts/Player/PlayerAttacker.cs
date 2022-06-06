@@ -11,6 +11,7 @@ public class PlayerAttacker : MonoBehaviour
     InputHandler inputHandler;
     WeaponSlotManager weaponSlotManager;
     PlayerEquipmentManager playerEquipmentManager;
+    CameraHandler cameraHandler;
 
     public string lastAttack;
 
@@ -26,6 +27,7 @@ public class PlayerAttacker : MonoBehaviour
         weaponSlotManager = GetComponent<WeaponSlotManager>();
         inputHandler = GetComponentInParent<InputHandler>();
         playerEquipmentManager = GetComponent<PlayerEquipmentManager>();
+        cameraHandler = FindObjectOfType<CameraHandler>();
     }
 
     public void HandleWeaponCombo(WeaponItem weapon)
@@ -259,7 +261,7 @@ public class PlayerAttacker : MonoBehaviour
 
     private void SuccessfulyCastSpell()
     {
-        playerInventory.currentSpell.SuccessfullyCastSpell(animationHandler, playerStats);
+        playerInventory.currentSpell.SuccessfullyCastSpell(animationHandler, playerStats, cameraHandler, weaponSlotManager);
         animationHandler.anim.SetBool("isFiringSpell", true);
     }
 
