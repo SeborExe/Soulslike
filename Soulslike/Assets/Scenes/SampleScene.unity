@@ -3110,6 +3110,24 @@ Transform:
   m_Father: {fileID: 1654795584}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &978977197 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3814726245089807302, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+  m_PrefabInstance: {fileID: 3814726246058297963}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &978977199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978977197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af98f2b411b86524f87556aab62be7dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  torsoModels: []
 --- !u!1 &987681715
 GameObject:
   m_ObjectHideFlags: 0
@@ -6602,6 +6620,10 @@ PrefabInstance:
       propertyPath: interactableUIGameObject
       value: 
       objectReference: {fileID: 540528552}
+    - target: {fileID: 7118373120143941681, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+      propertyPath: currentTorsoEquipment
+      value: 
+      objectReference: {fileID: 11400000, guid: 24a306c0b8ec22748971c860bb788a19, type: 2}
     - target: {fileID: 7118373120143941681, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
       propertyPath: currentHelmetEquipment
       value: 

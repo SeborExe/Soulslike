@@ -10,18 +10,38 @@ public class PlayerEquipmentManager : MonoBehaviour
 
     [Header("Equipment model changers")]
     HelmetModelChanger helmetModelChanger;
+    TorsoModelChanger torsoModelChanger;
+
+    [Header("Default naked model")] //Now we have basic naked model but mayby in future we will change model and this will be helpful
+    string nakedHeadModel;
+    //naked torso etc. 
 
     private void Awake()
     {
         playerInventory = GetComponentInParent<PlayerInventory>();
         inputHandler = GetComponentInParent<InputHandler>();
         helmetModelChanger = GetComponentInChildren<HelmetModelChanger>();
+        torsoModelChanger = GetComponentInChildren<TorsoModelChanger>();
     }
 
     private void Start()
     {
+        EquipAllEquipmentModelsOnStart();
+    }
+
+    private void EquipAllEquipmentModelsOnStart()
+    {
         helmetModelChanger.UnEquipAllHelmetModels();
-        helmetModelChanger.EquipHelmetModelByName(playerInventory.currentHelmetEquipment.helmetModelName);
+        if (playerInventory.currentHelmetEquipment != null)
+            helmetModelChanger.EquipHelmetModelByName(playerInventory.currentHelmetEquipment.helmetModelName);
+        else
+            playerInventory.currentHelmetEquipment = null;
+
+        torsoModelChanger.UnEquipAllTorsoModels();
+        if (playerInventory.currentTorsoEquipment != null)
+            torsoModelChanger.EquipTorsoModelByName(playerInventory.currentTorsoEquipment.torsoModelName);
+        else
+            playerInventory.currentTorsoEquipment = null;
     }
 
     public void OpenBlockingCollider()
