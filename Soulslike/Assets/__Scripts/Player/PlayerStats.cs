@@ -57,9 +57,7 @@ public class PlayerStats : CharacterStats
     {
         if (playerManager.isInvulnerable) return;
 
-        if (isDead) return;
-
-        currentHealth -= damage;
+        base.TakeDamage(damage, damageAnimation = "Damage_01");
 
         //healthBar.SetCurrentHealth(currentHealth);
         animationHandler.PlayTargetAnimation(damageAnimation, true);
