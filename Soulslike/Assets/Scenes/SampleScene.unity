@@ -2610,6 +2610,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 755124712}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &769486053 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3814726246145331560, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+  m_PrefabInstance: {fileID: 3814726246058297963}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &769486055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769486053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a51ad007342f9004fb6816b1bc2921c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glovesModels: []
 --- !u!1 &770925160
 GameObject:
   m_ObjectHideFlags: 0
@@ -4820,6 +4838,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1594408260}
   m_CullTransparentMesh: 1
+--- !u!1 &1628088142 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3814726245394943984, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+  m_PrefabInstance: {fileID: 3814726246058297963}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1628088144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628088142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c21d7ae7b487d46adbe204c9719f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bootsModels: []
 --- !u!1 &1640326749
 GameObject:
   m_ObjectHideFlags: 0
@@ -6568,6 +6604,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2932330382514541505, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6959367209406945167, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -6621,13 +6661,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 540528552}
     - target: {fileID: 7118373120143941681, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+      propertyPath: currentBootsEquipment
+      value: 
+      objectReference: {fileID: 11400000, guid: 14b7de6a8f6ab984294d3cec5a76efae, type: 2}
+    - target: {fileID: 7118373120143941681, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
       propertyPath: currentTorsoEquipment
       value: 
       objectReference: {fileID: 11400000, guid: 24a306c0b8ec22748971c860bb788a19, type: 2}
     - target: {fileID: 7118373120143941681, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+      propertyPath: currentGlovesEquipment
+      value: 
+      objectReference: {fileID: 11400000, guid: 5d4a136b801585949aad9a9ad97f2738, type: 2}
+    - target: {fileID: 7118373120143941681, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
       propertyPath: currentHelmetEquipment
       value: 
       objectReference: {fileID: 11400000, guid: 68f626ff8e9f27c4b81c088984b43943, type: 2}
+    - target: {fileID: 7118373120143941681, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+      propertyPath: currentPantsEquipments
+      value: 
+      objectReference: {fileID: 11400000, guid: 71750d32365765a4082ccce45dd01720, type: 2}
     - target: {fileID: 7118373120143941687, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
       propertyPath: manaBar
       value: 
@@ -6642,6 +6694,24 @@ PrefabInstance:
       objectReference: {fileID: 411821937}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+--- !u!1 &3814726246058297964 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3814726246119033120, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+  m_PrefabInstance: {fileID: 3814726246058297963}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3814726246058297965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3814726246058297964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 915b45b58bcc4be499f1535bb277e719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pantsModels: []
 --- !u!1001 &6634466567798021656
 PrefabInstance:
   m_ObjectHideFlags: 0

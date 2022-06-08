@@ -16,6 +16,9 @@ public class PlayerInventory : MonoBehaviour
     [Header("Current Equipment")]
     public HelmetEquipment currentHelmetEquipment;
     public TorsoEquipment currentTorsoEquipment;
+    public PantsEquipment currentPantsEquipments;
+    public BootsEquipment currentBootsEquipment;
+    public GlovesEquipment currentGlovesEquipment;
 
     [Header("EQ weapons")]
     public WeaponItem[] weaponsInRightHandSlots = new WeaponItem[1];
