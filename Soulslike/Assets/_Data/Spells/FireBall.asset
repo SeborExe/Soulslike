@@ -23,7 +23,7 @@ MonoBehaviour:
   isPyroSpell: 1
   spellDiscription: 'Deal a lot of damage to enemy. '
   baseDamage: 100
-  projectileForwardVelocity: 500
-  projcetileUpwardVelocity: 150
-  projectileMass: 25
+  projectileForwardVelocity: 600
+  projcetileUpwardVelocity: 180
+  projectileMass: 15
   isEffectedByGravity: 1

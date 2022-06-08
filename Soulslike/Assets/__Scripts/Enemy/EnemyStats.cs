@@ -35,9 +35,7 @@ public class EnemyStats : CharacterStats
 
     public override void TakeDamage(int damage, string damageAnimation = "Damage_01")
     {
-        if (isDead) return;
-
-        currentHealth -= damage;
+        base.TakeDamage(damage, damageAnimation = "Damage_01");
         enemyHealthBar.SetHealth(currentHealth);
 
         if (enemyManager.currentTarget == null)

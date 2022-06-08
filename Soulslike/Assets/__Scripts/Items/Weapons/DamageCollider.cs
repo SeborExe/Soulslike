@@ -63,7 +63,6 @@ public class DamageCollider : MonoBehaviour
             }
         }
 
-        
         if (collision.tag == "Enemy")
         {
             EnemyStats enemyStats = collision.GetComponent<EnemyStats>();
@@ -98,6 +97,11 @@ public class DamageCollider : MonoBehaviour
             }
         }
         
+        if (collision.tag == "Illusionary Wall")
+        {
+            IllusionaryWall illusionaryWall = collision.GetComponent<IllusionaryWall>();
+            illusionaryWall.wallHasBeenHit = true;
+        }
     }
 }
 
