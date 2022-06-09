@@ -1135,6 +1135,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soulsCountText: {fileID: 157429654}
+--- !u!114 &355281641 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 700489044, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
+  m_PrefabInstance: {fileID: 6634466567798021656}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5556c58c382e1fc4fb2bc888f9391215, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &395320563
 GameObject:
   m_ObjectHideFlags: 0
@@ -2646,6 +2657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3840a8e0bb7f07d428889493c99c7207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  combatStanceState: {fileID: 355281641}
 --- !u!4 &652770257
 Transform:
   m_ObjectHideFlags: 0
@@ -3994,6 +4006,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1094471607}
   m_CullTransparentMesh: 1
+--- !u!114 &1144098911 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1600441974, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
+  m_PrefabInstance: {fileID: 6634466567798021656}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60578219e47ddf8469b4699e1c0d4174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1171240647
 GameObject:
   m_ObjectHideFlags: 0
@@ -6981,6 +7004,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 46033257, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
+      propertyPath: pursueTargetState
+      value: 
+      objectReference: {fileID: 1144098911}
+    - target: {fileID: 46033257, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
+      propertyPath: rotateTowardTargetState
+      value: 
+      objectReference: {fileID: 652770256}
     - target: {fileID: 151368205, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -6989,6 +7020,22 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 700489044, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
+      propertyPath: enemyAttacks.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 700489044, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
+      propertyPath: enemyAttacks.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 79136e823bfbdc743b0d62b13dc3cd54, type: 2}
+    - target: {fileID: 700489044, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
+      propertyPath: enemyAttacks.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 102fe1c005e395547b0265d402a70164, type: 2}
+    - target: {fileID: 1600441974, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
+      propertyPath: rotateTowardTargetState
+      value: 
+      objectReference: {fileID: 652770256}
     - target: {fileID: 1187471530403977232, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -7041,6 +7088,14 @@ PrefabInstance:
       propertyPath: currentState
       value: 
       objectReference: {fileID: 1534896964}
+    - target: {fileID: 1187471530403977247, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
+      propertyPath: rotationSpeed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1187471530403977247, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
+      propertyPath: maximumAggroRadius
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
 --- !u!114 &6959367209406945161 stripped
