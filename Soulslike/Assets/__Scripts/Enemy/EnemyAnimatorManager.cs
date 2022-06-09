@@ -93,5 +93,10 @@ public class EnemyAnimatorManager : AnimatorManager
         deltaPosition.y = 0;
         Vector3 velocity = deltaPosition / delta;
         enemyManager.enemyRigidbody.velocity = velocity * enemyManager.moveSpeed;
+
+        if (enemyManager.isRotatingWithRootMotion)
+        {
+            enemyManager.transform.rotation *= anim.deltaRotation;
+        }
     }
 }

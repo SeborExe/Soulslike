@@ -36,7 +36,12 @@ public class SpellDamageCollider : DamageCollider
     {
         if (!hasCollider)
         {
-            Debug.Log(collision.gameObject.layer);
+            if (collision.gameObject.tag == "Illusionary Wall")
+            {
+                IllusionaryWall illusionaryWall = collision.gameObject.GetComponent<IllusionaryWall>();
+                illusionaryWall.wallHasBeenHit = true;
+            }
+
             spellTarget = collision.transform.GetComponent<CharacterStats>();
 
             if (spellTarget != null)
