@@ -98,7 +98,7 @@ public class CombatStanceState : State
 
         else if (horizontalMovementValue >= -1 && horizontalMovementValue < 0)
         {
-            horizontalMovementValue = 0.5f;
+            horizontalMovementValue = -0.5f;
         }
     }
 

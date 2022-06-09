@@ -55,6 +55,8 @@ public class PlayerStats : CharacterStats
 
     public override void TakeDamage(int damage, string damageAnimation = "Damage_01")
     {
+        if (isDead) return;
+
         if (playerManager.isInvulnerable) return;
 
         base.TakeDamage(damage, damageAnimation = "Damage_01");
