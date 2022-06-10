@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class EnemyBossManager : MonoBehaviour
 {
-    [SerializeField] UIBossHealthBar bossHealthBar;
+    public UIBossHealthBar bossHealthBar;
+    public WorldEventManager worldEventManager;
+    public FogWall fogWall;
 
     public string bossName;
     EnemyStats enemyStats;
@@ -18,5 +20,10 @@ public class EnemyBossManager : MonoBehaviour
     {
         bossHealthBar.SetBossName(bossName);
         bossHealthBar.SetBossMaxHealth(enemyStats.maxHealth);
+    }
+
+    public void UpdateBossHealBar(int currentHealth)
+    {
+        bossHealthBar.SetBossCurrentHealth(currentHealth);
     }
 }

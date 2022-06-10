@@ -153,6 +153,18 @@ public class PlayerAnimatorManager : AnimatorManager
         playerManager.canBeReposted = false;
     }
 
+    public void DisableCollision()
+    {
+        playerLocomotion.characterCollider.enabled = false;
+        playerLocomotion.characterCollisionBlocker.enabled = false;
+    }
+
+    public void EnableCollision()
+    {
+        playerLocomotion.characterCollider.enabled = true;
+        playerLocomotion.characterCollisionBlocker.enabled = true;
+    }
+
     private void OnAnimatorMove()
     {
         if (playerManager.isInteracting == false) return;

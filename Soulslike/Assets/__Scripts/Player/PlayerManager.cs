@@ -146,6 +146,17 @@ public class PlayerManager : CharacterManager
         playerAnimatorManager.PlayTargetAnimation("Open Chest", true);
     }
 
+    public void PassThroughtFogWallInteraction(Transform fogWallEntrance)
+    {
+        playerLocomotion.rigidbody.velocity = Vector3.zero; //Stop player
+        Vector3 rotationDirection = fogWallEntrance.transform.forward;
+        Quaternion turnRotation = Quaternion.LookRotation(rotationDirection);
+        transform.rotation = turnRotation;
+        //Rotate over time
+
+        playerAnimatorManager.PlayTargetAnimation("Pass_Throught_Fog", true);
+    }
+
     #endregion
 
     #region Show text after pick up item

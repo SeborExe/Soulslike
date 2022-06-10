@@ -9,8 +9,10 @@ public class EnemyStats : CharacterStats
     EnemyAnimatorManager enemyAnimatorManager;
     EnemyManager enemyManager;
     [SerializeField] UIEnemyHealthBar enemyHealthBar;
+    [SerializeField] EnemyBossManager enemyBossManager;
 
     public int soulsAwardedOnDeath = 1;
+    public bool isBoss;
 
     private void Awake()
     {
@@ -25,7 +27,8 @@ public class EnemyStats : CharacterStats
 
     private void Start()
     {
-        enemyHealthBar.SetMaxHealth(maxHealth);
+        if (!isBoss)
+            enemyHealthBar.SetMaxHealth(maxHealth);
     }
 
     private int SetMaxLevelHalth()
@@ -37,7 +40,12 @@ public class EnemyStats : CharacterStats
     public override void TakeDamage(int damage, string damageAnimation = "Damage_01")
     {
         base.TakeDamage(damage, damageAnimation = "Damage_01");
-        enemyHealthBar.SetHealth(currentHealth);
+
+        if (!isBoss)
+            enemyHealthBar.SetHealth(currentHealth);
+
+        else if (isBoss && enemyBossManager != null)
+            enemyBossManager.UpdateBossHealBar(currentHealth);
 
         if (enemyManager.currentTarget == null)
         {
@@ -51,6 +59,11 @@ public class EnemyStats : CharacterStats
         {
             enemyAnimatorManager.PlayTargetAnimation("Dead_01", true);
             HandleDeath();
+
+            if (isBoss)
+            {
+                HandleBossDeath();
+            }
         }
     }
 
@@ -62,6 +75,11 @@ public class EnemyStats : CharacterStats
         if (currentHealth <= 0)
         {
             HandleDeath();
+
+            if (isBoss)
+            {
+                HandleBossDeath();
+            }
         }
     }
 
@@ -75,5 +93,12 @@ public class EnemyStats : CharacterStats
         {
             Destroy(collider);
         }
+    }
+
+    private void HandleBossDeath()
+    {
+        enemyBossManager.worldEventManager.bossHasBeenDefeded = true;
+        enemyBossManager.bossHealthBar.SetHealthBarToInactive();
+        enemyBossManager.fogWall.DesactiveFogWall();
     }
 }
