@@ -7,6 +7,7 @@ public class SpellDamageCollider : DamageCollider
     public GameObject impactParticles;
     public GameObject projectileParticles;
     public GameObject muzzleParticles;
+    public SphereCollider sphereCollider;
 
     bool hasCollider = false;
 
@@ -18,6 +19,7 @@ public class SpellDamageCollider : DamageCollider
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+        sphereCollider = GetComponent<SphereCollider>();
     }
 
     private void Start()

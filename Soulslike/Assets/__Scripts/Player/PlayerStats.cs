@@ -9,6 +9,7 @@ public class PlayerStats : CharacterStats
     [SerializeField] ManaBar manaBar;
     PlayerAnimatorManager animationHandler;
     PlayerManager playerManager;
+    SpellDamageCollider spellDamageCollider;
 
     [Header("Stamina")]
     [SerializeField] float staminaRegenerationAmount = 25;
@@ -18,6 +19,7 @@ public class PlayerStats : CharacterStats
     {
         playerManager = GetComponent<PlayerManager>();
         animationHandler = GetComponentInChildren<PlayerAnimatorManager>();
+        spellDamageCollider = GetComponentInChildren<SpellDamageCollider>();
     }
 
     private void Start()

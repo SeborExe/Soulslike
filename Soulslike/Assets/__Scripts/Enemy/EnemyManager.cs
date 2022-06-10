@@ -60,6 +60,8 @@ public class EnemyManager : CharacterManager
         canDoCombo = enemyAnimatorManager.anim.GetBool("canDoCombo");
         canRotate = enemyAnimatorManager.anim.GetBool("canRotate");
         enemyAnimatorManager.anim.SetBool("isDead", enemyStats.isDead);
+
+        HandlePlayerDead();
     }
 
     private void LateUpdate()
@@ -86,7 +88,7 @@ public class EnemyManager : CharacterManager
         currentState = state;
     }
 
-    private void HandleRecoveryTimer()
+    void HandleRecoveryTimer()
     {
         if (currentRecoveryTime > 0)
         {
@@ -99,6 +101,17 @@ public class EnemyManager : CharacterManager
             {
                 isPerformingAction = false;
             }
+        }
+    }
+
+    void HandlePlayerDead()
+    {
+        if (currentTarget != null && currentTarget.isDead)
+        {
+            currentTarget = null;
+            currentState = null;
+            enemyAnimatorManager.anim.SetFloat("Vertical", 0, 0, Time.deltaTime);
+            enemyAnimatorManager.anim.SetFloat("Horizontal", 0, 0, Time.deltaTime);
         }
     }
 }

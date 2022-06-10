@@ -18,12 +18,13 @@ public class EnemyStats : CharacterStats
         backStabCollider = GetComponentInChildren<CriticalDamageCollider>();
         enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
         enemyManager = GetComponentInParent<EnemyManager>();
+
+        maxHealth = SetMaxLevelHalth();
+        currentHealth = maxHealth;
     }
 
     private void Start()
     {
-        maxHealth = SetMaxLevelHalth();
-        currentHealth = maxHealth;
         enemyHealthBar.SetMaxHealth(maxHealth);
     }
 

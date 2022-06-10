@@ -27,9 +27,6 @@ public class IdleState : State
                     enemyManager.currentTarget = characterStats;
                 }
             }
-
-            if (characterStats.isDead)
-                enemyManager.currentTarget = null;
         }
 
         if (enemyManager.currentTarget != null)
