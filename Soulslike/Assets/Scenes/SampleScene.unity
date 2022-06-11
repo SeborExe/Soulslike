@@ -1204,6 +1204,7 @@ MonoBehaviour:
   worldEventManager: {fileID: 1032638184}
   fogWall: {fileID: 7483838277783605897}
   bossName: Piotrek
+  particleFX: {fileID: 977955418664850182, guid: 966c0f73e34cbe449ab89ee79753866c, type: 3}
 --- !u!1 &218503527
 GameObject:
   m_ObjectHideFlags: 0
@@ -2736,13 +2737,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 577220240}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5556c58c382e1fc4fb2bc888f9391215, type: 3}
+  m_Script: {fileID: 11500000, guid: c227b0207f32d8e4e8dca5e9b6d784c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackState: {fileID: 152656554}
   pursueTargetState: {fileID: 1422130613}
   enemyAttacks:
   - {fileID: 11400000, guid: 79136e823bfbdc743b0d62b13dc3cd54, type: 2}
+  - {fileID: 11400000, guid: 102fe1c005e395547b0265d402a70164, type: 2}
+  hasPhaseShifted: 0
+  secondPhaseEnemyAttacks:
+  - {fileID: 11400000, guid: a6bc5df2c15d46d41aa8cffe35946fe2, type: 2}
+  - {fileID: 11400000, guid: 820a7868473685b48890ca5c3548c470, type: 2}
   - {fileID: 11400000, guid: 102fe1c005e395547b0265d402a70164, type: 2}
 --- !u!1 &584731669
 GameObject:
@@ -9679,7 +9685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beaeff93005d0364d86d3ab7f1233e35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthLevel: 50
+  healthLevel: 20
   maxHealth: 0
   currentHealth: 0
   staminaLevel: 10
@@ -9706,7 +9712,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1187471530246368211}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -40}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
@@ -9720,7 +9726,7 @@ Transform:
   - {fileID: 155688681}
   m_Father: {fileID: 0}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1187471530246368211
 GameObject:
   m_ObjectHideFlags: 0
@@ -9763,6 +9769,7 @@ MonoBehaviour:
   canBeParried: 0
   isRepostableCharacter: 1
   isBlocking: 0
+  isInvulnerable: 0
   isRotatingWithRootMotion: 0
   canRotate: 0
   isFiringSpell: 0
@@ -9776,12 +9783,13 @@ MonoBehaviour:
   rotationSpeed: 20
   maximumAggroRadius: 1.5
   moveSpeed: 0.5
-  detectionRadius: 20
+  detectionRadius: 10
   minimumDetectionAngle: -50
   maximumDetectionAngle: 50
   allAIToPerformCombos: 1
   comboLikelyHood: 50
   canDoCombo: 1
+  isPhaseShifting: 0
   currentRecoveryTime: 0
 --- !u!136 &1187471530246368223
 CapsuleCollider:
@@ -11714,7 +11722,7 @@ Animator:
   m_GameObject: {fileID: 632704526509419767}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: de13a7420582ded45a8d7d3f96889aca, type: 3}
-  m_Controller: {fileID: 9100000, guid: 9361dded67d889d43bf8f444882032e0, type: 2}
+  m_Controller: {fileID: 9100000, guid: 276675c1ca5a69240ae740f184faa389, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -14404,8 +14412,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ea190051d4e2444a97d3ccbc2cddf18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightHandWeapon: {fileID: 11400000, guid: bd9a043903685c34bb5e4dc88739c85b, type: 2}
-  leftHandWeapon: {fileID: 11400000, guid: bd9a043903685c34bb5e4dc88739c85b, type: 2}
+  rightHandWeapon: {fileID: 11400000, guid: 4c5924d50b33fa247a0748104ec71712, type: 2}
+  leftHandWeapon: {fileID: 0}
 --- !u!1 &7323731258864626841
 GameObject:
   m_ObjectHideFlags: 0

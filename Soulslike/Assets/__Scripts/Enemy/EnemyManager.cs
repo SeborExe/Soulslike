@@ -32,6 +32,7 @@ public class EnemyManager : CharacterManager
 
     [Header("Combat flags")]
     public bool canDoCombo;
+    public bool isPhaseShifting;
 
     public float currentRecoveryTime = 0;
 
@@ -57,8 +58,10 @@ public class EnemyManager : CharacterManager
 
         isRotatingWithRootMotion = enemyAnimatorManager.anim.GetBool("isRotatingWithRootMotion");
         isInteracting = enemyAnimatorManager.anim.GetBool("isInteracting");
+        isPhaseShifting = enemyAnimatorManager.anim.GetBool("isPhaseShifting");
         canDoCombo = enemyAnimatorManager.anim.GetBool("canDoCombo");
         canRotate = enemyAnimatorManager.anim.GetBool("canRotate");
+        isInvulnerable = enemyAnimatorManager.anim.GetBool("isInvulnerable");
         enemyAnimatorManager.anim.SetBool("isDead", enemyStats.isDead);
 
         HandlePlayerDead();

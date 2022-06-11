@@ -6,11 +6,13 @@ public class EnemyAnimatorManager : AnimatorManager
 {
     [SerializeField] EnemyManager enemyManager;
     [SerializeField] EnemyStats enemyStats;
+    EnemyBossManager enemyBossManager;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
         enemyStats = GetComponentInParent<EnemyStats>();
+        enemyBossManager = GetComponentInParent<EnemyBossManager>();
     }
     
     public override void TakeCriticalDamageEvent()
@@ -83,6 +85,12 @@ public class EnemyAnimatorManager : AnimatorManager
                 soulsCout.SetSoulsCountText(playerStats.soulCount);
             }
         }
+    }
+
+    public void InstantiateParticleBossFX()
+    {
+        BossFXTransform bossFXTransform = GetComponentInChildren<BossFXTransform>();
+        GameObject phaseFX = Instantiate(enemyBossManager.particleFX, bossFXTransform.transform);
     }
 
     private void OnAnimatorMove()

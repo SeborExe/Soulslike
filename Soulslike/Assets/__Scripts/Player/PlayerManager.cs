@@ -21,7 +21,6 @@ public class PlayerManager : CharacterManager
     public bool canDoCombo;
     public bool isUsingRightHand;
     public bool isUsingLeftHand;
-    public bool isInvulnerable;
 
     [Header("Interactable objects")]
     [SerializeField] float fadeSpeed = 0.2f;

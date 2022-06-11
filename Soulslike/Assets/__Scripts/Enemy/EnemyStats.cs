@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyStats : CharacterStats
 {
-    Animator anim;
-    CriticalDamageCollider backStabCollider;
     EnemyAnimatorManager enemyAnimatorManager;
     EnemyManager enemyManager;
     [SerializeField] UIEnemyHealthBar enemyHealthBar;
@@ -16,10 +14,8 @@ public class EnemyStats : CharacterStats
 
     private void Awake()
     {
-        anim = GetComponentInChildren<Animator>();
-        backStabCollider = GetComponentInChildren<CriticalDamageCollider>();
         enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
-        enemyManager = GetComponentInParent<EnemyManager>();
+        enemyManager = GetComponent<EnemyManager>();
 
         maxHealth = SetMaxLevelHalth();
         currentHealth = maxHealth;
@@ -45,7 +41,9 @@ public class EnemyStats : CharacterStats
             enemyHealthBar.SetHealth(currentHealth);
 
         else if (isBoss && enemyBossManager != null)
-            enemyBossManager.UpdateBossHealBar(currentHealth);
+        {
+            enemyBossManager.UpdateBossHealBar(currentHealth, maxHealth);
+        }
 
         if (enemyManager.currentTarget == null)
         {
@@ -70,7 +68,14 @@ public class EnemyStats : CharacterStats
     public void TakeDamageNoAnimation(int damage)
     {
         currentHealth -= damage;
-        enemyHealthBar.SetHealth(currentHealth);
+
+        if (!isBoss)
+            enemyHealthBar.SetHealth(currentHealth);
+
+        else if (isBoss && enemyBossManager != null)
+        {
+            enemyBossManager.UpdateBossHealBar(currentHealth, maxHealth);
+        }
 
         if (currentHealth <= 0)
         {
@@ -97,6 +102,7 @@ public class EnemyStats : CharacterStats
 
     private void HandleBossDeath()
     {
+        enemyAnimatorManager.PlayTargetAnimation("Dead_01", true);
         enemyBossManager.worldEventManager.bossHasBeenDefeded = true;
         enemyBossManager.bossHealthBar.SetHealthBarToInactive();
         enemyBossManager.fogWall.DesactiveFogWall();

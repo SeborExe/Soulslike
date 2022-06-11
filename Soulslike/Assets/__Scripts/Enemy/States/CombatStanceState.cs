@@ -9,9 +9,9 @@ public class CombatStanceState : State
 
     public EnemyAttackAction[] enemyAttacks;
 
-    bool randomDestinationSet = false;
-    float verticalMovementValue = 0;
-    float horizontalMovementValue = 0;
+    protected bool randomDestinationSet = false;
+    protected float verticalMovementValue = 0;
+    protected float horizontalMovementValue = 0;
 
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
     {
@@ -102,7 +102,7 @@ public class CombatStanceState : State
         }
     }
 
-    void GetNewAttack(EnemyManager enemyManager)
+    protected virtual void GetNewAttack(EnemyManager enemyManager)
     {
         Vector3 targetDirection = enemyManager.currentTarget.transform.position - transform.position;
         float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
