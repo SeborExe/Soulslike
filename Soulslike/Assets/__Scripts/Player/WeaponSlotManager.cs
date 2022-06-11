@@ -165,7 +165,15 @@ public class WeaponSlotManager : MonoBehaviour
 
     #region Handle Weapons Poise Bonus
 
+    public void GrantWeaponAttackingPoiseBonus()
+    {
+        playerStats.totalPoiseDefense += attackingWeapon.offensivePoiseBonus;
+    }
 
+    public void ResetWeaponAttackingPoiseBonus()
+    {
+        playerStats.totalPoiseDefense = playerStats.armorPoiseBonus;
+    }
 
     #endregion
 }

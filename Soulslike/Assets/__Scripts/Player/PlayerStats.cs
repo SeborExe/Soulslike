@@ -37,6 +37,18 @@ public class PlayerStats : CharacterStats
         manaBar.SetMaxMana(maxMana);
     }
 
+    public override void HandlePoiseResetTimer()
+    {
+        if (poiseResetTimer > 0)
+        {
+            poiseResetTimer -= Time.deltaTime;
+        }
+        else if (poiseResetTimer <= 0 && !playerManager.isInteracting)
+        {
+            totalPoiseDefense = armorPoiseBonus;
+        }
+    }
+
     private int SetMaxLevelHalth()
     {
         maxHealth = healthLevel * 10;

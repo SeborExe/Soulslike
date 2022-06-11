@@ -27,6 +27,18 @@ public class EnemyStats : CharacterStats
             enemyHealthBar.SetMaxHealth(maxHealth);
     }
 
+    public override void HandlePoiseResetTimer()
+    {
+        if (poiseResetTimer > 0)
+        {
+            poiseResetTimer -= Time.deltaTime;
+        }
+        else if (poiseResetTimer <= 0 && !enemyManager.isInteracting)
+        {
+            totalPoiseDefense = armorPoiseBonus;
+        }
+    }
+
     private int SetMaxLevelHalth()
     {
         maxHealth = healthLevel * 10;
@@ -90,6 +102,11 @@ public class EnemyStats : CharacterStats
                 HandleBossDeath();
             }
         }
+    }
+
+    public void BreakGuard()
+    {
+        enemyAnimatorManager.PlayTargetAnimation("Break_Guard", true);
     }
 
     private void HandleDeath()

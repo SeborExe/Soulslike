@@ -13,7 +13,20 @@ public class EnemyWeaponSlotManager : MonoBehaviour
     DamageCollider rightHandDamageCollider;
     DamageCollider leftHandDamageCollider;
 
+    EnemyStats enemyStats;
+
     private void Awake()
+    {
+        enemyStats = GetComponentInParent<EnemyStats>();
+        LoadWeaponHolderSlots();
+    }
+
+    private void Start()
+    {
+        LoadWeaponsOnBothHands();
+    }
+
+    private void LoadWeaponHolderSlots()
     {
         WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
         foreach (WeaponHolderSlot weaponSlot in weaponHolderSlots)
@@ -27,11 +40,6 @@ public class EnemyWeaponSlotManager : MonoBehaviour
                 rightHandSlot = weaponSlot;
             }
         }
-    }
-
-    private void Start()
-    {
-        LoadWeaponsOnBothHands();
     }
 
     private void LoadWeaponsOnBothHands()
@@ -108,6 +116,20 @@ public class EnemyWeaponSlotManager : MonoBehaviour
     {
         //anim.SetBool("canDoCombo", false);
     }
-    
+
+    #endregion
+
+    #region Handle Weapons Poise Bonus
+
+    public void GrantWeaponAttackingPoiseBonus()
+    {
+        enemyStats.totalPoiseDefense += enemyStats.offensivePoiseBonus;
+    }
+
+    public void ResetWeaponAttackingPoiseBonus()
+    {
+        enemyStats.totalPoiseDefense = enemyStats.armorPoiseBonus;
+    }
+
     #endregion
 }

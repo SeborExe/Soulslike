@@ -111,13 +111,28 @@ public class DamageCollider : MonoBehaviour
                 enemyStats.poiseResetTimer = enemyStats.totalPoiseResetTime;
                 enemyStats.totalPoiseDefense -= poiseBreak;
 
-                if (enemyStats.totalPoiseDefense > poiseBreak)
+                if (enemyStats.isBoss)
                 {
-                    enemyStats.TakeDamageNoAnimation(currentWeaponDamage);
+                    if (enemyStats.totalPoiseDefense > poiseBreak)
+                    {
+                        enemyStats.TakeDamageNoAnimation(currentWeaponDamage);
+                    }
+                    else
+                    {
+                        enemyStats.TakeDamageNoAnimation(currentWeaponDamage);
+                        enemyStats.BreakGuard();
+                    }
                 }
                 else
                 {
-                    enemyStats.TakeDamage(currentWeaponDamage);
+                    if (enemyStats.totalPoiseDefense > poiseBreak)
+                    {
+                        enemyStats.TakeDamageNoAnimation(currentWeaponDamage);
+                    }
+                    else
+                    {
+                        enemyStats.TakeDamage(currentWeaponDamage);
+                    }
                 }
             }
         }
