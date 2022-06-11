@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionAnimation: OH_Heavy_attack_01
   attackScore: 3
-  recoveryTime: 2
+  recoveryTime: 5
   canCombo: 1
   comboAction: {fileID: 11400000, guid: 102fe1c005e395547b0265d402a70164, type: 2}
   maximumAttackAngle: 35

@@ -34,7 +34,7 @@ MonoBehaviour:
   isShieldWeapon: 0
   weapon_art: 
   baseDamage: 25
-  criticalDamageMultiplier: 4
+  criticalDamageMultiplier: 15
   poiseBreak: 25
   offensivePoiseBonus: 0
   physicalDamageAbsorption: 0

@@ -162,4 +162,10 @@ public class WeaponSlotManager : MonoBehaviour
         playerStats.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStamina * attackingWeapon.heavyAttackMultiplier));
     }
     #endregion
+
+    #region Handle Weapons Poise Bonus
+
+
+
+    #endregion
 }
