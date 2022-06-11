@@ -35,4 +35,6 @@ MonoBehaviour:
   weapon_art: 
   baseDamage: 35
   criticalDamageMultiplier: 4
+  poiseBreak: 30
+  offensivePoiseBonus: 0
   physicalDamageAbsorption: 0

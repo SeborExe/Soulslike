@@ -112,14 +112,20 @@ public class WeaponSlotManager : MonoBehaviour
     {
         leftHandDamageCollider = leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
         if (leftHandDamageCollider != null)
+        {
             leftHandDamageCollider.currentWeaponDamage = playerInventory.leftWeapon.baseDamage;
+            leftHandDamageCollider.poiseBreak = playerInventory.leftWeapon.poiseBreak;
+        }
     }
 
     private void LoadRightWeaponCollider()
     {
         rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
         if (rightHandDamageCollider != null)
+        {
             rightHandDamageCollider.currentWeaponDamage = playerInventory.rightWeapon.baseDamage;
+            rightHandDamageCollider.poiseBreak = playerInventory.rightWeapon.poiseBreak;
+        }
     }
 
     public void OpenDamageCollider()

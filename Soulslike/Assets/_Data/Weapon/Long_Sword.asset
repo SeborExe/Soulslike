@@ -31,5 +31,10 @@ MonoBehaviour:
   isFaithCaster: 0
   isPyroCaster: 0
   isMeleeWeapon: 1
+  isShieldWeapon: 0
+  weapon_art: 
   baseDamage: 25
   criticalDamageMultiplier: 4
+  poiseBreak: 25
+  offensivePoiseBonus: 0
+  physicalDamageAbsorption: 0

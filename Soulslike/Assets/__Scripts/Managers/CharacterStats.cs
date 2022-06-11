@@ -20,6 +20,13 @@ public class CharacterStats : MonoBehaviour
 
     public bool isDead;
 
+    [Header("Poise")]
+    public float totalPoiseDefense; //The total poise during damage calculation
+    public float offensivePoiseBonus;
+    public float armorPoiseBonus;
+    public float totalPoiseResetTime = 15f;
+    public float poiseResetTimer = 0f;
+
     [Header("Armor reduction")]
     public float physicalDamageAbsorbtionHead;
     public float physicalDamageAbsorbtionTorso;
@@ -27,6 +34,16 @@ public class CharacterStats : MonoBehaviour
     public float physicalDamageAbsorbtionGloves;
     public float physicalDamageAbsorbtionBoots;
     //Same for fire,magic etc.
+
+    private void Start()
+    {
+        totalPoiseDefense = armorPoiseBonus;
+    }
+
+    protected virtual void Update()
+    {
+        HandlePoiseResetTimer();
+    }
 
     public virtual void TakeDamage(int physicalDamage, string damageAnimation = "Damage_01")
     {
@@ -49,6 +66,18 @@ public class CharacterStats : MonoBehaviour
         {
             currentHealth = 0;
             isDead = true;
+        }
+    }
+
+    public virtual void HandlePoiseResetTimer()
+    {
+        if (poiseResetTimer > 0)
+        {
+            poiseResetTimer -= Time.deltaTime;
+        }
+        else
+        {
+            totalPoiseDefense = armorPoiseBonus;
         }
     }
 }

@@ -8,6 +8,11 @@ public class DamageCollider : MonoBehaviour
     public CharacterManager characterManager;
     public bool enabledDamageColliderOnStartUp = false;
 
+    [Header("Poise")]
+    public float poiseBreak;
+    public float offensivePoiseBonus;
+
+    [Header("Damage")]
     public int currentWeaponDamage = 25;
 
     private void Awake()
@@ -59,7 +64,17 @@ public class DamageCollider : MonoBehaviour
 
             if (playerStats != null)
             {
-                playerStats.TakeDamage(currentWeaponDamage);
+                playerStats.poiseResetTimer = playerStats.totalPoiseResetTime;
+                playerStats.totalPoiseDefense -= poiseBreak;
+
+                if (playerStats.totalPoiseDefense > poiseBreak)
+                {
+                    playerStats.TakeDamageNoAnimation(currentWeaponDamage);
+                }
+                else
+                {
+                    playerStats.TakeDamage(currentWeaponDamage);
+                }
             }
         }
 
@@ -93,7 +108,10 @@ public class DamageCollider : MonoBehaviour
 
             if (enemyStats != null)
             {
-                if (enemyStats.isBoss)
+                enemyStats.poiseResetTimer = enemyStats.totalPoiseResetTime;
+                enemyStats.totalPoiseDefense -= poiseBreak;
+
+                if (enemyStats.totalPoiseDefense > poiseBreak)
                 {
                     enemyStats.TakeDamageNoAnimation(currentWeaponDamage);
                 }
