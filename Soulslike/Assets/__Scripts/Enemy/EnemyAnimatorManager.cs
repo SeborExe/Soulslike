@@ -6,6 +6,7 @@ public class EnemyAnimatorManager : AnimatorManager
 {
     EnemyBossManager enemyBossManager;
     EnemyManager enemyManager;
+    EnemyEffectManager enemyEffectManager;
 
     protected override void Awake()
     {
@@ -13,6 +14,7 @@ public class EnemyAnimatorManager : AnimatorManager
         animator = GetComponent<Animator>();
         enemyBossManager = GetComponent<EnemyBossManager>();
         enemyManager = GetComponent<EnemyManager>();
+        enemyEffectManager = GetComponent<EnemyEffectManager>();
     }
 
     public void AwardSoulsOnDeath()
@@ -35,6 +37,11 @@ public class EnemyAnimatorManager : AnimatorManager
     {
         BossFXTransform bossFXTransform = GetComponentInChildren<BossFXTransform>();
         GameObject phaseFX = Instantiate(enemyBossManager.particleFX, bossFXTransform.transform);
+    }
+
+    public void PlayWeaponTrailFX()
+    {
+        enemyEffectManager.PlayWeaponFX(false);
     }
 
     private void OnAnimatorMove()
