@@ -12,6 +12,7 @@ public class PlayerCombatManager : MonoBehaviour
     PlayerWeaponSlotManager playerWeaponSlotManager;
     PlayerEquipmentManager playerEquipmentManager;
     CameraHandler cameraHandler;
+    PlayerEffectsManager playerEffectsManager;
 
     public string lastAttack;
 
@@ -27,6 +28,7 @@ public class PlayerCombatManager : MonoBehaviour
         playerWeaponSlotManager = GetComponent<PlayerWeaponSlotManager>();
         inputHandler = GetComponent<InputHandler>();
         playerEquipmentManager = GetComponent<PlayerEquipmentManager>();
+        playerEffectsManager = GetComponent<PlayerEffectsManager>();
         cameraHandler = FindObjectOfType<CameraHandler>();
     }
 
@@ -84,6 +86,7 @@ public class PlayerCombatManager : MonoBehaviour
         //{
             playerAnimatorManager.PlayTargetAnimation(weapon.OH_Heavy_attack_01, true);
             lastAttack = weapon.OH_Heavy_attack_01;
+            playerEffectsManager.PlayWeaponFX(false);
         //}
     }
 
@@ -142,6 +145,8 @@ public class PlayerCombatManager : MonoBehaviour
             playerAnimatorManager.animator.SetBool("isUsingRightHand", true);
             HandleLightAttack(playerInventoryManager.rightWeapon);
         }
+
+        playerEffectsManager.PlayWeaponFX(false);
     }
 
     private void PerformRBMagicAction(WeaponItem weapon)

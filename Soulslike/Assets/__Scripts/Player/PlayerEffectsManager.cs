@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerEffectsManager : MonoBehaviour
+public class PlayerEffectsManager : CharacterEffectsManager
 {
     public GameObject currentParticleFX; //current effects that are affecting the player, such as poison
     PlayerStatsManager playerStatsManager;
