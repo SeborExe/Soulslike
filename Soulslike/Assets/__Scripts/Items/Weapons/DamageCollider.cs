@@ -38,18 +38,19 @@ public class DamageCollider : MonoBehaviour
         if (collision.tag == "Player")
         {
             PlayerStatsManager playerStats = collision.GetComponent<PlayerStatsManager>();
-            CharacterManager enemyCharacterManager = collision.GetComponent<CharacterManager>();
+            CharacterManager playerCharacterManager = collision.GetComponent<CharacterManager>();
+            CharacterEffectsManager playerEffectManager = collision.GetComponent<CharacterEffectsManager>();
             BlockingCollider shield = collision.transform.GetComponentInChildren<BlockingCollider>();
 
-            if (enemyCharacterManager != null)
+            if (playerCharacterManager != null)
             {
-                if (enemyCharacterManager.isParrying)
+                if (playerCharacterManager.isParrying)
                 {
                     //Check if you are parryable
                     characterManager.GetComponentInChildren<AnimatorManager>().PlayTargetAnimation("Parried", true);
                     return;
                 }
-                else if (shield != null && enemyCharacterManager.isBlocking)
+                else if (shield != null && playerCharacterManager.isBlocking)
                 {
                     float physicalDamageAfterBlock = currentWeaponDamage -
                         (currentWeaponDamage * shield.blockingPhysicalDamageAbsorption) / 100;
@@ -67,6 +68,9 @@ public class DamageCollider : MonoBehaviour
                 playerStats.poiseResetTimer = playerStats.totalPoiseResetTime;
                 playerStats.totalPoiseDefense -= poiseBreak;
 
+                Vector3 contactPoint = collision.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
+                playerEffectManager.PlayBloodSplatterFX(contactPoint);
+
                 if (playerStats.totalPoiseDefense > poiseBreak)
                 {
                     playerStats.TakeDamageNoAnimation(currentWeaponDamage);
@@ -82,6 +86,7 @@ public class DamageCollider : MonoBehaviour
         {
             EnemyStatsManager enemyStats = collision.GetComponent<EnemyStatsManager>();
             CharacterManager enemyCharacterManager = collision.GetComponent<CharacterManager>();
+            CharacterEffectsManager enemyEffectManager = collision.GetComponent<CharacterEffectsManager>();
             BlockingCollider shield = collision.transform.GetComponentInChildren<BlockingCollider>();
 
             if (enemyCharacterManager != null)
@@ -110,6 +115,9 @@ public class DamageCollider : MonoBehaviour
             {
                 enemyStats.poiseResetTimer = enemyStats.totalPoiseResetTime;
                 enemyStats.totalPoiseDefense -= poiseBreak;
+
+                Vector3 contactPoint = collision.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
+                enemyEffectManager.PlayBloodSplatterFX(contactPoint);
 
                 if (enemyStats.isBoss)
                 {
