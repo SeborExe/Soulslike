@@ -2,19 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStats : CharacterStatsManager
+public class EnemyStatsManager : CharacterStatsManager
 {
     EnemyAnimatorManager enemyAnimatorManager;
     EnemyManager enemyManager;
     [SerializeField] UIEnemyHealthBar enemyHealthBar;
     [SerializeField] EnemyBossManager enemyBossManager;
 
-    public int soulsAwardedOnDeath = 1;
     public bool isBoss;
 
     private void Awake()
     {
-        enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
+        enemyAnimatorManager = GetComponent<EnemyAnimatorManager>();
         enemyManager = GetComponent<EnemyManager>();
 
         maxHealth = SetMaxLevelHalth();
@@ -79,11 +78,11 @@ public class EnemyStats : CharacterStatsManager
         }
     }
 
-    public void TakeDamageNoAnimation(int damage)
+    public override void TakeDamageNoAnimation(int damage)
     {
         if (isDead) return;
 
-        currentHealth -= damage;
+        base.TakeDamageNoAnimation(damage);
 
         if (!isBoss)
             enemyHealthBar.SetHealth(currentHealth);

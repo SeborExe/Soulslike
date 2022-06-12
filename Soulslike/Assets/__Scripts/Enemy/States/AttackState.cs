@@ -13,7 +13,7 @@ public class AttackState : State
     public bool hasPerformedAttack = false;
     bool willDoComboOnNextAttack = false;
 
-    public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
+    public override State Tick(EnemyManager enemyManager, EnemyStatsManager enemyStats, EnemyAnimatorManager enemyAnimatorManager)
     {
         if (enemyStats.isDead) return null;
 

@@ -9,7 +9,7 @@ public class EnemyBossManager : MonoBehaviour
     public FogWall fogWall;
 
     public string bossName;
-    EnemyStats enemyStats;
+    EnemyStatsManager enemyStats;
     EnemyAnimatorManager enemyAnimatorManager;
     BossCombatStanceState bossCombatStanceState;
 
@@ -18,7 +18,7 @@ public class EnemyBossManager : MonoBehaviour
 
     private void Awake()
     {
-        enemyStats = GetComponent<EnemyStats>();
+        enemyStats = GetComponent<EnemyStatsManager>();
         enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
         bossCombatStanceState = GetComponentInChildren<BossCombatStanceState>();
     }

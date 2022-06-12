@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerWeaponSlotManager : MonoBehaviour
+public class PlayerWeaponSlotManager : CharacterWeaponSlotManager
 {
     InputHandler inputHandler;
     PlayerManager playerManager;
@@ -10,21 +10,9 @@ public class PlayerWeaponSlotManager : MonoBehaviour
     PlayerInventoryManager playerInventoryManager;
     Animator animator;
     QuickSlotUI quickSlotsUI;
-    WeaponHolderSlot backSlot;
-
-    [Header("Weapon slots")]
-    public WeaponHolderSlot leftHandSlot;
-    public WeaponHolderSlot rightHandSlot;
-
-    [Header("Unarmed weapon")]
-    public WeaponItem unarmedWeapon;
 
     [Header("Attacking weapon")]
     public WeaponItem attackingWeapon;
-
-    [Header("Damage colliders")]
-    public DamageCollider leftHandDamageCollider;
-    public DamageCollider rightHandDamageCollider;
 
     private void Awake()
     {

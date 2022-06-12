@@ -17,6 +17,7 @@ public class CharacterStatsManager : MonoBehaviour
     public float currentMana;
 
     public int soulCount = 0;
+    public int soulsAwardedOnDeath = 1;
 
     public bool isDead;
 
@@ -61,6 +62,17 @@ public class CharacterStatsManager : MonoBehaviour
         float finalDamage = physicalDamage; //+ fire damage + magic damage etc.
 
         currentHealth = Mathf.RoundToInt(currentHealth - finalDamage);
+
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            isDead = true;
+        }
+    }
+
+    public virtual void TakeDamageNoAnimation(int damage)
+    {
+        currentHealth -= damage;
 
         if (currentHealth <= 0)
         {

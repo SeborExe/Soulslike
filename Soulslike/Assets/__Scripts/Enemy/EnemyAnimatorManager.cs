@@ -4,71 +4,15 @@ using UnityEngine;
 
 public class EnemyAnimatorManager : AnimatorManager
 {
-    [SerializeField] EnemyManager enemyManager;
-    [SerializeField] EnemyStats enemyStats;
     EnemyBossManager enemyBossManager;
+    EnemyManager enemyManager;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         animator = GetComponent<Animator>();
-        enemyStats = GetComponentInParent<EnemyStats>();
-        enemyBossManager = GetComponentInParent<EnemyBossManager>();
-    }
-    
-    public override void TakeCriticalDamageEvent()
-    {
-        enemyStats.TakeDamageNoAnimation(enemyManager.pendingCriticalDamage);
-        enemyManager.pendingCriticalDamage = 0;
-    }
-
-    public void CanRotate()
-    {
-        animator.SetBool("canRotate", true);
-    }
-
-    public void StopRotation()
-    {
-        animator.SetBool("canRotate", false);
-    }
-
-    public void EnableCombo()
-    {
-        animator.SetBool("canDoCombo", true);
-    }
-
-    public void DisableCombo()
-    {
-        animator.SetBool("canDoCombo", false);
-    }
-
-    public void EnableIsInvulnerable()
-    {
-        animator.SetBool("isInvulnerable", true);
-    }
-
-    public void DisableIsInbulnerable()
-    {
-        animator.SetBool("isInvulnerable", false);
-    }
-
-    public void EnableIsParrying()
-    {
-        enemyManager.isParrying = true;
-    }
-
-    public void DisableIsParrying()
-    {
-        enemyManager.isParrying = false;
-    }
-
-    public void EnableCanBeReposted()
-    {
-        enemyManager.canBeReposted = true;
-    }
-
-    public void DisableCanBeReposed()
-    {
-        enemyManager.canBeReposted = false;
+        enemyBossManager = GetComponent<EnemyBossManager>();
+        enemyManager = GetComponent<EnemyManager>();
     }
 
     public void AwardSoulsOnDeath()
@@ -78,7 +22,7 @@ public class EnemyAnimatorManager : AnimatorManager
 
         if (playerStats != null)
         {
-            playerStats.AddSouls(enemyStats.soulsAwardedOnDeath);
+            playerStats.AddSouls(characterStatsManager.soulsAwardedOnDeath);
 
             if (soulsCout != null)
             {

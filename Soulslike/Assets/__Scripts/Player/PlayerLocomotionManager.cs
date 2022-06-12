@@ -55,7 +55,6 @@ public class PlayerLocomotionManager : MonoBehaviour
         cameraObject = Camera.main.transform;
         myTransform = transform;
 
-        playerAnimationManager.Initialize();
         playerManager.isGrounded = true;
         ignoreForGoundCheck = ~(1 << 8 | 1 << 11);
         Physics.IgnoreCollision(characterCollider, characterCollisionBlocker, true);

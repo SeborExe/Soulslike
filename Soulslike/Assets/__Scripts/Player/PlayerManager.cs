@@ -13,15 +13,6 @@ public class PlayerManager : CharacterManager
     InteractableUI interactableUI;
     PlayerStatsManager playerStatsManager;
 
-    [Header("Player flags")]
-    public bool isInteracting;
-    public bool isSprinting;
-    public bool isInAir;
-    public bool isGrounded;
-    public bool canDoCombo;
-    public bool isUsingRightHand;
-    public bool isUsingLeftHand;
-
     [Header("Interactable objects")]
     [SerializeField] float fadeSpeed = 0.2f;
     [SerializeField] GameObject interactableUIGameObject;
@@ -32,13 +23,14 @@ public class PlayerManager : CharacterManager
     private void Awake()
     {
         cameraHandler = FindObjectOfType<CameraHandler>();
-        backStabCollider = GetComponentInChildren<CriticalDamageCollider>();
+        interactableUI = FindObjectOfType<InteractableUI>();
+
         inputHandler = GetComponent<InputHandler>();
         animator = GetComponent<Animator>();
         playerStatsManager = GetComponent<PlayerStatsManager>();
         playerLocomotion = GetComponent<PlayerLocomotionManager>();
-        interactableUI = FindObjectOfType<InteractableUI>();
         playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
+        backStabCollider = GetComponentInChildren<CriticalDamageCollider>();
     }
 
     private void Update()
