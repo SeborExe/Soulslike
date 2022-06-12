@@ -10,7 +10,7 @@ public class EnemyManager : CharacterManager
     EnemyStats enemyStats;
 
     public State currentState;
-    public CharacterStats currentTarget;
+    public CharacterStatsManager currentTarget;
     public NavMeshAgent navMeshAgent;
     public Rigidbody enemyRigidbody;
 
@@ -56,13 +56,13 @@ public class EnemyManager : CharacterManager
         HandleRecoveryTimer();
         HandleStateMachine();
 
-        isRotatingWithRootMotion = enemyAnimatorManager.anim.GetBool("isRotatingWithRootMotion");
-        isInteracting = enemyAnimatorManager.anim.GetBool("isInteracting");
-        isPhaseShifting = enemyAnimatorManager.anim.GetBool("isPhaseShifting");
-        canDoCombo = enemyAnimatorManager.anim.GetBool("canDoCombo");
-        canRotate = enemyAnimatorManager.anim.GetBool("canRotate");
-        isInvulnerable = enemyAnimatorManager.anim.GetBool("isInvulnerable");
-        enemyAnimatorManager.anim.SetBool("isDead", enemyStats.isDead);
+        isRotatingWithRootMotion = enemyAnimatorManager.animator.GetBool("isRotatingWithRootMotion");
+        isInteracting = enemyAnimatorManager.animator.GetBool("isInteracting");
+        isPhaseShifting = enemyAnimatorManager.animator.GetBool("isPhaseShifting");
+        canDoCombo = enemyAnimatorManager.animator.GetBool("canDoCombo");
+        canRotate = enemyAnimatorManager.animator.GetBool("canRotate");
+        isInvulnerable = enemyAnimatorManager.animator.GetBool("isInvulnerable");
+        enemyAnimatorManager.animator.SetBool("isDead", enemyStats.isDead);
 
         HandlePlayerDead();
     }
@@ -113,8 +113,8 @@ public class EnemyManager : CharacterManager
         {
             currentTarget = null;
             currentState = null;
-            enemyAnimatorManager.anim.SetFloat("Vertical", 0, 0, Time.deltaTime);
-            enemyAnimatorManager.anim.SetFloat("Horizontal", 0, 0, Time.deltaTime);
+            enemyAnimatorManager.animator.SetFloat("Vertical", 0, 0, Time.deltaTime);
+            enemyAnimatorManager.animator.SetFloat("Horizontal", 0, 0, Time.deltaTime);
         }
     }
 }

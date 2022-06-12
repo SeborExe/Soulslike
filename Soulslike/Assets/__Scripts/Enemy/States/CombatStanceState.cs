@@ -18,14 +18,14 @@ public class CombatStanceState : State
         if (enemyStats.isDead) return null;
 
         float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
-        enemyAnimatorManager.anim.SetFloat("Vertical", verticalMovementValue, 0.2f, Time.deltaTime);
-        enemyAnimatorManager.anim.SetFloat("Horizontal", horizontalMovementValue, 0.2f, Time.deltaTime);
+        enemyAnimatorManager.animator.SetFloat("Vertical", verticalMovementValue, 0.2f, Time.deltaTime);
+        enemyAnimatorManager.animator.SetFloat("Horizontal", horizontalMovementValue, 0.2f, Time.deltaTime);
         attackState.hasPerformedAttack = false;
 
         if (enemyManager.isInteracting)
         {
-            enemyAnimatorManager.anim.SetFloat("Vertical", 0);
-            enemyAnimatorManager.anim.SetFloat("Horizontal", 0);
+            enemyAnimatorManager.animator.SetFloat("Vertical", 0);
+            enemyAnimatorManager.animator.SetFloat("Horizontal", 0);
             return this;
         }
 

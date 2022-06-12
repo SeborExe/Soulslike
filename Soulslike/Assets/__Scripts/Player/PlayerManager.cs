@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class PlayerManager : CharacterManager
 {
-    public Animator anim;
+    public Animator animator;
     InputHandler inputHandler;
     CameraHandler cameraHandler;
-    PlayerLocomotion playerLocomotion;
+    PlayerLocomotionManager playerLocomotion;
     PlayerAnimatorManager playerAnimatorManager;
     InteractableUI interactableUI;
-    PlayerStats playerStats;
+    PlayerStatsManager playerStatsManager;
 
     [Header("Player flags")]
     public bool isInteracting;
@@ -34,32 +34,32 @@ public class PlayerManager : CharacterManager
         cameraHandler = FindObjectOfType<CameraHandler>();
         backStabCollider = GetComponentInChildren<CriticalDamageCollider>();
         inputHandler = GetComponent<InputHandler>();
-        anim = GetComponentInChildren<Animator>();
-        playerStats = GetComponent<PlayerStats>();
-        playerLocomotion = GetComponent<PlayerLocomotion>();
+        animator = GetComponent<Animator>();
+        playerStatsManager = GetComponent<PlayerStatsManager>();
+        playerLocomotion = GetComponent<PlayerLocomotionManager>();
         interactableUI = FindObjectOfType<InteractableUI>();
-        playerAnimatorManager = GetComponentInChildren<PlayerAnimatorManager>();
+        playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
     }
 
     private void Update()
     {
         float delta = Time.deltaTime;
 
-        isInteracting = anim.GetBool("isInteracting");
-        canDoCombo = anim.GetBool("canDoCombo");
-        isUsingRightHand = anim.GetBool("isUsingRightHand");
-        isUsingLeftHand = anim.GetBool("isUsingLeftHand");
-        isInvulnerable = anim.GetBool("isInvulnerable");
-        isFiringSpell = anim.GetBool("isFiringSpell");
-        anim.SetBool("isInAir", isInAir);
-        anim.SetBool("isDead", playerStats.isDead);
-        anim.SetBool("isBlocking", isBlocking);
-        playerAnimatorManager.canRotate = anim.GetBool("canRotate");
+        isInteracting = animator.GetBool("isInteracting");
+        canDoCombo = animator.GetBool("canDoCombo");
+        isUsingRightHand = animator.GetBool("isUsingRightHand");
+        isUsingLeftHand = animator.GetBool("isUsingLeftHand");
+        isInvulnerable = animator.GetBool("isInvulnerable");
+        isFiringSpell = animator.GetBool("isFiringSpell");
+        animator.SetBool("isInAir", isInAir);
+        animator.SetBool("isDead", playerStatsManager.isDead);
+        animator.SetBool("isBlocking", isBlocking);
+        playerAnimatorManager.canRotate = animator.GetBool("canRotate");
 
         inputHandler.TickInput(delta);
         playerLocomotion.HandleJumping();
         playerLocomotion.HandleRollingAndSprinting(delta);
-        playerStats.RegenerateStamina();
+        playerStatsManager.RegenerateStamina();
 
         CheckForInteractable();
     }

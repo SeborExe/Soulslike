@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAnimatorManager : AnimatorManager
 {
     InputHandler inputHandler;
-    PlayerLocomotion playerLocomotion;
+    PlayerLocomotionManager playerLocomotionManager;
     PlayerManager playerManager;
 
     int vertical;
@@ -13,10 +13,10 @@ public class PlayerAnimatorManager : AnimatorManager
 
     public void Initialize()
     {
-        playerManager = GetComponentInParent<PlayerManager>();
-        anim = GetComponent<Animator>();
-        inputHandler = GetComponentInParent<InputHandler>();
-        playerLocomotion = GetComponentInParent<PlayerLocomotion>();
+        playerManager = GetComponent<PlayerManager>();
+        animator = GetComponent<Animator>();
+        inputHandler = GetComponent<InputHandler>();
+        playerLocomotionManager = GetComponent<PlayerLocomotionManager>();
         vertical = Animator.StringToHash("Vertical");
         horizontal = Animator.StringToHash("Horizontal");
     }
@@ -89,38 +89,38 @@ public class PlayerAnimatorManager : AnimatorManager
             h = horizontalMovement;
         }
 
-        anim.SetFloat(vertical, v, 0.1f, Time.deltaTime);
-        anim.SetFloat(horizontal, h, 0.1f, Time.deltaTime);
+        animator.SetFloat(vertical, v, 0.1f, Time.deltaTime);
+        animator.SetFloat(horizontal, h, 0.1f, Time.deltaTime);
     }
 
     public void CanRotate()
     {
-        anim.SetBool("canRotate", true);
+        animator.SetBool("canRotate", true);
     }
 
     public void StopRotation()
     {
-        anim.SetBool("canRotate", false);
+        animator.SetBool("canRotate", false);
     }
 
     public void EnableCombo()
     {
-        anim.SetBool("canDoCombo", true);
+        animator.SetBool("canDoCombo", true);
     }
 
     public void DisableCombo()
     {
-        anim.SetBool("canDoCombo", false);
+        animator.SetBool("canDoCombo", false);
     }
 
     public void EnableIsInvulnerable()
     {
-        anim.SetBool("isInvulnerable", true);
+        animator.SetBool("isInvulnerable", true);
     }
 
     public void DisableIsInbulnerable()
     {
-        anim.SetBool("isInvulnerable", false);
+        animator.SetBool("isInvulnerable", false);
     }
 
     public void EnableIsParrying()
@@ -155,14 +155,14 @@ public class PlayerAnimatorManager : AnimatorManager
 
     public void DisableCollision()
     {
-        playerLocomotion.characterCollider.enabled = false;
-        playerLocomotion.characterCollisionBlocker.enabled = false;
+        playerLocomotionManager.characterCollider.enabled = false;
+        playerLocomotionManager.characterCollisionBlocker.enabled = false;
     }
 
     public void EnableCollision()
     {
-        playerLocomotion.characterCollider.enabled = true;
-        playerLocomotion.characterCollisionBlocker.enabled = true;
+        playerLocomotionManager.characterCollider.enabled = true;
+        playerLocomotionManager.characterCollisionBlocker.enabled = true;
     }
 
     private void OnAnimatorMove()
@@ -170,10 +170,10 @@ public class PlayerAnimatorManager : AnimatorManager
         if (playerManager.isInteracting == false) return;
 
         float delta = Time.deltaTime;
-        playerLocomotion.rigidbody.drag = 0;
-        Vector3 deltaPosition = anim.deltaPosition;
+        playerLocomotionManager.rigidbody.drag = 0;
+        Vector3 deltaPosition = animator.deltaPosition;
         deltaPosition.y = 0;
         Vector3 velocity = deltaPosition / delta;
-        playerLocomotion.rigidbody.velocity = velocity;
+        playerLocomotionManager.rigidbody.velocity = velocity;
     }
 }

@@ -11,7 +11,7 @@ public class SpellDamageCollider : DamageCollider
 
     bool hasCollider = false;
 
-    CharacterStats spellTarget;
+    CharacterStatsManager spellTarget;
     Rigidbody rigidbody;
 
     Vector3 impactNormal; //Use to rotate impact particles
@@ -44,7 +44,7 @@ public class SpellDamageCollider : DamageCollider
                 illusionaryWall.wallHasBeenHit = true;
             }
 
-            spellTarget = collision.transform.GetComponent<CharacterStats>();
+            spellTarget = collision.transform.GetComponent<CharacterStatsManager>();
 
             if (spellTarget != null)
             {

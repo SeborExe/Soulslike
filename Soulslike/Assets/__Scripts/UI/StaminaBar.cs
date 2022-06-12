@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class StaminaBar : MonoBehaviour
 {
     public Slider slider;
-    [SerializeField] PlayerStats playerStats;
+    [SerializeField] PlayerStatsManager playerStats;
 
     private void Update()
     {

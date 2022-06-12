@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttacker : MonoBehaviour
+public class PlayerCombatManager : MonoBehaviour
 {
-    PlayerAnimatorManager animationHandler;
-    PlayerManager playerManager;
-    PlayerStats playerStats;
-    PlayerInventory playerInventory;
     InputHandler inputHandler;
-    WeaponSlotManager weaponSlotManager;
+    PlayerManager playerManager;
+    PlayerAnimatorManager playerAnimatorManager;
+    PlayerStatsManager playerStatsManager;
+    PlayerInventoryManager playerInventoryManager;
+    PlayerWeaponSlotManager playerWeaponSlotManager;
     PlayerEquipmentManager playerEquipmentManager;
     CameraHandler cameraHandler;
 
@@ -20,61 +20,61 @@ public class PlayerAttacker : MonoBehaviour
 
     private void Awake()
     {
-        animationHandler = GetComponent<PlayerAnimatorManager>();
-        playerManager = GetComponentInParent<PlayerManager>();
-        playerStats = GetComponentInParent<PlayerStats>();
-        playerInventory = GetComponentInParent<PlayerInventory>();
-        weaponSlotManager = GetComponent<WeaponSlotManager>();
-        inputHandler = GetComponentInParent<InputHandler>();
+        playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
+        playerManager = GetComponent<PlayerManager>();
+        playerStatsManager = GetComponent<PlayerStatsManager>();
+        playerInventoryManager = GetComponent<PlayerInventoryManager>();
+        playerWeaponSlotManager = GetComponent<PlayerWeaponSlotManager>();
+        inputHandler = GetComponent<InputHandler>();
         playerEquipmentManager = GetComponent<PlayerEquipmentManager>();
         cameraHandler = FindObjectOfType<CameraHandler>();
     }
 
     public void HandleWeaponCombo(WeaponItem weapon)
     {
-        if (playerStats.currentStamina <= 0)
+        if (playerStatsManager.currentStamina <= 0)
             return;
 
         if (inputHandler.comboFlag)
         {
-            animationHandler.anim.SetBool("canDoCombo", false);
+            playerAnimatorManager.animator.SetBool("canDoCombo", false);
 
             if (lastAttack == weapon.OH_Light_attack_01)
             {
-                animationHandler.PlayTargetAnimation(weapon.OH_Light_attack_02, true);
+                playerAnimatorManager.PlayTargetAnimation(weapon.OH_Light_attack_02, true);
             }
             else if (lastAttack == weapon.TH_Light_Attack_01)
             {
-                animationHandler.PlayTargetAnimation(weapon.TH_Light_Attack_02, true);
+                playerAnimatorManager.PlayTargetAnimation(weapon.TH_Light_Attack_02, true);
             }
         }
     }
    
     public void HandleLightAttack(WeaponItem weapon)
     {
-        if (playerStats.currentStamina <= 0)
+        if (playerStatsManager.currentStamina <= 0)
             return;
 
-        weaponSlotManager.attackingWeapon = weapon;
+        playerWeaponSlotManager.attackingWeapon = weapon;
 
         if (inputHandler.twoHandFlag)
         {
-            animationHandler.PlayTargetAnimation(weapon.TH_Light_Attack_01, true);
+            playerAnimatorManager.PlayTargetAnimation(weapon.TH_Light_Attack_01, true);
             lastAttack = weapon.TH_Light_Attack_01;
         }
         else
         {
-            animationHandler.PlayTargetAnimation(weapon.OH_Light_attack_01, true);
+            playerAnimatorManager.PlayTargetAnimation(weapon.OH_Light_attack_01, true);
             lastAttack = weapon.OH_Light_attack_01;
         }
     }
 
     public void HandleHeavyAttack(WeaponItem weapon)
     {
-        if (playerStats.currentStamina <= 0)
+        if (playerStatsManager.currentStamina <= 0)
             return;
 
-        weaponSlotManager.attackingWeapon = weapon;
+        playerWeaponSlotManager.attackingWeapon = weapon;
 
         //if (inputHandler.twoHandFlag)
         //{
@@ -82,7 +82,7 @@ public class PlayerAttacker : MonoBehaviour
         //}
         //else
         //{
-            animationHandler.PlayTargetAnimation(weapon.OH_Heavy_attack_01, true);
+            playerAnimatorManager.PlayTargetAnimation(weapon.OH_Heavy_attack_01, true);
             lastAttack = weapon.OH_Heavy_attack_01;
         //}
     }
@@ -90,26 +90,26 @@ public class PlayerAttacker : MonoBehaviour
     #region Input Actions
     public void HandleRBAction()
     {
-        if (playerInventory.rightWeapon.isMeleeWeapon)
+        if (playerInventoryManager.rightWeapon.isMeleeWeapon)
         {
             PerformRBMeleeAction();
         }
 
-        else if (playerInventory.rightWeapon.isSpellCaster ||
-            playerInventory.rightWeapon.isFaithCaster ||
-            playerInventory.rightWeapon.isPyroCaster)
+        else if (playerInventoryManager.rightWeapon.isSpellCaster ||
+            playerInventoryManager.rightWeapon.isFaithCaster ||
+            playerInventoryManager.rightWeapon.isPyroCaster)
         {
-            PerformRBMagicAction(playerInventory.rightWeapon);
+            PerformRBMagicAction(playerInventoryManager.rightWeapon);
         }
     }
 
     public void HandleLTAction()
     {
-        if (playerInventory.leftWeapon.isShieldWeapon)
+        if (playerInventoryManager.leftWeapon.isShieldWeapon)
         {
             PerformLTWeaponArt(inputHandler.twoHandFlag);
         }
-        else if (playerInventory.leftWeapon.isMeleeWeapon)
+        else if (playerInventoryManager.leftWeapon.isMeleeWeapon)
         {
 
         }
@@ -128,7 +128,7 @@ public class PlayerAttacker : MonoBehaviour
         if (playerManager.canDoCombo)
         {
             inputHandler.comboFlag = true;
-            HandleWeaponCombo(playerInventory.rightWeapon);
+            HandleWeaponCombo(playerInventoryManager.rightWeapon);
             inputHandler.comboFlag = false;
         }
         else
@@ -139,8 +139,8 @@ public class PlayerAttacker : MonoBehaviour
             if (playerManager.canDoCombo)
                 return;
 
-            animationHandler.anim.SetBool("isUsingRightHand", true);
-            HandleLightAttack(playerInventory.rightWeapon);
+            playerAnimatorManager.animator.SetBool("isUsingRightHand", true);
+            HandleLightAttack(playerInventoryManager.rightWeapon);
         }
     }
 
@@ -150,27 +150,27 @@ public class PlayerAttacker : MonoBehaviour
 
         if (weapon.isFaithCaster)
         {
-            if (playerInventory.currentSpell != null && playerInventory.currentSpell.isFaithSpell)
+            if (playerInventoryManager.currentSpell != null && playerInventoryManager.currentSpell.isFaithSpell)
             {
-                if (playerStats.currentMana >= playerInventory.currentSpell.manaCost)
-                    playerInventory.currentSpell.AttemptToCastSpell(animationHandler, playerStats, weaponSlotManager);
+                if (playerStatsManager.currentMana >= playerInventoryManager.currentSpell.manaCost)
+                    playerInventoryManager.currentSpell.AttemptToCastSpell(playerAnimatorManager, playerStatsManager, playerWeaponSlotManager);
 
                 else
                 {
-                    animationHandler.PlayTargetAnimation("Shrug", true);
+                    playerAnimatorManager.PlayTargetAnimation("Shrug", true);
                 }
             }
         }
         else if (weapon.isPyroCaster)
         {
-            if (playerInventory.currentSpell != null && playerInventory.currentSpell.isPyroSpell)
+            if (playerInventoryManager.currentSpell != null && playerInventoryManager.currentSpell.isPyroSpell)
             {
-                if (playerStats.currentMana >= playerInventory.currentSpell.manaCost)
-                    playerInventory.currentSpell.AttemptToCastSpell(animationHandler, playerStats, weaponSlotManager);
+                if (playerStatsManager.currentMana >= playerInventoryManager.currentSpell.manaCost)
+                    playerInventoryManager.currentSpell.AttemptToCastSpell(playerAnimatorManager, playerStatsManager, playerWeaponSlotManager);
 
                 else
                 {
-                    animationHandler.PlayTargetAnimation("Shrug", true);
+                    playerAnimatorManager.PlayTargetAnimation("Shrug", true);
                 }
             }
         }
@@ -186,13 +186,13 @@ public class PlayerAttacker : MonoBehaviour
         }
         else
         {
-            animationHandler.PlayTargetAnimation(playerInventory.leftWeapon.weapon_art, true);
+            playerAnimatorManager.PlayTargetAnimation(playerInventoryManager.leftWeapon.weapon_art, true);
         }
     }
 
     public void AttemptBackStabOrRipost()
     {
-        if (playerStats.currentStamina <= 0) return;
+        if (playerStatsManager.currentStamina <= 0) return;
 
         RaycastHit hit;
 
@@ -200,7 +200,7 @@ public class PlayerAttacker : MonoBehaviour
             out hit, 0.5f, backStabLayer))
         {
             CharacterManager enemyCharacterManager = hit.transform.gameObject.GetComponentInParent<CharacterManager>();
-            DamageCollider rightWeapon = weaponSlotManager.rightHandDamageCollider;
+            DamageCollider rightWeapon = playerWeaponSlotManager.rightHandDamageCollider;
 
             if (enemyCharacterManager != null)
             {
@@ -216,7 +216,7 @@ public class PlayerAttacker : MonoBehaviour
 
                 //if (rightWeapon != null)
                 //{
-                int criticalDamage = playerInventory.rightWeapon.criticalDamageMultiplier * rightWeapon.currentWeaponDamage;
+                int criticalDamage = playerInventoryManager.rightWeapon.criticalDamageMultiplier * rightWeapon.currentWeaponDamage;
                 enemyCharacterManager.pendingCriticalDamage = criticalDamage;
                 //}
                 //else
@@ -225,7 +225,7 @@ public class PlayerAttacker : MonoBehaviour
                 //    enemyCharacterManager.pendingCriticalDamage = criticalDamage;
                 //}
 
-                animationHandler.PlayTargetAnimation("BackStab", true);
+                playerAnimatorManager.PlayTargetAnimation("BackStab", true);
                 enemyCharacterManager.GetComponentInChildren<AnimatorManager>().PlayTargetAnimation("BackStabbed", true);
             }
         }
@@ -235,7 +235,7 @@ public class PlayerAttacker : MonoBehaviour
         {
             //Check for team mate id
             CharacterManager enemyCharacterManager = hit.transform.gameObject.GetComponentInParent<CharacterManager>();
-            DamageCollider rightWeapon = weaponSlotManager.rightHandDamageCollider;
+            DamageCollider rightWeapon = playerWeaponSlotManager.rightHandDamageCollider;
 
             if (enemyCharacterManager != null && enemyCharacterManager.canBeReposted && enemyCharacterManager.isRepostableCharacter)
             {
@@ -250,10 +250,10 @@ public class PlayerAttacker : MonoBehaviour
                 Quaternion targetRotation = Quaternion.Slerp(playerManager.transform.rotation, tr, 500 * Time.deltaTime);
                 playerManager.transform.rotation = targetRotation;
 
-                int criticalDamage = playerInventory.rightWeapon.criticalDamageMultiplier * rightWeapon.currentWeaponDamage;
+                int criticalDamage = playerInventoryManager.rightWeapon.criticalDamageMultiplier * rightWeapon.currentWeaponDamage;
                 enemyCharacterManager.pendingCriticalDamage = criticalDamage;
 
-                animationHandler.PlayTargetAnimation("Ripost", true);
+                playerAnimatorManager.PlayTargetAnimation("Ripost", true);
                 enemyCharacterManager.GetComponentInChildren<AnimatorManager>().PlayTargetAnimation("Riposted", true);
             }
         }
@@ -261,8 +261,8 @@ public class PlayerAttacker : MonoBehaviour
 
     private void SuccessfulyCastSpell()
     {
-        playerInventory.currentSpell.SuccessfullyCastSpell(animationHandler, playerStats, cameraHandler, weaponSlotManager);
-        animationHandler.anim.SetBool("isFiringSpell", true);
+        playerInventoryManager.currentSpell.SuccessfullyCastSpell(playerAnimatorManager, playerStatsManager, cameraHandler, playerWeaponSlotManager);
+        playerAnimatorManager.animator.SetBool("isFiringSpell", true);
     }
 
     #endregion
@@ -275,7 +275,7 @@ public class PlayerAttacker : MonoBehaviour
 
         if (playerManager.isBlocking) return;
 
-        animationHandler.PlayTargetAnimation("Block_Start", false, true);
+        playerAnimatorManager.PlayTargetAnimation("Block_Start", false, true);
         playerEquipmentManager.OpenBlockingCollider();
         playerManager.isBlocking = true;
     }

@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStats : CharacterStats
+public class PlayerStatsManager : CharacterStatsManager
 {
     [SerializeField] HealthBar healthBar;
     [SerializeField] StaminaBar staminaBar;
     [SerializeField] ManaBar manaBar;
-    PlayerAnimatorManager animationHandler;
+    PlayerAnimatorManager playerAnimatorManager;
     PlayerManager playerManager;
-    SpellDamageCollider spellDamageCollider;
 
     [Header("Stamina")]
     [SerializeField] float staminaRegenerationAmount = 25;
@@ -18,8 +17,7 @@ public class PlayerStats : CharacterStats
     private void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
-        animationHandler = GetComponentInChildren<PlayerAnimatorManager>();
-        spellDamageCollider = GetComponentInChildren<SpellDamageCollider>();
+        playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
     }
 
     private void Start()
@@ -76,12 +74,12 @@ public class PlayerStats : CharacterStats
         base.TakeDamage(damage, damageAnimation = "Damage_01");
 
         //healthBar.SetCurrentHealth(currentHealth);
-        animationHandler.PlayTargetAnimation(damageAnimation, true);
+        playerAnimatorManager.PlayTargetAnimation(damageAnimation, true);
 
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            animationHandler.PlayTargetAnimation("Dead_01", true);
+            playerAnimatorManager.PlayTargetAnimation("Dead_01", true);
             isDead = true;
         }
     }
