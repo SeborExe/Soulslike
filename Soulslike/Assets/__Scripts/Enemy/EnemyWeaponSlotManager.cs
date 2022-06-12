@@ -2,18 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyWeaponSlotManager : MonoBehaviour
+public class EnemyWeaponSlotManager : CharacterWeaponSlotManager
 {
     public WeaponItem rightHandWeapon;
     public WeaponItem leftHandWeapon;
 
-    WeaponHolderSlot rightHandSlot;
-    WeaponHolderSlot leftHandSlot;
-
-    DamageCollider rightHandDamageCollider;
-    DamageCollider leftHandDamageCollider;
+    EnemyStatsManager enemyStatsManager;
 
     private void Awake()
+    {
+        enemyStatsManager = GetComponent<EnemyStatsManager>();
+        LoadWeaponHolderSlots();
+    }
+
+    private void Start()
+    {
+        LoadWeaponsOnBothHands();
+    }
+
+    private void LoadWeaponHolderSlots()
     {
         WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
         foreach (WeaponHolderSlot weaponSlot in weaponHolderSlots)
@@ -27,11 +34,6 @@ public class EnemyWeaponSlotManager : MonoBehaviour
                 rightHandSlot = weaponSlot;
             }
         }
-    }
-
-    private void Start()
-    {
-        LoadWeaponsOnBothHands();
     }
 
     private void LoadWeaponsOnBothHands()
@@ -108,6 +110,20 @@ public class EnemyWeaponSlotManager : MonoBehaviour
     {
         //anim.SetBool("canDoCombo", false);
     }
-    
+
+    #endregion
+
+    #region Handle Weapons Poise Bonus
+
+    public void GrantWeaponAttackingPoiseBonus()
+    {
+        enemyStatsManager.totalPoiseDefense += enemyStatsManager.offensivePoiseBonus;
+    }
+
+    public void ResetWeaponAttackingPoiseBonus()
+    {
+        enemyStatsManager.totalPoiseDefense = enemyStatsManager.armorPoiseBonus;
+    }
+
     #endregion
 }

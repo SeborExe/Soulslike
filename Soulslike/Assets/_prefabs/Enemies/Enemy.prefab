@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatStanceState: {fileID: 700489044}
-  enemyAttacks:
-  - {fileID: 11400000, guid: 79136e823bfbdc743b0d62b13dc3cd54, type: 2}
-  - {fileID: 11400000, guid: 102fe1c005e395547b0265d402a70164, type: 2}
+  pursueTargetState: {fileID: 1600441974}
+  rotateTowardTargetState: {fileID: 652770256}
   currentAttack: {fileID: 0}
+  hasPerformedAttack: 0
 --- !u!1 &48278825
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,6 +483,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d89a78e2de7fb9349b26827a98fbc0e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &652770255
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 652770257}
+  - component: {fileID: 652770256}
+  m_Layer: 0
+  m_Name: RotateTowardTargetState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &652770257
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652770255}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1694704508}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &652770256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652770255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3840a8e0bb7f07d428889493c99c7207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combatStanceState: {fileID: 700489044}
 --- !u!1 &700489043
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,6 +574,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackState: {fileID: 46033257}
   pursueTargetState: {fileID: 1600441974}
+  enemyAttacks:
+  - {fileID: 11400000, guid: 79136e823bfbdc743b0d62b13dc3cd54, type: 2}
+  - {fileID: 11400000, guid: 102fe1c005e395547b0265d402a70164, type: 2}
 --- !u!1 &778050008
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,6 +724,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatStanceState: {fileID: 700489044}
+  rotateTowardTargetState: {fileID: 652770256}
 --- !u!1 &1604663336
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,6 +835,7 @@ Transform:
   - {fileID: 700489045}
   - {fileID: 46033258}
   - {fileID: 6634466567227662649}
+  - {fileID: 652770257}
   m_Father: {fileID: 1187471530403977234}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1613,6 +1663,11 @@ MonoBehaviour:
   currentMana: 0
   soulCount: 0
   isDead: 0
+  physicalDamageAbsorbtionHead: 0
+  physicalDamageAbsorbtionTorso: 0
+  physicalDamageAbsorbtionPants: 0
+  physicalDamageAbsorbtionGloves: 0
+  physicalDamageAbsorbtionBoots: 0
   enemyHealthBar: {fileID: 651292207}
   soulsAwardedOnDeath: 1
 --- !u!114 &1187471530403977247
@@ -1635,6 +1690,8 @@ MonoBehaviour:
   canBeParried: 0
   isRepostableCharacter: 1
   isBlocking: 0
+  isRotatingWithRootMotion: 0
+  canRotate: 0
   isFiringSpell: 0
   pendingCriticalDamage: 0
   currentState: {fileID: 778050009}
@@ -1643,8 +1700,8 @@ MonoBehaviour:
   enemyRigidbody: {fileID: 0}
   isPerformingAction: 0
   isInteracting: 0
-  rotationSpeed: 15
-  maximumAttackRange: 1.5
+  rotationSpeed: 30
+  maximumAggroRadius: 1.5
   moveSpeed: 1
   detectionRadius: 20
   minimumDetectionAngle: -50

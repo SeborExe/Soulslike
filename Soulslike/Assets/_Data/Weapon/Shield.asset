@@ -18,7 +18,7 @@ MonoBehaviour:
   isUnarmed: 0
   Right_Hand_Idle: Right_Arm_Idle
   Left_Hand_Idle: Left_Arm_Idle
-  Two_Hand_Idle: Two_Hand_Idle
+  Two_Hand_Idle: 
   OH_Light_attack_01: 
   OH_Light_attack_02: 
   OH_Heavy_attack_01: 
@@ -35,4 +35,6 @@ MonoBehaviour:
   weapon_art: Parry
   baseDamage: 25
   criticalDamageMultiplier: 4
+  poiseBreak: 0
+  offensivePoiseBonus: 0
   physicalDamageAbsorption: 85

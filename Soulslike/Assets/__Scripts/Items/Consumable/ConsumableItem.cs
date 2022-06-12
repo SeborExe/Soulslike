@@ -16,7 +16,7 @@ public class ConsumableItem : Item
     public bool isInteracting;
 
     public virtual void AttemptToConsumableItem(PlayerAnimatorManager playerAnimatorManager,
-        WeaponSlotManager weaponSlotManager, PlayerEffectsManager playerEffectsManager)
+        PlayerWeaponSlotManager weaponSlotManager, PlayerEffectsManager playerEffectsManager)
     {
         if (currentItemAmout > 0)
         {

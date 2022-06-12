@@ -5,31 +5,32 @@ using UnityEngine;
 public class PursueTargetState : State
 {
     public CombatStanceState combatStanceState;
+    public RotateTowardTargetState rotateTowardTargetState;
 
-    public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
+    public override State Tick(EnemyManager enemyManager, EnemyStatsManager enemyStats, EnemyAnimatorManager enemyAnimatorManager)
     {
         if (enemyStats.isDead) return null;
 
+        Vector3 targetDirection = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
+        float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
+        float viewableAngle = Vector3.SignedAngle(targetDirection, enemyManager.transform.forward, Vector3.up);
+        HandleRotateTowardsToTarget(enemyManager);
+
+        if (enemyManager.isInteracting) 
+            return this;
+
         if (enemyManager.isPerformingAction)
         {
-            enemyAnimatorManager.anim.SetFloat("Vertical", 0, 0.1f, Time.deltaTime);
+            enemyAnimatorManager.animator.SetFloat("Vertical", 0, 0.1f, Time.deltaTime);
             return this;
         }
 
-        if (enemyManager.isInteracting) return this;
-
-        Vector3 targetDirection = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
-        float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
-        float viewableAngle = Vector3.Angle(targetDirection, enemyManager.transform.forward);
-
-        if (distanceFromTarget > enemyManager.maximumAttackRange)
+        if (distanceFromTarget > enemyManager.maximumAggroRadius)
         {
-            enemyAnimatorManager.anim.SetFloat("Vertical", 1, 0.1f, Time.deltaTime);
+            enemyAnimatorManager.animator.SetFloat("Vertical", 1, 0.1f, Time.deltaTime);
         }
 
-        HandleRotateTowardsToTarget(enemyManager);
-
-        if (distanceFromTarget <= enemyManager.maximumAttackRange)
+        if (distanceFromTarget <= enemyManager.maximumAggroRadius)
         {
             return combatStanceState;
         }

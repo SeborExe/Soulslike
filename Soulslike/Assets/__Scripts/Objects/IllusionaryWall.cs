@@ -36,7 +36,7 @@ public class IllusionaryWall : MonoBehaviour
         if (wallCollider.enabled)
         {
             wallCollider.enabled = false;
-            //audioSource.PlayOneShot(illusionaryWallSound);
+            audioSource.PlayOneShot(illusionaryWallSound);
         }
 
         if (alpha <= 0)

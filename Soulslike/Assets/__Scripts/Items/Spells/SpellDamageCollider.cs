@@ -7,10 +7,11 @@ public class SpellDamageCollider : DamageCollider
     public GameObject impactParticles;
     public GameObject projectileParticles;
     public GameObject muzzleParticles;
+    public SphereCollider sphereCollider;
 
     bool hasCollider = false;
 
-    CharacterStats spellTarget;
+    CharacterStatsManager spellTarget;
     Rigidbody rigidbody;
 
     Vector3 impactNormal; //Use to rotate impact particles
@@ -18,6 +19,7 @@ public class SpellDamageCollider : DamageCollider
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+        sphereCollider = GetComponent<SphereCollider>();
     }
 
     private void Start()
@@ -36,8 +38,13 @@ public class SpellDamageCollider : DamageCollider
     {
         if (!hasCollider)
         {
-            Debug.Log(collision.gameObject.layer);
-            spellTarget = collision.transform.GetComponent<CharacterStats>();
+            if (collision.gameObject.tag == "Illusionary Wall")
+            {
+                IllusionaryWall illusionaryWall = collision.gameObject.GetComponent<IllusionaryWall>();
+                illusionaryWall.wallHasBeenHit = true;
+            }
+
+            spellTarget = collision.transform.GetComponent<CharacterStatsManager>();
 
             if (spellTarget != null)
             {

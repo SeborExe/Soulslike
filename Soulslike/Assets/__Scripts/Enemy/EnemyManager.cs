@@ -7,18 +7,17 @@ public class EnemyManager : CharacterManager
 {
     EnemyLocomotionManager enemyLocomotionManager;
     EnemyAnimatorManager enemyAnimatorManager;
-    EnemyStats enemyStats;
+    EnemyStatsManager enemyStatsManager;
 
     public State currentState;
-    public CharacterStats currentTarget;
+    public CharacterStatsManager currentTarget;
     public NavMeshAgent navMeshAgent;
     public Rigidbody enemyRigidbody;
 
     public bool isPerformingAction;
-    public bool isInteracting;
 
     public float rotationSpeed = 15f;
-    public float maximumAttackRange = 1.5f;
+    public float maximumAggroRadius = 1.5f;
     public float moveSpeed = 1f;
 
     [Header("A.I. Settings")]
@@ -31,15 +30,15 @@ public class EnemyManager : CharacterManager
     public float comboLikelyHood = 50;
 
     [Header("Combat flags")]
-    public bool canDoCombo;
+    public bool isPhaseShifting;
 
     public float currentRecoveryTime = 0;
 
     private void Awake()
     {
         enemyLocomotionManager = GetComponent<EnemyLocomotionManager>();
-        enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
-        enemyStats = GetComponent<EnemyStats>();
+        enemyAnimatorManager = GetComponent<EnemyAnimatorManager>();
+        enemyStatsManager = GetComponent<EnemyStatsManager>();
         enemyRigidbody = GetComponent<Rigidbody>();
         navMeshAgent = GetComponentInChildren<NavMeshAgent>();
         navMeshAgent.enabled = false;
@@ -55,9 +54,15 @@ public class EnemyManager : CharacterManager
         HandleRecoveryTimer();
         HandleStateMachine();
 
-        isInteracting = enemyAnimatorManager.anim.GetBool("isInteracting");
-        canDoCombo = enemyAnimatorManager.anim.GetBool("canDoCombo");
-        enemyAnimatorManager.anim.SetBool("isDead", enemyStats.isDead);
+        isRotatingWithRootMotion = enemyAnimatorManager.animator.GetBool("isRotatingWithRootMotion");
+        isInteracting = enemyAnimatorManager.animator.GetBool("isInteracting");
+        isPhaseShifting = enemyAnimatorManager.animator.GetBool("isPhaseShifting");
+        canDoCombo = enemyAnimatorManager.animator.GetBool("canDoCombo");
+        canRotate = enemyAnimatorManager.animator.GetBool("canRotate");
+        isInvulnerable = enemyAnimatorManager.animator.GetBool("isInvulnerable");
+        enemyAnimatorManager.animator.SetBool("isDead", enemyStatsManager.isDead);
+
+        HandlePlayerDead();
     }
 
     private void LateUpdate()
@@ -70,7 +75,7 @@ public class EnemyManager : CharacterManager
     {
         if (currentState != null)
         {
-            State nextState = currentState.Tick(this, enemyStats, enemyAnimatorManager);
+            State nextState = currentState.Tick(this, enemyStatsManager, enemyAnimatorManager);
 
             if (nextState != null)
             {
@@ -84,7 +89,7 @@ public class EnemyManager : CharacterManager
         currentState = state;
     }
 
-    private void HandleRecoveryTimer()
+    void HandleRecoveryTimer()
     {
         if (currentRecoveryTime > 0)
         {
@@ -97,6 +102,17 @@ public class EnemyManager : CharacterManager
             {
                 isPerformingAction = false;
             }
+        }
+    }
+
+    void HandlePlayerDead()
+    {
+        if (currentTarget != null && currentTarget.isDead)
+        {
+            currentTarget = null;
+            currentState = null;
+            enemyAnimatorManager.animator.SetFloat("Vertical", 0, 0, Time.deltaTime);
+            enemyAnimatorManager.animator.SetFloat("Horizontal", 0, 0, Time.deltaTime);
         }
     }
 }

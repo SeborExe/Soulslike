@@ -8,6 +8,11 @@ public class DamageCollider : MonoBehaviour
     public CharacterManager characterManager;
     public bool enabledDamageColliderOnStartUp = false;
 
+    [Header("Poise")]
+    public float poiseBreak;
+    public float offensivePoiseBonus;
+
+    [Header("Damage")]
     public int currentWeaponDamage = 25;
 
     private void Awake()
@@ -32,7 +37,7 @@ public class DamageCollider : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            PlayerStats playerStats = collision.GetComponent<PlayerStats>();
+            PlayerStatsManager playerStats = collision.GetComponent<PlayerStatsManager>();
             CharacterManager enemyCharacterManager = collision.GetComponent<CharacterManager>();
             BlockingCollider shield = collision.transform.GetComponentInChildren<BlockingCollider>();
 
@@ -59,13 +64,23 @@ public class DamageCollider : MonoBehaviour
 
             if (playerStats != null)
             {
-                playerStats.TakeDamage(currentWeaponDamage);
+                playerStats.poiseResetTimer = playerStats.totalPoiseResetTime;
+                playerStats.totalPoiseDefense -= poiseBreak;
+
+                if (playerStats.totalPoiseDefense > poiseBreak)
+                {
+                    playerStats.TakeDamageNoAnimation(currentWeaponDamage);
+                }
+                else
+                {
+                    playerStats.TakeDamage(currentWeaponDamage);
+                }
             }
         }
 
         if (collision.tag == "Enemy")
         {
-            EnemyStats enemyStats = collision.GetComponent<EnemyStats>();
+            EnemyStatsManager enemyStats = collision.GetComponent<EnemyStatsManager>();
             CharacterManager enemyCharacterManager = collision.GetComponent<CharacterManager>();
             BlockingCollider shield = collision.transform.GetComponentInChildren<BlockingCollider>();
 
@@ -93,7 +108,32 @@ public class DamageCollider : MonoBehaviour
 
             if (enemyStats != null)
             {
-                enemyStats.TakeDamage(currentWeaponDamage);
+                enemyStats.poiseResetTimer = enemyStats.totalPoiseResetTime;
+                enemyStats.totalPoiseDefense -= poiseBreak;
+
+                if (enemyStats.isBoss)
+                {
+                    if (enemyStats.totalPoiseDefense > poiseBreak)
+                    {
+                        enemyStats.TakeDamageNoAnimation(currentWeaponDamage);
+                    }
+                    else
+                    {
+                        enemyStats.TakeDamageNoAnimation(currentWeaponDamage);
+                        enemyStats.BreakGuard();
+                    }
+                }
+                else
+                {
+                    if (enemyStats.totalPoiseDefense > poiseBreak)
+                    {
+                        enemyStats.TakeDamageNoAnimation(currentWeaponDamage);
+                    }
+                    else
+                    {
+                        enemyStats.TakeDamage(currentWeaponDamage);
+                    }
+                }
             }
         }
         

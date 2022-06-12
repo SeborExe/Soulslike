@@ -5,23 +5,13 @@ using UnityEngine.UI;
 
 public class PlayerManager : CharacterManager
 {
-    public Animator anim;
+    public Animator animator;
     InputHandler inputHandler;
     CameraHandler cameraHandler;
-    PlayerLocomotion playerLocomotion;
+    PlayerLocomotionManager playerLocomotion;
     PlayerAnimatorManager playerAnimatorManager;
     InteractableUI interactableUI;
-    PlayerStats playerStats;
-
-    [Header("Player flags")]
-    public bool isInteracting;
-    public bool isSprinting;
-    public bool isInAir;
-    public bool isGrounded;
-    public bool canDoCombo;
-    public bool isUsingRightHand;
-    public bool isUsingLeftHand;
-    public bool isInvulnerable;
+    PlayerStatsManager playerStatsManager;
 
     [Header("Interactable objects")]
     [SerializeField] float fadeSpeed = 0.2f;
@@ -33,34 +23,35 @@ public class PlayerManager : CharacterManager
     private void Awake()
     {
         cameraHandler = FindObjectOfType<CameraHandler>();
-        backStabCollider = GetComponentInChildren<CriticalDamageCollider>();
-        inputHandler = GetComponent<InputHandler>();
-        anim = GetComponentInChildren<Animator>();
-        playerStats = GetComponent<PlayerStats>();
-        playerLocomotion = GetComponent<PlayerLocomotion>();
         interactableUI = FindObjectOfType<InteractableUI>();
-        playerAnimatorManager = GetComponentInChildren<PlayerAnimatorManager>();
+
+        inputHandler = GetComponent<InputHandler>();
+        animator = GetComponent<Animator>();
+        playerStatsManager = GetComponent<PlayerStatsManager>();
+        playerLocomotion = GetComponent<PlayerLocomotionManager>();
+        playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
+        backStabCollider = GetComponentInChildren<CriticalDamageCollider>();
     }
 
     private void Update()
     {
         float delta = Time.deltaTime;
 
-        isInteracting = anim.GetBool("isInteracting");
-        canDoCombo = anim.GetBool("canDoCombo");
-        isUsingRightHand = anim.GetBool("isUsingRightHand");
-        isUsingLeftHand = anim.GetBool("isUsingLeftHand");
-        isInvulnerable = anim.GetBool("isInvulnerable");
-        isFiringSpell = anim.GetBool("isFiringSpell");
-        anim.SetBool("isInAir", isInAir);
-        anim.SetBool("isDead", playerStats.isDead);
-        anim.SetBool("isBlocking", isBlocking);
-        playerAnimatorManager.canRotate = anim.GetBool("canRotate");
+        isInteracting = animator.GetBool("isInteracting");
+        canDoCombo = animator.GetBool("canDoCombo");
+        isUsingRightHand = animator.GetBool("isUsingRightHand");
+        isUsingLeftHand = animator.GetBool("isUsingLeftHand");
+        isInvulnerable = animator.GetBool("isInvulnerable");
+        isFiringSpell = animator.GetBool("isFiringSpell");
+        animator.SetBool("isInAir", isInAir);
+        animator.SetBool("isDead", playerStatsManager.isDead);
+        animator.SetBool("isBlocking", isBlocking);
+        playerAnimatorManager.canRotate = animator.GetBool("canRotate");
 
         inputHandler.TickInput(delta);
         playerLocomotion.HandleJumping();
         playerLocomotion.HandleRollingAndSprinting(delta);
-        playerStats.RegenerateStamina();
+        playerStatsManager.RegenerateStamina();
 
         CheckForInteractable();
     }
@@ -144,6 +135,17 @@ public class PlayerManager : CharacterManager
         playerLocomotion.rigidbody.velocity = Vector3.zero; //Stop player
         transform.position = playrStandingPosition.transform.position;
         playerAnimatorManager.PlayTargetAnimation("Open Chest", true);
+    }
+
+    public void PassThroughtFogWallInteraction(Transform fogWallEntrance)
+    {
+        playerLocomotion.rigidbody.velocity = Vector3.zero; //Stop player
+        Vector3 rotationDirection = fogWallEntrance.transform.forward;
+        Quaternion turnRotation = Quaternion.LookRotation(rotationDirection);
+        transform.rotation = turnRotation;
+        //Rotate over time
+
+        playerAnimatorManager.PlayTargetAnimation("Pass_Throught_Fog", true);
     }
 
     #endregion

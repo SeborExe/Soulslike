@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] PlayerInventory playerInventory;
+    [SerializeField] PlayerInventoryManager playerInventory;
     public EquipmentWindowUI equipmentWindowUI;
 
     [Header("UI Windows")]

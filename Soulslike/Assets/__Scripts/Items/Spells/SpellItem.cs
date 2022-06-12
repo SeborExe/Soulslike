@@ -19,13 +19,13 @@ public class SpellItem : Item
     [Header("Spell Discription")]
     [TextArea] public string spellDiscription;
 
-    public virtual void AttemptToCastSpell(PlayerAnimatorManager animationHandler, PlayerStats playerStats, WeaponSlotManager weaponSlot)
+    public virtual void AttemptToCastSpell(PlayerAnimatorManager animationHandler, PlayerStatsManager playerStats, PlayerWeaponSlotManager weaponSlot)
     {
         Debug.Log("You attempt to cast a spell");
     }
 
-    public virtual void SuccessfullyCastSpell(PlayerAnimatorManager animationHandler, PlayerStats playerStats,
-        CameraHandler cameraHandler, WeaponSlotManager weaponSlot)
+    public virtual void SuccessfullyCastSpell(PlayerAnimatorManager animationHandler, PlayerStatsManager playerStats,
+        CameraHandler cameraHandler, PlayerWeaponSlotManager weaponSlot)
     {
         Debug.Log("You successfuly cast a spell");
         playerStats.DeductManaPoints(manaCost);
