@@ -79,8 +79,22 @@ public class PlayerStatsManager : CharacterStatsManager
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            playerAnimatorManager.PlayTargetAnimation("Dead_01", true);
             isDead = true;
+            playerAnimatorManager.PlayTargetAnimation("Dead_01", true);
+        }
+    }
+
+    public override void TakePoisonDamage(int damage)
+    {
+        if (isDead) return;
+
+        base.TakePoisonDamage(damage);
+
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            isDead = true;
+            playerAnimatorManager.PlayTargetAnimation("Dead_01", true);
         }
     }
 

@@ -8,6 +8,7 @@ public class EnemyManager : CharacterManager
     EnemyLocomotionManager enemyLocomotionManager;
     EnemyAnimatorManager enemyAnimatorManager;
     EnemyStatsManager enemyStatsManager;
+    EnemyEffectManager enemyEffectManager;
 
     public State currentState;
     public CharacterStatsManager currentTarget;
@@ -40,6 +41,7 @@ public class EnemyManager : CharacterManager
         enemyAnimatorManager = GetComponent<EnemyAnimatorManager>();
         enemyStatsManager = GetComponent<EnemyStatsManager>();
         enemyRigidbody = GetComponent<Rigidbody>();
+        enemyEffectManager = GetComponent<EnemyEffectManager>();
         navMeshAgent = GetComponentInChildren<NavMeshAgent>();
         navMeshAgent.enabled = false;
     }
@@ -63,6 +65,11 @@ public class EnemyManager : CharacterManager
         enemyAnimatorManager.animator.SetBool("isDead", enemyStatsManager.isDead);
 
         HandlePlayerDead();
+    }
+
+    private void FixedUpdate()
+    {
+        enemyEffectManager.HandleAllBuildUpEffects();
     }
 
     private void LateUpdate()

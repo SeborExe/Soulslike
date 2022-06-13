@@ -11,8 +11,9 @@ public class PlayerEffectsManager : CharacterEffectsManager
     public int amoutToBeHealed;
     public GameObject instantiateFXModel;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         playerStatsManager = GetComponent<PlayerStatsManager>();
         playerWeaponSlotManager = GetComponent<PlayerWeaponSlotManager>();
     }
