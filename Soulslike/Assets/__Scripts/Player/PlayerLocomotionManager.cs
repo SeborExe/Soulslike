@@ -32,7 +32,7 @@ public class PlayerLocomotionManager : MonoBehaviour
     [SerializeField] float minimumDistanceNeededToBeginFall = 1f;
     [SerializeField] float groundDirectionRayDistance = 0.2f;
     float groundDetectionRayStartPoint = 0.5f;
-    LayerMask ignoreForGoundCheck;
+    public LayerMask groundLayer;
     public float inAirTimer;
 
     [Header("Stamina costs")]
@@ -56,7 +56,7 @@ public class PlayerLocomotionManager : MonoBehaviour
         myTransform = transform;
 
         playerManager.isGrounded = true;
-        ignoreForGoundCheck = ~(1 << 8 | 1 << 11);
+        groundLayer = ~(1 << 8 | 1 << 11);
         Physics.IgnoreCollision(characterCollider, characterCollisionBlocker, true);
     }
 
@@ -230,7 +230,7 @@ public class PlayerLocomotionManager : MonoBehaviour
         targetPosition = myTransform.position;
 
         Debug.DrawRay(origin, -Vector3.up * minimumDistanceNeededToBeginFall, Color.red, 0.1f, false);
-        if (Physics.Raycast(origin, -Vector3.up, out hit, minimumDistanceNeededToBeginFall, ignoreForGoundCheck))
+        if (Physics.Raycast(origin, -Vector3.up, out hit, minimumDistanceNeededToBeginFall, groundLayer))
         {
             normalVector = hit.normal;
             Vector3 tp = hit.point;

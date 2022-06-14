@@ -14,10 +14,13 @@ public class CharacterEffectsManager : MonoBehaviour
     public WeaponFX leftWeaponWF;
 
     [Header("Poison")]
+    public GameObject defaultPoisonParticleFX;
+    public Transform buildUpTransform;
+    public GameObject currentPoisonParticleFX;
     public bool isPoisoned;
     public float poisonBuildUp = 0f;
     public float poisonAmount = 100f;
-    public float defaultPoisonAmount;
+    public float defaultPoisonAmount = 100f;
     public float poisonTimer = 2f;   //Time between poison tick 
     public int poisonDamage = 1;
     float timer = 0f;
@@ -71,6 +74,15 @@ public class CharacterEffectsManager : MonoBehaviour
         {
             isPoisoned = true;
             poisonBuildUp = 0;
+
+            if (buildUpTransform != null)
+            {
+                currentPoisonParticleFX = Instantiate(defaultPoisonParticleFX, buildUpTransform.transform);
+            }
+            else
+            {
+                currentPoisonParticleFX = Instantiate(defaultPoisonParticleFX, characterStatsManager.transform);
+            }
         }
     }
 
@@ -94,6 +106,7 @@ public class CharacterEffectsManager : MonoBehaviour
             {
                 isPoisoned = false;
                 poisonAmount = defaultPoisonAmount;
+                Destroy(currentPoisonParticleFX);
             }
         }
     }
