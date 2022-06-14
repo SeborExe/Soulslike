@@ -5637,7 +5637,7 @@ MonoBehaviour:
   totalPoiseDefense: 0
   offensivePoiseBonus: 0
   armorPoiseBonus: 75
-  totalPoiseResetTime: 15
+  totalPoiseResetTime: 5
   poiseResetTimer: 0
   physicalDamageAbsorbtionHead: 0
   physicalDamageAbsorbtionTorso: 0
@@ -5771,6 +5771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36e6d041314afc84889b48d75a28cda6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bloodSplatterFX: {fileID: 1743637094903878, guid: 021a2f7a2c5bc4449b4c64a66a050e8c, type: 3}
   rightWeaponWF: {fileID: 0}
   leftWeaponWF: {fileID: 0}
 --- !u!1 &7671842412454763192

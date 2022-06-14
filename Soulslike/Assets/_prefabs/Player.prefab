@@ -1067,18 +1067,18 @@ MonoBehaviour:
   isRepostableCharacter: 0
   isBlocking: 0
   isInvulnerable: 0
+  canDoCombo: 0
+  isUsingRightHand: 0
+  isUsingLeftHand: 0
   isRotatingWithRootMotion: 0
   canRotate: 0
-  isFiringSpell: 0
-  pendingCriticalDamage: 0
-  animator: {fileID: 0}
   isInteracting: 0
   isSprinting: 0
   isInAir: 0
   isGrounded: 0
-  canDoCombo: 0
-  isUsingRightHand: 0
-  isUsingLeftHand: 0
+  isFiringSpell: 0
+  pendingCriticalDamage: 0
+  animator: {fileID: 0}
   fadeSpeed: 0.3
   interactableUIGameObject: {fileID: 0}
   itemInteractableObject: {fileID: 0}
@@ -1134,6 +1134,7 @@ MonoBehaviour:
   maxMana: 0
   currentMana: 0
   soulCount: 0
+  soulsAwardedOnDeath: 1
   isDead: 0
   totalPoiseDefense: 0
   offensivePoiseBonus: 0
@@ -1201,6 +1202,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a59ad57b2dcf96145830d88c3c01010f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bloodSplatterFX: {fileID: 1743637094903878, guid: 021a2f7a2c5bc4449b4c64a66a050e8c, type: 3}
+  rightWeaponWF: {fileID: 0}
+  leftWeaponWF: {fileID: 0}
   currentParticleFX: {fileID: 0}
   amoutToBeHealed: 0
   instantiateFXModel: {fileID: 0}
@@ -1218,18 +1222,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentConsumableItem: {fileID: 11400000, guid: 842ef26eb82768c4c85446a6702a3fbe, type: 2}
   currentSpell: {fileID: 11400000, guid: ed50ad058937d544e9f5efca40b3a16f, type: 2}
-  rightWeapon: {fileID: 0}
-  leftWeapon: {fileID: 0}
+  rightWeapon: {fileID: 11400000, guid: bd9a043903685c34bb5e4dc88739c85b, type: 2}
+  leftWeapon: {fileID: 11400000, guid: 83a5d874717b59f4e8544fd5d4572a5c, type: 2}
   currentHelmetEquipment: {fileID: 11400000, guid: 68f626ff8e9f27c4b81c088984b43943, type: 2}
   currentTorsoEquipment: {fileID: 11400000, guid: 24a306c0b8ec22748971c860bb788a19, type: 2}
   currentPantsEquipments: {fileID: 11400000, guid: 71750d32365765a4082ccce45dd01720, type: 2}
   currentBootsEquipment: {fileID: 11400000, guid: 14b7de6a8f6ab984294d3cec5a76efae, type: 2}
   currentGlovesEquipment: {fileID: 11400000, guid: 5d4a136b801585949aad9a9ad97f2738, type: 2}
   weaponsInRightHandSlots:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: bd9a043903685c34bb5e4dc88739c85b, type: 2}
   - {fileID: 0}
   weaponsInLeftHandSlots:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 83a5d874717b59f4e8544fd5d4572a5c, type: 2}
   - {fileID: 0}
   currentRightWeaponIndex: -1
   currentLeftWeaponIndex: -1
@@ -1246,12 +1250,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b45baa5098004784d949f408704326f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unarmedWeapon: {fileID: 11400000, guid: 1b64a0e46be3bad4cb7c881b8b988baf, type: 2}
   leftHandSlot: {fileID: 0}
   rightHandSlot: {fileID: 0}
-  unarmedWeapon: {fileID: 11400000, guid: 1b64a0e46be3bad4cb7c881b8b988baf, type: 2}
-  attackingWeapon: {fileID: 0}
+  backSlot: {fileID: 0}
   leftHandDamageCollider: {fileID: 0}
   rightHandDamageCollider: {fileID: 0}
+  attackingWeapon: {fileID: 0}
 --- !u!95 &4575830790760203271
 Animator:
   serializedVersion: 4

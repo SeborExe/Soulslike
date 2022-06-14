@@ -12,6 +12,7 @@ public class PlayerManager : CharacterManager
     PlayerAnimatorManager playerAnimatorManager;
     InteractableUI interactableUI;
     PlayerStatsManager playerStatsManager;
+    PlayerEffectsManager playerEffectsManager;
 
     [Header("Interactable objects")]
     [SerializeField] float fadeSpeed = 0.2f;
@@ -30,6 +31,8 @@ public class PlayerManager : CharacterManager
         playerStatsManager = GetComponent<PlayerStatsManager>();
         playerLocomotion = GetComponent<PlayerLocomotionManager>();
         playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
+        playerEffectsManager = GetComponent<PlayerEffectsManager>();
+
         backStabCollider = GetComponentInChildren<CriticalDamageCollider>();
     }
 
@@ -62,6 +65,7 @@ public class PlayerManager : CharacterManager
         playerLocomotion.HandleMovement(delta);
         playerLocomotion.HandlerRotation(delta);
         playerLocomotion.HandleFall(delta, playerLocomotion.moveDirection);
+        playerEffectsManager.HandleAllBuildUpEffects();
 
         if (hide)
         {
