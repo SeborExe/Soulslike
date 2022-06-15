@@ -9663,7 +9663,7 @@ PrefabInstance:
     - target: {fileID: 833256481273776996, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
       propertyPath: currentConsumableItem
       value: 
-      objectReference: {fileID: 11400000, guid: 17b9a4847c2412947a29be05496bacb6, type: 2}
+      objectReference: {fileID: 11400000, guid: f91858dedb819424b960cc8fd2f4b488, type: 2}
     - target: {fileID: 6959367209406945167, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
       propertyPath: m_RootOrder
       value: 5

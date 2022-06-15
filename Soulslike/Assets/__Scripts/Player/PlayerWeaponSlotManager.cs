@@ -11,12 +11,15 @@ public class PlayerWeaponSlotManager : CharacterWeaponSlotManager
     Animator animator;
     QuickSlotUI quickSlotsUI;
     PlayerEffectsManager playerEffectsManager;
+    CameraHandler cameraHandler;
 
     [Header("Attacking weapon")]
     public WeaponItem attackingWeapon;
 
     private void Awake()
     {
+        cameraHandler = FindObjectOfType<CameraHandler>();
+
         inputHandler = GetComponent<InputHandler>();
         playerStatsManager = GetComponent<PlayerStatsManager>();
         playerManager = GetComponentInParent<PlayerManager>();
@@ -111,6 +114,21 @@ public class PlayerWeaponSlotManager : CharacterWeaponSlotManager
                 quickSlotsUI.UpdateWeaponSlotsUI(false, weaponItem);
             }
         }
+    }
+
+    public void SuccessfulyThrowFireBomb()
+    {
+        Destroy(playerEffectsManager.instantiateFXModel);
+        BombConsumableItem fireBombItem = playerInventoryManager.currentConsumableItem as BombConsumableItem;
+
+        GameObject activeModelBomb = Instantiate(fireBombItem.liveBombModel, rightHandSlot.transform.position,
+            cameraHandler.cameraPivotTransform.rotation);
+        activeModelBomb.transform.rotation = Quaternion.Euler(cameraHandler.cameraPivotTransform.eulerAngles.x,
+            playerManager.lockOnTransform.eulerAngles.y, 0);
+
+        //Detect bomb damage collider
+        //add force to rigidbody
+        //create explosion and deal damage
     }
 
     #region Open and Close weapon collider
