@@ -19,8 +19,9 @@ MonoBehaviour:
   itemModel: {fileID: 7897094721217695020, guid: f0c74088d08e68b45bc878fdcafec60e, type: 3}
   consumableAnimation: Throw
   isInteracting: 0
-  upwardVelicoty: 50
-  forwardVelocity: 50
+  upwardVelicoty: 200
+  forwardVelocity: 600
   bombMass: 1
   liveBombModel: {fileID: 7897094721217695020, guid: 7ecfef8d3ac61304c9d84ad1e6ca95f9, type: 3}
-  bombDamage: 200
+  baseDamage: 200
+  explosiveDamage: 75

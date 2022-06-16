@@ -33,8 +33,9 @@ MonoBehaviour:
   isMeleeWeapon: 1
   isShieldWeapon: 0
   weapon_art: 
-  baseDamage: 35
-  criticalDamageMultiplier: 4
+  physicalDamage: 25
+  fireDamage: 8
+  criticalDamageMultiplier: 3
   poiseBreak: 30
   offensivePoiseBonus: 0
   physicalDamageAbsorption: 0
