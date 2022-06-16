@@ -36,7 +36,8 @@ public class WeaponItem : Item
     public string weapon_art;
 
     [Header("Damage")]
-    public int baseDamage = 25;
+    public int physicalDamage = 25;
+    public int fireDamage = 0;
     public int criticalDamageMultiplier = 4;
 
     [Header("Poise")]

@@ -9430,6 +9430,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 7671842412023634833, guid: d0a4e1be37f1ad14faa4858456499aef, type: 3}
+      propertyPath: m_TagString
+      value: Character
+      objectReference: {fileID: 0}
     - target: {fileID: 7671842412023634835, guid: d0a4e1be37f1ad14faa4858456499aef, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -9572,6 +9576,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1187471530403977232, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
+      propertyPath: m_TagString
+      value: Character
+      objectReference: {fileID: 0}
     - target: {fileID: 1187471530403977234, guid: b4b0e0fa6d409984f83c29ab0669f13a, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -9640,6 +9648,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 660275544297276887, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
+      propertyPath: m_TagString
+      value: Character
+      objectReference: {fileID: 0}
     - target: {fileID: 833256481273776987, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
       propertyPath: poisonAmountBar
       value: 
@@ -9663,7 +9675,7 @@ PrefabInstance:
     - target: {fileID: 833256481273776996, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
       propertyPath: currentConsumableItem
       value: 
-      objectReference: {fileID: 11400000, guid: 17b9a4847c2412947a29be05496bacb6, type: 2}
+      objectReference: {fileID: 11400000, guid: f91858dedb819424b960cc8fd2f4b488, type: 2}
     - target: {fileID: 6959367209406945167, guid: dd3707e076d80c94e89bbac5601899fe, type: 3}
       propertyPath: m_RootOrder
       value: 5

@@ -11,12 +11,15 @@ public class PlayerWeaponSlotManager : CharacterWeaponSlotManager
     Animator animator;
     QuickSlotUI quickSlotsUI;
     PlayerEffectsManager playerEffectsManager;
+    CameraHandler cameraHandler;
 
     [Header("Attacking weapon")]
     public WeaponItem attackingWeapon;
 
     private void Awake()
     {
+        cameraHandler = FindObjectOfType<CameraHandler>();
+
         inputHandler = GetComponent<InputHandler>();
         playerStatsManager = GetComponent<PlayerStatsManager>();
         playerManager = GetComponentInParent<PlayerManager>();
@@ -113,6 +116,27 @@ public class PlayerWeaponSlotManager : CharacterWeaponSlotManager
         }
     }
 
+    public void SuccessfulyThrowFireBomb()
+    {
+        Destroy(playerEffectsManager.instantiateFXModel);
+        BombConsumableItem fireBombItem = playerInventoryManager.currentConsumableItem as BombConsumableItem;
+
+        Vector3 startPos = playerStatsManager.GetComponentInChildren<ProjectileStartingPos>().transform.position;
+
+        GameObject activeModelBomb = Instantiate(fireBombItem.liveBombModel, startPos,
+            cameraHandler.cameraPivotTransform.rotation);
+        activeModelBomb.transform.rotation = Quaternion.Euler(cameraHandler.cameraPivotTransform.eulerAngles.x,
+            playerManager.lockOnTransform.eulerAngles.y, 0);
+        BombDamageCollider damageCollider = activeModelBomb.GetComponentInChildren<BombDamageCollider>();
+
+        damageCollider.explosionDamage = fireBombItem.baseDamage;
+        damageCollider.explosionSplashDamage = fireBombItem.explosiveDamage;
+        damageCollider.bombRigidbody.AddForce(activeModelBomb.transform.forward * fireBombItem.forwardVelocity);
+        damageCollider.bombRigidbody.AddForce(activeModelBomb.transform.up * fireBombItem.upwardVelicoty);
+        LoadWeaponOnSlot(playerInventoryManager.rightWeapon, false);
+        //create explosion and deal damage
+    }
+
     #region Open and Close weapon collider
 
     private void LoadLeftWeaponCollider()
@@ -120,7 +144,9 @@ public class PlayerWeaponSlotManager : CharacterWeaponSlotManager
         leftHandDamageCollider = leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
         if (leftHandDamageCollider != null)
         {
-            leftHandDamageCollider.currentWeaponDamage = playerInventoryManager.leftWeapon.baseDamage;
+            leftHandDamageCollider.physicalDamage = playerInventoryManager.leftWeapon.physicalDamage;
+            leftHandDamageCollider.fireDamage = playerInventoryManager.leftWeapon.fireDamage;
+
             leftHandDamageCollider.poiseBreak = playerInventoryManager.leftWeapon.poiseBreak;
             playerEffectsManager.leftWeaponWF = leftHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
         }
@@ -131,7 +157,9 @@ public class PlayerWeaponSlotManager : CharacterWeaponSlotManager
         rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
         if (rightHandDamageCollider != null)
         {
-            rightHandDamageCollider.currentWeaponDamage = playerInventoryManager.rightWeapon.baseDamage;
+            rightHandDamageCollider.physicalDamage = playerInventoryManager.rightWeapon.physicalDamage;
+            rightHandDamageCollider.fireDamage = playerInventoryManager.rightWeapon.fireDamage;
+
             rightHandDamageCollider.poiseBreak = playerInventoryManager.rightWeapon.poiseBreak;
             playerEffectsManager.rightWeaponWF = rightHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
         }
