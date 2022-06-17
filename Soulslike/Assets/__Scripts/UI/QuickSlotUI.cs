@@ -7,7 +7,9 @@ public class QuickSlotUI : MonoBehaviour
 {
     public Image leftWeaponIcon;
     public Image rightWeaponIcon;
-
+    public Image currentSpellIcon;
+    public Image currentConsumableItemIcon;
+     
     public void UpdateWeaponSlotsUI(bool isLeft, WeaponItem weapon)
     {
         if (!isLeft)
@@ -41,6 +43,36 @@ public class QuickSlotUI : MonoBehaviour
                 leftWeaponIcon.enabled = false;
             }
 
+        }
+    }
+
+    public void UpdateCurrentSpellIcon(SpellItem spellItem)
+    {
+        if (spellItem.itemIcon != null)
+        {
+            Debug.Log("Update_Spell");
+            currentSpellIcon.sprite = spellItem.itemIcon;
+            currentSpellIcon.enabled = true;
+        }
+        else
+        {
+            currentSpellIcon.sprite = null;
+            currentSpellIcon.enabled = false;
+        }
+    }
+
+    public void UpdateCurrentConsumableIcon(ConsumableItem consumable)
+    {
+        if (consumable.itemIcon != null)
+        {
+            Debug.Log("Update_Item");
+            currentConsumableItemIcon.sprite = consumable.itemIcon;
+            currentConsumableItemIcon.enabled = true;
+        }
+        else
+        {
+            currentConsumableItemIcon.sprite = null;
+            currentConsumableItemIcon.enabled = false;
         }
     }
 }

@@ -77,6 +77,8 @@ public class EnemyWeaponSlotManager : CharacterWeaponSlotManager
             leftHandDamageCollider.physicalDamage = leftHandWeapon.physicalDamage;
             leftHandDamageCollider.fireDamage = leftHandWeapon.fireDamage;
 
+            leftHandDamageCollider.teamIDNumber = enemyStatsManager.teamIDNumber;
+
             enemyEffectManager.leftWeaponWF = leftHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
         }
         else
@@ -84,8 +86,10 @@ public class EnemyWeaponSlotManager : CharacterWeaponSlotManager
             rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
             rightHandDamageCollider.characterManager = GetComponentInParent<CharacterManager>();
 
-            leftHandDamageCollider.physicalDamage = rightHandWeapon.physicalDamage;
-            leftHandDamageCollider.fireDamage = rightHandWeapon.fireDamage;
+            rightHandDamageCollider.physicalDamage = rightHandWeapon.physicalDamage;
+            rightHandDamageCollider.fireDamage = rightHandWeapon.fireDamage;
+
+            rightHandDamageCollider.teamIDNumber = enemyStatsManager.teamIDNumber;
 
             enemyEffectManager.rightWeaponWF = rightHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
         }

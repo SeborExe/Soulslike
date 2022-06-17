@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae0ca38b0cdea54caf4cb88ae6c2db9, type: 3}
   m_Name: Leather_Gloves
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: af1f1b45fa6b5e64894c04ceb8a592f7, type: 3}
   itemName: Leather GLoves
   physicsDefense: 2
   glovesModelName: Starter_Gloves

@@ -31,6 +31,8 @@ public class ProjectileSpell : SpellItem
         Vector3 startPos = playerStats.GetComponentInChildren<ProjectileStartingPos>().transform.position;
         GameObject InstantiateSpellFX = Instantiate(spellCastFX, startPos,
             cameraHandler.cameraPivotTransform.rotation);
+        SpellDamageCollider spellDamageCollider = InstantiateSpellFX.GetComponent<SpellDamageCollider>();
+        spellDamageCollider.teamIDNumber = playerStats.teamIDNumber;
         rigidbody = InstantiateSpellFX.GetComponent<Rigidbody>();
         //Spell DamageCollider
 
