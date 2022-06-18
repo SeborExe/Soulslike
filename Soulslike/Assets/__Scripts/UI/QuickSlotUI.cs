@@ -50,7 +50,6 @@ public class QuickSlotUI : MonoBehaviour
     {
         if (spellItem.itemIcon != null)
         {
-            Debug.Log("Update_Spell");
             currentSpellIcon.sprite = spellItem.itemIcon;
             currentSpellIcon.enabled = true;
         }
@@ -65,7 +64,6 @@ public class QuickSlotUI : MonoBehaviour
     {
         if (consumable.itemIcon != null)
         {
-            Debug.Log("Update_Item");
             currentConsumableItemIcon.sprite = consumable.itemIcon;
             currentConsumableItemIcon.enabled = true;
         }

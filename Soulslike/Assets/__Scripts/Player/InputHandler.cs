@@ -298,11 +298,13 @@ public class InputHandler : MonoBehaviour
             if (twoHandFlag)
             {
                 playerWeaponSlotManager.LoadWeaponOnSlot(playerInventoryManager.rightWeapon, false);
+                playerManager.isTwoHandWeapon = true;
             }
             else
             {
                 playerWeaponSlotManager.LoadWeaponOnSlot(playerInventoryManager.rightWeapon, false);
                 playerWeaponSlotManager.LoadWeaponOnSlot(playerInventoryManager.leftWeapon, true);
+                playerManager.isTwoHandWeapon = false;
             }
         }
     }
@@ -318,6 +320,8 @@ public class InputHandler : MonoBehaviour
 
     private void HandleUseConsumableInput()
     {
+        if (playerStatsManager.isDead) return;
+
         if (x_Input)
         {
             x_Input = false;

@@ -49,6 +49,7 @@ public class PlayerManager : CharacterManager
         animator.SetBool("isInAir", isInAir);
         animator.SetBool("isDead", playerStatsManager.isDead);
         animator.SetBool("isBlocking", isBlocking);
+        animator.SetBool("isTwoHandingWeapon", isTwoHandWeapon);
         playerAnimatorManager.canRotate = animator.GetBool("canRotate");
 
         inputHandler.TickInput(delta);

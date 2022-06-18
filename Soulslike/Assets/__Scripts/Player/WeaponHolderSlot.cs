@@ -42,11 +42,11 @@ public class WeaponHolderSlot : MonoBehaviour
         GameObject model = Instantiate(weaponItem.modelPrefab) as GameObject;
         if (model != null)
         {
-            if (parentShieldOverride != null && weaponItem.isShieldWeapon)
+            if (parentShieldOverride != null && weaponItem.weaponType == WeaponType.Shield)
             {
                 model.transform.parent = parentShieldOverride;
             }
-            else if (parentOverride != null && !weaponItem.isShieldWeapon)
+            else if (parentOverride != null && weaponItem.weaponType != WeaponType.Shield)
             {
                 model.transform.parent = parentOverride;
             }

@@ -8,7 +8,7 @@ public class EventColliderBeginBossFight : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Character")
         {
             worldEventManager.ActiveBossFight();
             Destroy(gameObject);

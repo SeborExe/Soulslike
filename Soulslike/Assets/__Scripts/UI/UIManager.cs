@@ -33,9 +33,9 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         weaponInventorySlots = weaponInventorySlotParent.GetComponentsInChildren<WeaponInventorySlot>();
-        equipmentWindowUI.LoadWeaponOnEquipmentScreen(playerInventory);
         quickSlotUI.UpdateCurrentSpellIcon(playerInventory.currentSpell);
         quickSlotUI.UpdateCurrentConsumableIcon(playerInventory.currentConsumableItem);
+        equipmentWindowUI.LoadWeaponOnEquipmentScreen(playerInventory);
     }
 
     

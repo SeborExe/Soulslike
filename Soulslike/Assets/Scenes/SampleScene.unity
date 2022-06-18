@@ -9459,6 +9459,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9116567030002495128, guid: 991e9901161e4b34aaad759e2696376b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 991e9901161e4b34aaad759e2696376b, type: 3}
 --- !u!1001 &1911440492991559776
@@ -9711,6 +9715,10 @@ PrefabInstance:
       propertyPath: worldEventManager
       value: 
       objectReference: {fileID: 1032638184}
+    - target: {fileID: 5173241989593135167, guid: f09986b2497807345b871206df044607, type: 3}
+      propertyPath: playerLayer.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f09986b2497807345b871206df044607, type: 3}
 --- !u!1001 &5954696233848828274
