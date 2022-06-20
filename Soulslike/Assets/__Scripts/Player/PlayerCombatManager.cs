@@ -238,7 +238,7 @@ public class PlayerCombatManager : MonoBehaviour
                 //}
 
                 playerAnimatorManager.PlayTargetAnimation("BackStab", true);
-                enemyCharacterManager.GetComponentInChildren<AnimatorManager>().PlayTargetAnimation("BackStabbed", true);
+                enemyCharacterManager.GetComponentInChildren<CharacterAnimatorManager>().PlayTargetAnimation("BackStabbed", true);
             }
         }
 
@@ -266,7 +266,7 @@ public class PlayerCombatManager : MonoBehaviour
                 enemyCharacterManager.pendingCriticalDamage = criticalDamage;
 
                 playerAnimatorManager.PlayTargetAnimation("Ripost", true);
-                enemyCharacterManager.GetComponentInChildren<AnimatorManager>().PlayTargetAnimation("Riposted", true);
+                enemyCharacterManager.GetComponentInChildren<CharacterAnimatorManager>().PlayTargetAnimation("Riposted", true);
             }
         }
     }

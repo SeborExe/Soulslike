@@ -34,33 +34,7 @@ public class PlayerWeaponSlotManager : CharacterWeaponSlotManager
         LoadBothWeaponsOnSlot();
     }
 
-    private void LoadWeaponHolderSlots()
-    {
-        WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
-        foreach (WeaponHolderSlot weaponSlot in weaponHolderSlots)
-        {
-            if (weaponSlot.isLeftHandSlot)
-            {
-                leftHandSlot = weaponSlot;
-            }
-            else if (weaponSlot.isRightHandSlot)
-            {
-                rightHandSlot = weaponSlot;
-            }
-            else if (weaponSlot.isBackSlot)
-            {
-                backSlot = weaponSlot;
-            }
-        }
-    }
-
-    public void LoadBothWeaponsOnSlot()
-    {
-        LoadWeaponOnSlot(playerInventoryManager.rightWeapon, false);
-        LoadWeaponOnSlot(playerInventoryManager.leftWeapon, true);
-    }
-
-    public void LoadWeaponOnSlot(WeaponItem weaponItem, bool isLeft)
+    public override void LoadWeaponOnSlot(WeaponItem weaponItem, bool isLeft)
     {
         if (weaponItem != null)
         {
@@ -138,61 +112,6 @@ public class PlayerWeaponSlotManager : CharacterWeaponSlotManager
         LoadWeaponOnSlot(playerInventoryManager.rightWeapon, false);
         //create explosion and deal damage
     }
-
-    #region Open and Close weapon collider
-
-    private void LoadLeftWeaponCollider()
-    {
-        leftHandDamageCollider = leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
-        if (leftHandDamageCollider != null)
-        {
-            leftHandDamageCollider.physicalDamage = playerInventoryManager.leftWeapon.physicalDamage;
-            leftHandDamageCollider.fireDamage = playerInventoryManager.leftWeapon.fireDamage;
-
-            leftHandDamageCollider.teamIDNumber = playerStatsManager.teamIDNumber;
-
-            leftHandDamageCollider.poiseBreak = playerInventoryManager.leftWeapon.poiseBreak;
-            playerEffectsManager.leftWeaponWF = leftHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
-        }
-    }
-
-    private void LoadRightWeaponCollider()
-    {
-        rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
-        if (rightHandDamageCollider != null)
-        {
-            rightHandDamageCollider.physicalDamage = playerInventoryManager.rightWeapon.physicalDamage;
-            rightHandDamageCollider.fireDamage = playerInventoryManager.rightWeapon.fireDamage;
-
-            rightHandDamageCollider.teamIDNumber = playerStatsManager.teamIDNumber;
-
-            rightHandDamageCollider.poiseBreak = playerInventoryManager.rightWeapon.poiseBreak;
-            playerEffectsManager.rightWeaponWF = rightHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
-        }
-    }
-
-    public void OpenDamageCollider()
-    {
-        if (playerManager.isUsingRightHand && rightHandDamageCollider != null)
-        {
-            rightHandDamageCollider.EnabelDamageCollider();
-        }
-        else if (playerManager.isUsingLeftHand && leftHandDamageCollider != null)
-        {
-            leftHandDamageCollider.EnabelDamageCollider();
-        }
-    }
-
-    public void CloseDamageCollider()
-    {
-        if (rightHandDamageCollider != null)
-            rightHandDamageCollider.DisableDamageCollider();
-
-        if (leftHandDamageCollider != null)
-            leftHandDamageCollider.DisableDamageCollider();
-    }
-
-    #endregion
 
     #region DrainStamina
     public void DrainStaminaLightAttack()

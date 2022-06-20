@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class EnemyWeaponSlotManager : CharacterWeaponSlotManager
 {
-    public WeaponItem rightHandWeapon;
-    public WeaponItem leftHandWeapon;
-
     EnemyStatsManager enemyStatsManager;
     EnemyEffectManager enemyEffectManager;
 
@@ -22,36 +19,7 @@ public class EnemyWeaponSlotManager : CharacterWeaponSlotManager
         LoadWeaponsOnBothHands();
     }
 
-    private void LoadWeaponHolderSlots()
-    {
-        WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
-        foreach (WeaponHolderSlot weaponSlot in weaponHolderSlots)
-        {
-            if (weaponSlot.isLeftHandSlot)
-            {
-                leftHandSlot = weaponSlot;
-            }
-            else if (weaponSlot.isRightHandSlot)
-            {
-                rightHandSlot = weaponSlot;
-            }
-        }
-    }
-
-    private void LoadWeaponsOnBothHands()
-    {
-        if (rightHandWeapon != null)
-        {
-            LoadWeaponOnSlot(rightHandWeapon, false);
-        }
-
-        if (leftHandWeapon != null)
-        {
-            LoadWeaponOnSlot(leftHandWeapon, true);
-        }
-    }
-
-    public void LoadWeaponOnSlot(WeaponItem weapon, bool isLeft)
+    public override void LoadWeaponOnSlot(WeaponItem weapon, bool isLeft)
     {
         if (isLeft)
         {
@@ -65,44 +33,6 @@ public class EnemyWeaponSlotManager : CharacterWeaponSlotManager
             rightHandSlot.LoadWeaponModel(weapon);
             LoadWeaponDamageCollider(false);
         }
-    }
-
-    public void LoadWeaponDamageCollider(bool isLeft)
-    {
-        if (isLeft)
-        {
-            leftHandDamageCollider = leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
-            leftHandDamageCollider.characterManager = GetComponentInParent<CharacterManager>();
-
-            leftHandDamageCollider.physicalDamage = leftHandWeapon.physicalDamage;
-            leftHandDamageCollider.fireDamage = leftHandWeapon.fireDamage;
-
-            leftHandDamageCollider.teamIDNumber = enemyStatsManager.teamIDNumber;
-
-            enemyEffectManager.leftWeaponWF = leftHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
-        }
-        else
-        {
-            rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
-            rightHandDamageCollider.characterManager = GetComponentInParent<CharacterManager>();
-
-            rightHandDamageCollider.physicalDamage = rightHandWeapon.physicalDamage;
-            rightHandDamageCollider.fireDamage = rightHandWeapon.fireDamage;
-
-            rightHandDamageCollider.teamIDNumber = enemyStatsManager.teamIDNumber;
-
-            enemyEffectManager.rightWeaponWF = rightHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
-        }
-    }
-
-    public void OpenDamageCollider()
-    {
-        rightHandDamageCollider.EnabelDamageCollider();
-    }
-
-    public void CloseDamageCollider()
-    {
-        rightHandDamageCollider.DisableDamageCollider();
     }
 
     #region DrainStaminaAndCombo

@@ -2,44 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInventoryManager : MonoBehaviour
+public class PlayerInventoryManager : CharacterInventoryManager
 {
-    PlayerWeaponSlotManager playerWeaponSlotManager;
-
-    [Header("Quick Slots Items")]
-    public ConsumableItem currentConsumableItem;
-    public SpellItem currentSpell;
-    public WeaponItem rightWeapon;
-    public WeaponItem leftWeapon;
-
-    [Header("Current Equipment")]
-    public HelmetEquipment currentHelmetEquipment;
-    public TorsoEquipment currentTorsoEquipment;
-    public PantsEquipment currentPantsEquipments;
-    public BootsEquipment currentBootsEquipment;
-    public GlovesEquipment currentGlovesEquipment;
-
-    [Header("EQ weapons")]
-    public WeaponItem[] weaponsInRightHandSlots = new WeaponItem[1];
-    public WeaponItem[] weaponsInLeftHandSlots = new WeaponItem[1];
-
-    public int currentRightWeaponIndex = -1;
-    public int currentLeftWeaponIndex = -1;
-
     public List<WeaponItem> weaponsInventory;
-
-    private void Awake()
-    {
-        playerWeaponSlotManager = GetComponent<PlayerWeaponSlotManager>();
-    }
-
-    private void Start()
-    {
-        rightWeapon = weaponsInRightHandSlots[0];
-        leftWeapon = weaponsInLeftHandSlots[0];
-        playerWeaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
-        playerWeaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
-    }
 
     public void ChangeRightWeapon()
     {
