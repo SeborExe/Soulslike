@@ -14116,8 +14116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   canRotate: 0
-  leftHandConstraint: {fileID: 0}
-  rightHandConstraint: {fileID: 0}
+  leftHandConstraint: {fileID: 275159423}
+  rightHandConstraint: {fileID: 1878010829}
 --- !u!114 &6213045455416486498
 MonoBehaviour:
   m_ObjectHideFlags: 0

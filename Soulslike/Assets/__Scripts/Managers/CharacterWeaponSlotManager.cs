@@ -99,6 +99,7 @@ public class CharacterWeaponSlotManager : MonoBehaviour
                 rightHandSlot.currentWeapon = weaponItem;
                 rightHandSlot.LoadWeaponModel(weaponItem);
                 LoadRightWeaponCollider();
+                LoadTwoHandIKTargets(characterManager.isTwoHandWeapon);
                 characterAnimatorManager.animator.runtimeAnimatorController = weaponItem.weaponController;
             }
         }
@@ -155,9 +156,9 @@ public class CharacterWeaponSlotManager : MonoBehaviour
         }
     }
 
-    protected virtual void LoadTwoHandIKTargets(bool isTwoHandingWeapon)
+    public virtual void LoadTwoHandIKTargets(bool isTwoHandingWeapon)
     {
-        leftHandIKTarget = leftHandSlot.currentWeaponModel.GetComponentInChildren<LeftHandIKTarget>();
+        leftHandIKTarget = rightHandSlot.currentWeaponModel.GetComponentInChildren<LeftHandIKTarget>();
         rightHandIKTarget = rightHandSlot.currentWeaponModel.GetComponentInChildren<RightHandIKTarget>();
 
         characterAnimatorManager.SetHandIKForWeapon(rightHandIKTarget, leftHandIKTarget, isTwoHandingWeapon);
