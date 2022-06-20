@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterInventoryManager : MonoBehaviour
 {
-    CharacterWeaponSlotManager characterWeaponSlotManager;
+    protected CharacterWeaponSlotManager characterWeaponSlotManager;
 
     [Header("Quick Slots Items")]
     public ConsumableItem currentConsumableItem;
@@ -28,7 +28,7 @@ public class CharacterInventoryManager : MonoBehaviour
 
     private void Awake()
     {
-        
+        characterWeaponSlotManager = GetComponent<CharacterWeaponSlotManager>();
     }
 
     private void Start()

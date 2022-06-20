@@ -4,72 +4,13 @@ using UnityEngine;
 
 public class EnemyWeaponSlotManager : CharacterWeaponSlotManager
 {
-    EnemyStatsManager enemyStatsManager;
-    EnemyEffectManager enemyEffectManager;
-
-    private void Awake()
+    public override void GrantWeaponAttackingPoiseBonus()
     {
-        enemyStatsManager = GetComponent<EnemyStatsManager>();
-        enemyEffectManager = GetComponent<EnemyEffectManager>();
-        LoadWeaponHolderSlots();
+        characterStatsManager.totalPoiseDefense += characterStatsManager.offensivePoiseBonus;
     }
 
-    private void Start()
+    public override void ResetWeaponAttackingPoiseBonus()
     {
-        LoadWeaponsOnBothHands();
+        characterStatsManager.totalPoiseDefense = characterStatsManager.armorPoiseBonus;
     }
-
-    public override void LoadWeaponOnSlot(WeaponItem weapon, bool isLeft)
-    {
-        if (isLeft)
-        {
-            leftHandSlot.currentWeapon = weapon;
-            leftHandSlot.LoadWeaponModel(weapon);
-            LoadWeaponDamageCollider(true);
-        }
-        else
-        {
-            rightHandSlot.currentWeapon = weapon;
-            rightHandSlot.LoadWeaponModel(weapon);
-            LoadWeaponDamageCollider(false);
-        }
-    }
-
-    #region DrainStaminaAndCombo
-    
-    public void DrainStaminaLightAttack()
-    {
-
-    }
-
-    public void DrainStaminaHeavyAttack()
-    {
-
-    }
-    
-    public void EnableCombo()
-    {
-        //anim.SetBool("canDoCombo", true);
-    }
-
-    public void DisableCombo()
-    {
-        //anim.SetBool("canDoCombo", false);
-    }
-
-    #endregion
-
-    #region Handle Weapons Poise Bonus
-
-    public void GrantWeaponAttackingPoiseBonus()
-    {
-        enemyStatsManager.totalPoiseDefense += enemyStatsManager.offensivePoiseBonus;
-    }
-
-    public void ResetWeaponAttackingPoiseBonus()
-    {
-        enemyStatsManager.totalPoiseDefense = enemyStatsManager.armorPoiseBonus;
-    }
-
-    #endregion
 }

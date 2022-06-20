@@ -8,30 +8,23 @@ public class PlayerWeaponSlotManager : CharacterWeaponSlotManager
     PlayerManager playerManager;
     PlayerStatsManager playerStatsManager;
     PlayerInventoryManager playerInventoryManager;
-    Animator animator;
     QuickSlotUI quickSlotsUI;
     PlayerEffectsManager playerEffectsManager;
     CameraHandler cameraHandler;
     PlayerAnimatorManager playerAnimatorManager;
 
-    [Header("Attacking weapon")]
-    public WeaponItem attackingWeapon;
-
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         cameraHandler = FindObjectOfType<CameraHandler>();
 
         inputHandler = GetComponent<InputHandler>();
         playerStatsManager = GetComponent<PlayerStatsManager>();
         playerManager = GetComponentInParent<PlayerManager>();
         playerInventoryManager = GetComponent<PlayerInventoryManager>();
-        animator = GetComponent<Animator>();
         playerEffectsManager = GetComponent<PlayerEffectsManager>();
         playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
         quickSlotsUI = FindObjectOfType<QuickSlotUI>();
-
-        LoadWeaponHolderSlots();
-        LoadBothWeaponsOnSlot();
     }
 
     public override void LoadWeaponOnSlot(WeaponItem weaponItem, bool isLeft)
@@ -113,7 +106,6 @@ public class PlayerWeaponSlotManager : CharacterWeaponSlotManager
         //create explosion and deal damage
     }
 
-    #region DrainStamina
     public void DrainStaminaLightAttack()
     {
         playerStatsManager.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStamina * attackingWeapon.lightAttackMultiplier));
@@ -123,19 +115,4 @@ public class PlayerWeaponSlotManager : CharacterWeaponSlotManager
     {
         playerStatsManager.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStamina * attackingWeapon.heavyAttackMultiplier));
     }
-    #endregion
-
-    #region Handle Weapons Poise Bonus
-
-    public void GrantWeaponAttackingPoiseBonus()
-    {
-        playerStatsManager.totalPoiseDefense += attackingWeapon.offensivePoiseBonus;
-    }
-
-    public void ResetWeaponAttackingPoiseBonus()
-    {
-        playerStatsManager.totalPoiseDefense = playerStatsManager.armorPoiseBonus;
-    }
-
-    #endregion
 }
