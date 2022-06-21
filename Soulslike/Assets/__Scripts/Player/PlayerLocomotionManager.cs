@@ -60,7 +60,6 @@ public class PlayerLocomotionManager : MonoBehaviour
         Physics.IgnoreCollision(characterCollider, characterCollisionBlocker, true);
     }
 
-    #region Movement
     Vector3 normalVector;
     Vector3 targetPosition;
 
@@ -193,6 +192,7 @@ public class PlayerLocomotionManager : MonoBehaviour
             if (inputHandler.moveAmount > 0)
             {
                 playerAnimationManager.PlayTargetAnimation("Roll", true);
+                playerAnimationManager.EraseHandIKForWeapon();
                 moveDirection.y = 0;
                 Quaternion rollRotation = Quaternion.LookRotation(moveDirection);
                 myTransform.rotation = rollRotation;
@@ -201,6 +201,7 @@ public class PlayerLocomotionManager : MonoBehaviour
             else
             {
                 playerAnimationManager.PlayTargetAnimation("BackStep", true);
+                playerAnimationManager.EraseHandIKForWeapon();
                 playerStatsManager.TakeStaminaDamage(backStabStaminaCost);
             }
         }
@@ -311,12 +312,11 @@ public class PlayerLocomotionManager : MonoBehaviour
                 moveDirection = cameraObject.forward * inputHandler.vertical;
                 moveDirection += cameraObject.right * inputHandler.horizontal;
                 playerAnimationManager.PlayTargetAnimation("Jump", true);
+                playerAnimationManager.EraseHandIKForWeapon();
                 moveDirection.y = 0;
                 Quaternion JumpRotation = Quaternion.LookRotation(moveDirection);
                 myTransform.rotation = JumpRotation;
             }
         }
     }
-
-    #endregion
 }

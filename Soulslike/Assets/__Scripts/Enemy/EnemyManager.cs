@@ -35,8 +35,9 @@ public class EnemyManager : CharacterManager
 
     public float currentRecoveryTime = 0;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         enemyLocomotionManager = GetComponent<EnemyLocomotionManager>();
         enemyAnimatorManager = GetComponent<EnemyAnimatorManager>();
         enemyStatsManager = GetComponent<EnemyStatsManager>();
@@ -69,8 +70,9 @@ public class EnemyManager : CharacterManager
         HandlePlayerDead();
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
         enemyEffectManager.HandleAllBuildUpEffects();
     }
 

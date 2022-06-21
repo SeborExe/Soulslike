@@ -21,8 +21,9 @@ public class PlayerManager : CharacterManager
     bool hide = false;
     float originalTransparency;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         cameraHandler = FindObjectOfType<CameraHandler>();
         interactableUI = FindObjectOfType<InteractableUI>();
 
@@ -60,8 +61,9 @@ public class PlayerManager : CharacterManager
         CheckForInteractable();
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
         float delta = Time.fixedDeltaTime;
         playerLocomotion.HandleMovement(delta);
         playerLocomotion.HandlerRotation(delta);

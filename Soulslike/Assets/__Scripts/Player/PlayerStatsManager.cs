@@ -14,8 +14,9 @@ public class PlayerStatsManager : CharacterStatsManager
     [SerializeField] float staminaRegenerationAmount = 25;
     float staminaRegenerationTimer = 0;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         playerManager = GetComponent<PlayerManager>();
         playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
     }

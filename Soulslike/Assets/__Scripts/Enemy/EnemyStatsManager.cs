@@ -11,8 +11,9 @@ public class EnemyStatsManager : CharacterStatsManager
 
     public bool isBoss;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         enemyAnimatorManager = GetComponent<EnemyAnimatorManager>();
         enemyManager = GetComponent<EnemyManager>();
 
