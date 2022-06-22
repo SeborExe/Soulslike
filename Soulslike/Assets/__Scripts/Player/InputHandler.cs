@@ -111,6 +111,8 @@ public class InputHandler : MonoBehaviour
 
     public void TickInput(float delta)
     {
+        if (playerStatsManager.isDead) { return; }
+
         HandleMoveInput(delta);
         HandleRollInput(delta);
         HandleCombatInput(delta);
@@ -297,12 +299,16 @@ public class InputHandler : MonoBehaviour
 
             if (twoHandFlag)
             {
+                playerManager.isTwoHandWeapon = true;
                 playerWeaponSlotManager.LoadWeaponOnSlot(playerInventoryManager.rightWeapon, false);
+                playerWeaponSlotManager.LoadTwoHandIKTargets(true);
             }
             else
             {
+                playerManager.isTwoHandWeapon = false;
                 playerWeaponSlotManager.LoadWeaponOnSlot(playerInventoryManager.rightWeapon, false);
                 playerWeaponSlotManager.LoadWeaponOnSlot(playerInventoryManager.leftWeapon, true);
+                playerWeaponSlotManager.LoadTwoHandIKTargets(false);
             }
         }
     }
@@ -318,6 +324,8 @@ public class InputHandler : MonoBehaviour
 
     private void HandleUseConsumableInput()
     {
+        if (playerStatsManager.isDead) return;
+
         if (x_Input)
         {
             x_Input = false;

@@ -14,6 +14,15 @@ public class PlayerCombatManager : MonoBehaviour
     CameraHandler cameraHandler;
     PlayerEffectsManager playerEffectsManager;
 
+    [Header("Attack animatins")]
+    string OH_Light_attack_01 = "OH_Light_Attack_01";
+    string OH_Light_attack_02 = "OH_Light_Attack_02";
+    string OH_Heavy_attack_01 = "OH_Heavy_Attack_01";
+    string TH_Light_attack_01 = "TH_Light_Attack_01";
+    string TH_Light_attack_02 = "TH_Light_Attack_02";
+
+    string weapon_art = "Parry";
+
     public string lastAttack;
 
     LayerMask backStabLayer = 1 << 10;
@@ -41,13 +50,13 @@ public class PlayerCombatManager : MonoBehaviour
         {
             playerAnimatorManager.animator.SetBool("canDoCombo", false);
 
-            if (lastAttack == weapon.OH_Light_attack_01)
+            if (lastAttack == OH_Light_attack_01)
             {
-                playerAnimatorManager.PlayTargetAnimation(weapon.OH_Light_attack_02, true);
+                playerAnimatorManager.PlayTargetAnimation(OH_Light_attack_02, true);
             }
-            else if (lastAttack == weapon.TH_Light_Attack_01)
+            else if (lastAttack == TH_Light_attack_01)
             {
-                playerAnimatorManager.PlayTargetAnimation(weapon.TH_Light_Attack_02, true);
+                playerAnimatorManager.PlayTargetAnimation(TH_Light_attack_02, true);
             }
         }
     }
@@ -61,13 +70,13 @@ public class PlayerCombatManager : MonoBehaviour
 
         if (inputHandler.twoHandFlag)
         {
-            playerAnimatorManager.PlayTargetAnimation(weapon.TH_Light_Attack_01, true);
-            lastAttack = weapon.TH_Light_Attack_01;
+            playerAnimatorManager.PlayTargetAnimation(TH_Light_attack_01, true);
+            lastAttack = TH_Light_attack_01;
         }
         else
         {
-            playerAnimatorManager.PlayTargetAnimation(weapon.OH_Light_attack_01, true);
-            lastAttack = weapon.OH_Light_attack_01;
+            playerAnimatorManager.PlayTargetAnimation(OH_Light_attack_01, true);
+            lastAttack = OH_Light_attack_01;
         }
     }
 
@@ -84,23 +93,25 @@ public class PlayerCombatManager : MonoBehaviour
         //}
         //else
         //{
-            playerAnimatorManager.PlayTargetAnimation(weapon.OH_Heavy_attack_01, true);
-            lastAttack = weapon.OH_Heavy_attack_01;
+            playerAnimatorManager.PlayTargetAnimation(OH_Heavy_attack_01, true);
+            lastAttack = OH_Heavy_attack_01;
             playerEffectsManager.PlayWeaponFX(false);
         //}
     }
 
-    #region Input Actions
     public void HandleRBAction()
     {
-        if (playerInventoryManager.rightWeapon.isMeleeWeapon)
+        playerAnimatorManager.EraseHandIKForWeapon();
+
+        if (playerInventoryManager.rightWeapon.weaponType == WeaponType.StraightSword ||
+            playerInventoryManager.rightWeapon.weaponType == WeaponType.Unarmed)
         {
             PerformRBMeleeAction();
         }
 
-        else if (playerInventoryManager.rightWeapon.isSpellCaster ||
-            playerInventoryManager.rightWeapon.isFaithCaster ||
-            playerInventoryManager.rightWeapon.isPyroCaster)
+        else if (playerInventoryManager.rightWeapon.weaponType == WeaponType.SpellCaster ||
+            playerInventoryManager.rightWeapon.weaponType == WeaponType.FaithCaster ||
+            playerInventoryManager.rightWeapon.weaponType == WeaponType.PryomancyCaster)
         {
             PerformRBMagicAction(playerInventoryManager.rightWeapon);
         }
@@ -108,11 +119,12 @@ public class PlayerCombatManager : MonoBehaviour
 
     public void HandleLTAction()
     {
-        if (playerInventoryManager.leftWeapon.isShieldWeapon)
+        if (playerInventoryManager.leftWeapon.weaponType == WeaponType.Shield ||
+            playerInventoryManager.rightWeapon.weaponType == WeaponType.Unarmed)
         {
             PerformLTWeaponArt(inputHandler.twoHandFlag);
         }
-        else if (playerInventoryManager.leftWeapon.isMeleeWeapon)
+        else if (playerInventoryManager.leftWeapon.weaponType == WeaponType.StraightSword)
         {
 
         }
@@ -123,9 +135,6 @@ public class PlayerCombatManager : MonoBehaviour
         PerformLBBlockAction();
     }
 
-    #endregion
-
-    #region Attack Actions
     private void PerformRBMeleeAction()
     {
         if (playerManager.canDoCombo)
@@ -153,7 +162,7 @@ public class PlayerCombatManager : MonoBehaviour
     {
         if (playerManager.isInteracting) return;
 
-        if (weapon.isFaithCaster)
+        if (weapon.weaponType == WeaponType.FaithCaster)
         {
             if (playerInventoryManager.currentSpell != null && playerInventoryManager.currentSpell.isFaithSpell)
             {
@@ -166,7 +175,7 @@ public class PlayerCombatManager : MonoBehaviour
                 }
             }
         }
-        else if (weapon.isPyroCaster)
+        else if (weapon.weaponType == WeaponType.PryomancyCaster)
         {
             if (playerInventoryManager.currentSpell != null && playerInventoryManager.currentSpell.isPyroSpell)
             {
@@ -191,7 +200,7 @@ public class PlayerCombatManager : MonoBehaviour
         }
         else
         {
-            playerAnimatorManager.PlayTargetAnimation(playerInventoryManager.leftWeapon.weapon_art, true);
+            playerAnimatorManager.PlayTargetAnimation(weapon_art, true);
         }
     }
 
@@ -231,7 +240,7 @@ public class PlayerCombatManager : MonoBehaviour
                 //}
 
                 playerAnimatorManager.PlayTargetAnimation("BackStab", true);
-                enemyCharacterManager.GetComponentInChildren<AnimatorManager>().PlayTargetAnimation("BackStabbed", true);
+                enemyCharacterManager.GetComponentInChildren<CharacterAnimatorManager>().PlayTargetAnimation("BackStabbed", true);
             }
         }
 
@@ -259,7 +268,7 @@ public class PlayerCombatManager : MonoBehaviour
                 enemyCharacterManager.pendingCriticalDamage = criticalDamage;
 
                 playerAnimatorManager.PlayTargetAnimation("Ripost", true);
-                enemyCharacterManager.GetComponentInChildren<AnimatorManager>().PlayTargetAnimation("Riposted", true);
+                enemyCharacterManager.GetComponentInChildren<CharacterAnimatorManager>().PlayTargetAnimation("Riposted", true);
             }
         }
     }
@@ -269,10 +278,6 @@ public class PlayerCombatManager : MonoBehaviour
         playerInventoryManager.currentSpell.SuccessfullyCastSpell(playerAnimatorManager, playerStatsManager, cameraHandler, playerWeaponSlotManager);
         playerAnimatorManager.animator.SetBool("isFiringSpell", true);
     }
-
-    #endregion
-
-    #region Defense Actions
 
     void PerformLBBlockAction()
     {
@@ -284,6 +289,4 @@ public class PlayerCombatManager : MonoBehaviour
         playerEquipmentManager.OpenBlockingCollider();
         playerManager.isBlocking = true;
     }
-
-    #endregion
 }

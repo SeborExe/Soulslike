@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class CharacterStatsManager : MonoBehaviour
 {
+    CharacterAnimatorManager characterAnimatorManager;
+
+    [Header("Team ID")]
+    public int teamIDNumber = 0;
+
     public int healthLevel = 10;
     public int maxHealth;
     public int currentHealth;
@@ -42,6 +47,10 @@ public class CharacterStatsManager : MonoBehaviour
     public float fireDamageAbsorbtionGloves;
     public float fireDamageAbsorbtionBoots;
 
+    protected virtual void Awake()
+    {
+        characterAnimatorManager = GetComponent<CharacterAnimatorManager>();
+    }
 
     private void Start()
     {
@@ -56,6 +65,8 @@ public class CharacterStatsManager : MonoBehaviour
     public virtual void TakeDamage(int physicalDamage, int fireDamage, string damageAnimation = "Damage_01")
     {
         if (isDead) return;
+
+        characterAnimatorManager.EraseHandIKForWeapon();
 
         //Physic Damage absorbtion
         float totalPhysicalDamageAbsorbtion = 1 -

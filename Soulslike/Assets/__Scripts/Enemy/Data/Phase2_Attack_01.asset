@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9906defe48b20c24fb9609cdd7e224f1, type: 3}
   m_Name: Phase2_Attack_01
   m_EditorClassIdentifier: 
-  actionAnimation: OH_Heavy_attack_01
+  actionAnimation: OH_Heavy_Attack_01
   attackScore: 3
   recoveryTime: 5
   canCombo: 1

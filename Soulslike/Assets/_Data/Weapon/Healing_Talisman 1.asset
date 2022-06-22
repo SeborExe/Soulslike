@@ -16,20 +16,15 @@ MonoBehaviour:
   itemName: Talisman
   modelPrefab: {fileID: 2389171109191739649, guid: 1438149cf10e95949833c11aa6d2c2ca, type: 3}
   isUnarmed: 0
-  Right_Hand_Idle: Right_Arm_Idle
-  Left_Hand_Idle: Left_Arm_Idle
-  Two_Hand_Idle: Two_Hand_Idle
-  OH_Light_attack_01: OH_Light_attack_01
-  OH_Light_attack_02: OH_Light_attack_02
-  OH_Heavy_attack_01: OH_Heavy_attack_01
-  TH_Light_Attack_01: TH_Sword_Attack_01
-  TH_Light_Attack_02: TH_Sword_Attack_02
+  weaponController: {fileID: 0}
+  offHandIdleAnimation: Left_Arm_Idle
+  weaponType: 2
   baseStamina: 0
   lightAttackMultiplier: 0
   heavyAttackMultiplier: 0
-  isSpellCaster: 0
-  isFaithCaster: 1
-  isPyroCaster: 0
-  isMeleeWeapon: 0
-  baseDamage: 1
+  physicalDamage: 25
+  fireDamage: 0
   criticalDamageMultiplier: 2
+  poiseBreak: 0
+  offensivePoiseBonus: 0
+  physicalDamageAbsorption: 0

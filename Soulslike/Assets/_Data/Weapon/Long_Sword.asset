@@ -16,23 +16,12 @@ MonoBehaviour:
   itemName: Long Sword
   modelPrefab: {fileID: 2389171109191739649, guid: 7acd8a782f25809488f79635c2ffb4d6, type: 3}
   isUnarmed: 0
-  Right_Hand_Idle: Right_Arm_Idle
-  Left_Hand_Idle: Left_Arm_Idle
-  Two_Hand_Idle: Two_Hand_Idle
-  OH_Light_attack_01: OH_Light_attack_01
-  OH_Light_attack_02: OH_Light_attack_02
-  OH_Heavy_attack_01: OH_Heavy_attack_01
-  TH_Light_Attack_01: TH_Sword_Attack_01
-  TH_Light_Attack_02: TH_Sword_Attack_02
+  weaponController: {fileID: 22100000, guid: e9912ea7da9693346a4dbae371ce1968, type: 2}
+  offHandIdleAnimation: Left_Arm_Idle
+  weaponType: 4
   baseStamina: 12
   lightAttackMultiplier: 1
   heavyAttackMultiplier: 2
-  isSpellCaster: 0
-  isFaithCaster: 0
-  isPyroCaster: 0
-  isMeleeWeapon: 1
-  isShieldWeapon: 0
-  weapon_art: 
   physicalDamage: 25
   fireDamage: 0
   criticalDamageMultiplier: 5

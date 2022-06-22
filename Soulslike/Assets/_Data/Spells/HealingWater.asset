@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 700ead828467d4248b609829fb8bd961, type: 3}
   m_Name: HealingWater
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 9343ecc466b190245b24789e1fc2f085, type: 3}
   itemName: HealingWave
-  spallWarmUpFX: {fileID: 1376905856516238, guid: 3b89a0b81c18f8548ae1e630445434b9, type: 3}
+  spellWarmUpFX: {fileID: 0}
   spellCastFX: {fileID: 1001209505210446, guid: 172998df67304734aaab369580dd9b98, type: 3}
   spellAnimation: SpellCast
   manaCost: 25

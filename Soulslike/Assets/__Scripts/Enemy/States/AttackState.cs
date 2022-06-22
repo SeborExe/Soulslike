@@ -46,6 +46,8 @@ public class AttackState : State
 
     void AttackTarget(EnemyAnimatorManager enemyAnimatorManager, EnemyManager enemyManager)
     {
+        enemyAnimatorManager.animator.SetBool("isUsingRightHand", currentAttack.isRightHandAction);
+        enemyAnimatorManager.animator.SetBool("isUsingLeftHand", !currentAttack.isRightHandAction);
         enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
         enemyAnimatorManager.PlayWeaponTrailFX();
         enemyManager.currentRecoveryTime = currentAttack.recoveryTime;
@@ -54,6 +56,8 @@ public class AttackState : State
 
     private void AttackTargetWithCombo(EnemyAnimatorManager enemyAnimatorManager, EnemyManager enemyManager)
     {
+        enemyAnimatorManager.animator.SetBool("isUsingRightHand", currentAttack.isRightHandAction);
+        enemyAnimatorManager.animator.SetBool("isUsingLeftHand", !currentAttack.isRightHandAction);
         willDoComboOnNextAttack = false;
         enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
         enemyAnimatorManager.PlayWeaponTrailFX();
