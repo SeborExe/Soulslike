@@ -17,11 +17,11 @@ public class PlayerCombatManager : MonoBehaviour
     [Header("Attack animatins")]
     string OH_Light_attack_01 = "OH_Light_Attack_01";
     string OH_Light_attack_02 = "OH_Light_Attack_02";
-    string OH_Heavy_Attack_01 = "OH_Heavy_Attack_01";
+    string OH_Heavy_attack_01 = "OH_Heavy_Attack_01";
     string TH_Light_attack_01 = "TH_Light_Attack_01";
     string TH_Light_attack_02 = "TH_Light_Attack_02";
 
-    string weapon_art = "Weapon Art";
+    string weapon_art = "Parry";
 
     public string lastAttack;
 
@@ -93,8 +93,8 @@ public class PlayerCombatManager : MonoBehaviour
         //}
         //else
         //{
-            playerAnimatorManager.PlayTargetAnimation(OH_Heavy_Attack_01, true);
-            lastAttack = OH_Heavy_Attack_01;
+            playerAnimatorManager.PlayTargetAnimation(OH_Heavy_attack_01, true);
+            lastAttack = OH_Heavy_attack_01;
             playerEffectsManager.PlayWeaponFX(false);
         //}
     }

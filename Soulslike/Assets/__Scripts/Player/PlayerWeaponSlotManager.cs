@@ -66,7 +66,7 @@ public class PlayerWeaponSlotManager : CharacterWeaponSlotManager
             if (isLeft)
             {
                 playerInventoryManager.leftWeapon = unarmedWeapon;
-                leftHandSlot.currentWeapon = unarmedWeapon;
+                leftHandSlot.currentWeapon = weaponItem;
                 leftHandSlot.LoadWeaponModel(weaponItem);
                 LoadLeftWeaponCollider();
                 quickSlotsUI.UpdateWeaponSlotsUI(true, weaponItem);
@@ -75,7 +75,7 @@ public class PlayerWeaponSlotManager : CharacterWeaponSlotManager
             else
             {
                 playerInventoryManager.rightWeapon = unarmedWeapon;
-                rightHandSlot.currentWeapon = unarmedWeapon;
+                rightHandSlot.currentWeapon = weaponItem;
                 rightHandSlot.LoadWeaponModel(weaponItem);
                 LoadRightWeaponCollider();
                 quickSlotsUI.UpdateWeaponSlotsUI(false, weaponItem);

@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: Shield
   modelPrefab: {fileID: 2389171109191739649, guid: 0f6888a0c47de5a45a35c200a7e28e31, type: 3}
   isUnarmed: 0
-  weaponController: {fileID: 0}
+  weaponController: {fileID: 22100000, guid: e9912ea7da9693346a4dbae371ce1968, type: 2}
   offHandIdleAnimation: Left_Arm_Idle
   weaponType: 5
   baseStamina: 0

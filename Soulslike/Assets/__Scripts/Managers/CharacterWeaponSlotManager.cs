@@ -38,7 +38,6 @@ public class CharacterWeaponSlotManager : MonoBehaviour
         characterEffectsManager = GetComponent<CharacterEffectsManager>();
 
         LoadWeaponHolderSlots();
-        //LoadBothWeaponsOnSlot();
     }
 
     private void Start()
@@ -93,7 +92,8 @@ public class CharacterWeaponSlotManager : MonoBehaviour
                 }
                 else
                 {
-                    backSlot.UnloadWeaponAndDestroy();
+                    if (backSlot != null)
+                        backSlot.UnloadWeaponAndDestroy();
                 }
 
                 rightHandSlot.currentWeapon = weaponItem;

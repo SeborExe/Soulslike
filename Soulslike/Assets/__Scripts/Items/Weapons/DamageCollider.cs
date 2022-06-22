@@ -54,7 +54,7 @@ public class DamageCollider : MonoBehaviour
                 if (enemyManager.isParrying)
                 {
                     //Check if you are parryable
-                    characterManager.GetComponentInChildren<CharacterAnimatorManager>().PlayTargetAnimation("Parried", true);
+                    characterManager.GetComponent<CharacterAnimatorManager>().PlayTargetAnimation("Parried", true);
                     return;
                 }
                 else if (shield != null && enemyManager.isBlocking)
